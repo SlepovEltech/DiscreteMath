@@ -11,3 +11,4 @@ int main()
 	scanf("%d", &y);
 	return 0;
 }
+// Fartu masti AUE
