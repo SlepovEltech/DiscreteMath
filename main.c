@@ -1,7 +1,13 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include "prototypes.h"
 
 int main()
 {
-  return 0;
+	int *a = NULL, *b = NULL;
+	int n,m;
+	int x,y;
+	printf("Enter your first number: ");
+	scanf("%d", &x);
+	printf("Enter your first number: ");
+	scanf("%d", &y);
+	return 0;
 }
