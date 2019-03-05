@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<string.h>
 #include<ctype.h>
-#define SIZEOFPOLYNOM 10
+#define SIZEOFPOLYNOM 500
 void add_polynom(char *src){
     int vals[SIZEOFPOLYNOM] = {0};
     int power;
@@ -52,7 +52,5 @@ int main(){
     buf[len-1] = '\0';
     if(!strncmp(buf,"add_pol",7))
         add_polynom(buf);
-
-    
     return 0;
 }
