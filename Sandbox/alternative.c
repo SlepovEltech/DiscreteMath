@@ -2,6 +2,14 @@
 #include<string.h>
 #include<ctype.h>
 #define SIZEOFPOLYNOM 500
+
+int mathsign(char ch){
+    int ret = 0;
+    if((ch=='+') || (ch == '-'))
+        ret = 1;
+    return ret;
+}
+
 void add_polynom(char *src){
     int vals[SIZEOFPOLYNOM] = {0};
     int power;
@@ -34,6 +42,7 @@ void add_polynom(char *src){
             if(src[i-valueLength-1] == '-')
                 value*=-1;
             vals[power] += value;
+
         }
     }
     printf(">>");
