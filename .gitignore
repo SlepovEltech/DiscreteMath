@@ -1,5 +1,7 @@
-
+.DS_Store
 prototypes
 main
 main
 *.out
+*.o
+.vscode
