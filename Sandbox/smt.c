@@ -8,9 +8,7 @@ P* initPolynom(int power){
 int i;
 P* output = (P*)malloc(sizeof(P));
 output->c = (Q*)malloc(power*sizeof(Q));
-output->m = power;
-for(i=0;i<m;i++)
-    
+output->m = power; 
 }
 
 
