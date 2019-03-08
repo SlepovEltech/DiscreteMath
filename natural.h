@@ -1,4 +1,5 @@
-/*N-1: comparisson of two natural numbers*/
+/*N-1: comparisson of two natural numbers 
+if the first one is bigger than the second one-2, if they are equal-0, otherwise-1*/
 int COM_NN_D (N *a, N *b) // a- the first number b - the second number 
 {
     int i, res,t, count;
