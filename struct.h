@@ -1,7 +1,7 @@
 struct integer
 {
 	int n;
-	int A[150];
+	int *A;
 };
 typedef struct integer N;
 

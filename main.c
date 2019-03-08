@@ -49,7 +49,9 @@ int main()
 								input(w,s,lim);	
 								printf("Result: %d\n",COM_NN_D(q,w));
 								break;					
-
+							case 2: 
+								printf("Enter your number: "); 
+								input(q,s,lim);	
 							default: 
 							break;
 						}		   
