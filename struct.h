@@ -1,7 +1,7 @@
 struct integer
 {
 	int n;
-	int *A;
+	int A[150];
 };
 typedef struct integer N;
 
@@ -21,7 +21,7 @@ typedef struct ratio Q;
 
 struct polinom
 {
-	int m;
+	int deg;
 	Q *c;
 };
 typedef struct polinom P;
