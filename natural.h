@@ -1,4 +1,5 @@
-int COM_NN_D (N *a, N *b) // a- ïåðâûé ìàññèâ b-âòîðîé ìàññèâ n-ðàçìåðíîñòü ïåðâîãî m-ðàçìåðíîñòü âòîðîãî
+/*N-1: comparisson of two natural numbers*/
+int COM_NN_D (N *a, N *b) // a- the first number b - the second number 
 {
     int i, res,t, count;
     t=1;
