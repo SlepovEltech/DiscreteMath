@@ -16,3 +16,6 @@ clear:
 
 alternative:
 	gcc alternative.c -o alternative.out
+
+rational:
+	gcc number.c -o number.o
