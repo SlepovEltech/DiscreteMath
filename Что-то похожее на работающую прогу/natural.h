@@ -68,6 +68,7 @@ void ADD_1N_N (N *a)
         a->n = a->n + 1;
 }
 
+/*N-4: Addition of natural numbers*/
 N* ADD_NN_N (N *a, N *b)
 {
     int i,s,w;
