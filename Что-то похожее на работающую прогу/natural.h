@@ -71,12 +71,19 @@ void ADD_1N_N (N *a)
 /*N-4: Addition of natural numbers*/
 N* ADD_NN_N (N *a, N *b)
 {
-    int i,s,w;
+    int i,s,w,st;
     N *S=NULL;
     s=0;
-    if (COM_NN_D(a,b)==2) w=a->n;
-    else w=b->n;
-
+    if (COM_NN_D(a,b)==2)
+    {
+        w=a->n;
+        st=b->n;
+    }
+    else
+    {
+        w=b->n;
+        st=a->n;
+    }
     S=(N*)malloc(sizeof(N));
     if(S)
     {
@@ -85,15 +92,36 @@ N* ADD_NN_N (N *a, N *b)
         if (S->A)
         {
             if (COM_NN_D(a,b)==2)
-                for (i=0; i<=w; i++) S->A[i]=a->A[i];
-
-            else
-                for (i=0; i<=w; i++) S->A[i]=b->A[i];
-
-            for (i=0;i<w;i++)
             {
-                S->A[i]=(a->A[i]+b->A[i]+s)%10;
-                s=(a->A[i]+b->A[i]+s)/10;
+                for (i=0;i<w;i++)
+                {
+                    if (i<st)
+                    {
+                        S->A[i]=(a->A[i]+b->A[i]+s)%10;
+                        s=(a->A[i]+b->A[i]+s)/10;
+                    }
+                    else
+                    {
+                        S->A[i]=(a->A[i]+s)%10;
+                        s=(a->A[i]+s)/10;
+                    }
+                }
+            }
+            else
+            {
+                for (i=0;i<w;i++)
+                {
+                    if (i<st)
+                    {
+                        S->A[i]=(a->A[i]+b->A[i]+s)%10;
+                        s=(a->A[i]+b->A[i]+s)/10;
+                    }
+                    else
+                    {
+                        S->A[i]=(b->A[i]+s)%10;
+                        s=(b->A[i]+s)/10;
+                    }
+                }
             }
             if (s>0)
             {
