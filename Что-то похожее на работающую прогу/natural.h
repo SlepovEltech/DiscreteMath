@@ -99,6 +99,7 @@ N* ADD_NN_N (N *a, N *b)
     }
     return S;
 }
+
 /*N-5: Subtracting from the first natural number of the second which is less or equal (но это не точно)*/
 N* SUB_NN_N (N *a, N *b)
 {
@@ -109,6 +110,7 @@ N* SUB_NN_N (N *a, N *b)
     if(S)
     {
         S->A = (int*)calloc(a->n,sizeof(int));
+        S->n= a->n;
         if (S->A)
         {
             if(COM_NN_D(a, b)==2)
@@ -131,16 +133,50 @@ N* SUB_NN_N (N *a, N *b)
     }
     return S;
 }
+
 /*N-6: multiplies number by digit (но это не точно)*/
-void MUL_ND_N (N *a, int num)
+N* MUL_ND_N (N *a, int num)
 {
-    N *S;
+    N *S=NULL;
     int i,t;
     t=0;
-    for (i=0; i<a->n-1; i++)
+    S=(N*)malloc(sizeof(N));
+    if(S)
     {
-        S->A[i]=(a->A[i]*num+t)%10;
-        t=(a->A[i]*num)/10;
+        S->A = (int*)calloc(a->n,sizeof(int));
+        if (S->A)
+        {
+            for (i=0; i<a->n-1; i++)
+            {
+                S->A[i]=(a->A[i]*num+t)%10;
+                t=(a->A[i]*num)/10;
+            }
+            if (t>0) S->A[a->n]=t;
+        }
     }
-    if (t>0) S->A[a->n]=t;
+    return S;
+}
+
+/*N-7: multiplies number by 10^k (но это не точно)*/
+N* MUL_Nk_N (N *a, int k)
+{
+    N *S=NULL;
+    int i;
+    S=(N*)malloc(sizeof(N));
+    if(S)
+    {
+        S->A = (int*)calloc(a->n+k,sizeof(int));
+        if (S->A)
+        {
+            for (i=a->n-1; i>=0; i--)
+            {
+                S->A[i+k]=a->A[i];
+            }
+            for (i=0; i<k; i++)
+            {
+                S->A[i]=0;
+            }
+        }
+    }
+    return S;
 }

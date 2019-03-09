@@ -197,11 +197,41 @@ int main()
 							case 6:
 								printf("Enter your number: ");
 								getchar();
+								n = new_gets(s,lim);
+								q->A = (int*)malloc(n*sizeof(int));
 								input(q,s,lim);
 								printf("Enter digit: ");
 								scanf("%d", &num);
-								//res = MUL_ND_N(q,num);
-								
+								res = MUL_ND_N(q,num);
+								if(res != NULL )
+								{
+									printf("Result: ");
+									output(res);
+									free(res);
+									res = NULL;
+								}
+								else 
+									printf("Result is NULL!\n");
+								break;
+							case 7:
+								printf("Enter your number: ");
+								getchar();
+								n = new_gets(s,lim);
+								q->A = (int*)malloc(n*sizeof(int));
+								input(q,s,lim);
+								printf("Enter k: ");
+								scanf("%d", &num);
+								res = MUL_Nk_N(q,num);
+								if(res != NULL )
+								{
+									printf("Result: ");
+									output(res);
+									free(res);
+									res = NULL;
+								}
+								else 
+									printf("Result is NULL!\n");
+									
 								break;
 							default:
 							break;
