@@ -68,7 +68,6 @@ void ADD_1N_N (N *a)
         a->n = a->n + 1;
 }
 
-/*N-4: Addition of natural numbers*/
 N* ADD_NN_N (N *a, N *b)
 {
     int i,s,w;
@@ -81,8 +80,15 @@ N* ADD_NN_N (N *a, N *b)
     if(S)
     {
         S->A = (int*)calloc(w+1,sizeof(int));
+        S->n=w+1;
         if (S->A)
         {
+            if (COM_NN_D(a,b)==2)
+                for (i=0; i<=w; i++) S->A[i]=a->A[i];
+
+            else
+                for (i=0; i<=w; i++) S->A[i]=b->A[i];
+
             for (i=0;i<w;i++)
             {
                 S->A[i]=(a->A[i]+b->A[i]+s)%10;
