@@ -15,6 +15,7 @@ int new_gets(char *s, int lim)
 void input(N *q,char *s, int n)
 {
 	int i;
+	q->n = n;
 	for(i = 0; i < n; i++)
 	{
 		q->A[n-i-1] = s[i]-'0';

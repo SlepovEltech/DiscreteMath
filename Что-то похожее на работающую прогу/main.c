@@ -13,14 +13,28 @@ int new_gets(char *s, int lim)
 	return i;
 }
 
-void input(N *q,char *s, int n) 
+int input(N *q,char *s, int n) 
 {
-	int i;
-	q->n = n;
-	for(i = 0; i < n; i++)
+	int i,sign;
+	if(s[0] == '-')
 	{
-		q->A[n-i-1] = s[i]-'0';
+		sign = 1;
+		for(i = 1; i < n; i++)
+		{
+			q->A[n-i-1] = s[i]-'0';
+		}
+		q->n = n-1;
 	}
+	else
+	{
+		sign = 0;
+		q->n = n;
+		for(i = 0; i < n; i++)
+		{
+			q->A[q->n-i-1] = s[i]-'0';
+		}
+	}
+	return sign;
 }
 void output(N *q)
 {
@@ -69,10 +83,11 @@ int menu()
 
 int main()
 {
-	N *q, *w;
-	Z d,t;
+	N *q, *w,*res;
+	Z *d, *t;
 	P g,f;
-	int n,i,lim,key,clas,num;
+	int n,i,lim,key,clas,num,sign;
+	char c_sign;
 	char *s;
 	int sys;
 	lim = 150;
@@ -103,7 +118,8 @@ int main()
 	        	{
 	        		q = (N*)malloc(sizeof(N));
 	        		w = (N*)malloc(sizeof(N));
-	        		if(q && w)
+	        		res = (N*)malloc(sizeof(N));
+	        		if(q && w && res)
 	        		{
 	        			switch(natural())
 						{
@@ -146,17 +162,46 @@ int main()
 								output(q);
 								free(q->A);
 								q->A = NULL;
-								break;							
+								break;		
+							case 4:
+								printf("Enter first number: ");
+								getchar();
+								n = new_gets(s,lim);
+								q->A = (int*)malloc(n*sizeof(int));
+								input(q,s,n);
+								printf("Enter second number: ");
+								n = new_gets(s,lim);
+								w->A = (int*)malloc(n*sizeof(int));
+								input(w,s,n);
+								res =ADD_NN_N(q,w);
+								printf("Result ");
+								output(res);
+								break;		
+							case 5: 
+								printf("Enter first number: ");
+								getchar();
+								n = new_gets(s,lim);
+								q->A = (int*)malloc(n*sizeof(int));
+								input(q,s,n);
+								printf("Enter second number: ");
+								n = new_gets(s,lim);
+								w->A = (int*)malloc(n*sizeof(int));
+								input(w,s,n);
+								res = SUB_NN_N(q,w);
+								printf("Result: ");
+								output(res);
+								free(q->A);
+								free(w->A);
+								q->A = NULL; w->A = NULL;
+								break;		
 							case 6:
 								printf("Enter your number: ");
 								getchar();
 								input(q,s,lim);
 								printf("Enter digit: ");
 								scanf("%d", &num);
-								MUL_ND_N(q,num);
-								printf("\n");
-								for(i = q->n-1;i>=0;i++)
-									printf("%d", q->A[i]);
+								//res = MUL_ND_N(q,num);
+								
 								break;
 							default:
 							break;
@@ -165,6 +210,20 @@ int main()
 	        	}
 	        	if(clas == 2)
 	        	{
+	        		d = (Z*)malloc(sizeof(Z));
+	        		t = (Z*)malloc(sizeof(Z));
+	        		if(d && t)
+	        		{
+	        			//Zdes' budet vibor variantov, strutcra chtaetsa tak:
+	        			printf("Enter your number: ");
+	        			getchar();
+	        			n = new_gets(s,lim);
+	        			d->num = (N*)malloc(sizeof(N));
+	        			d->num->A = (int*)malloc(n*sizeof(int));
+	        			d->sign = input(d->num,s,n);
+	        			printf("Result: %d ",d->sign);
+	        			output(d->num);
+	        		}
 
 	        	}
 	        	if(clas == 3)

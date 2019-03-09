@@ -68,6 +68,69 @@ void ADD_1N_N (N *a)
         a->n = a->n + 1;
 }
 
+/*N-4: Addition of natural numbers*/
+N* ADD_NN_N (N *a, N *b)
+{
+    int i,s,w;
+    N *S=NULL;
+    s=0;
+    if (COM_NN_D(a,b)==2) w=a->n;
+    else w=b->n;
+
+    S=(N*)malloc(sizeof(N));
+    if(S)
+    {
+        S->A = (int*)calloc(w+1,sizeof(int));
+        if (S->A)
+        {
+            for (i=0;i<w;i++)
+            {
+                S->A[i]=(a->A[i]+b->A[i]+s)%10;
+                s=(a->A[i]+b->A[i]+s)/10;
+            }
+            if (s>0)
+            {
+                S->A[i]=s;
+                S->n=w+1;
+
+            }
+            else S->n=w;
+        }
+    }
+    return S;
+}
+/*N-5: Subtracting from the first natural number of the second which is less or equal (но это не точно)*/
+N* SUB_NN_N (N *a, N *b)
+{
+    N *S=NULL;
+    int i,t;
+    t=0;
+    S=(N*)malloc(sizeof(N)); 
+    if(S)
+    {
+        S->A = (int*)calloc(a->n,sizeof(int));
+        if (S->A)
+        {
+            if(COM_NN_D(a, b)==2)
+            {
+                for (i=0; i<a->n-1; i++)
+                {
+                    if (a->A[i]-t>=b->A[i])
+                    {
+                        S->A[i]=(a->A[i]-b->A[i]-t);
+                        t=0;
+                    }
+                    else
+                    {
+                        S->A[i]=(a->A[i]+10-b->A[i]);
+                        t=1;
+                    }
+                }
+            }
+        }
+    }
+    return S;
+}
 /*N-6: multiplies number by digit (но это не точно)*/
 void MUL_ND_N (N *a, int num)
 {
