@@ -195,15 +195,24 @@ N* MUL_ND_N (N *a, int num)
     S=(N*)malloc(sizeof(N));
     if(S)
     {
-        S->A = (int*)calloc(a->n,sizeof(int));
+        S->A = (int*)calloc(a->n+1,sizeof(int));
         if (S->A)
         {
-            for (i=0; i<a->n-1; i++)
+            for (i=0; i<a->n; i++)
             {
                 S->A[i]=(a->A[i]*num+t)%10;
-                t=(a->A[i]*num)/10;
+                t=(a->A[i]*num+t)/10;
             }
-            if (t>0) S->A[a->n]=t;
+            if (t>0)
+            {
+                S->A[a->n]=t;
+                S->n=a->n+1;
+            }
+            else
+            {
+                S->A=(int*)realloc(S->A, S->n);
+                S->n=a->n;
+            }
         }
     }
     return S;
