@@ -32,8 +32,13 @@ int COM_NN_D (N *a, N *b)
 int NZER_N_B (N *a)
 {
     int i, res, count;
+    count=0;
     res=0;
-    if (a->n==0) res=1; //1-yes 0-no
+    for (i=a->n-1; i>=0; i--)
+        {
+            if (a->A[i]==0) count++;
+        }
+    if (count==a->n) res=1; //1-yes 0-no
     return res;
 }
 
@@ -57,6 +62,10 @@ void ADD_1N_N (N *a)
             i++;
         }
     }
+    if(a->A[a->n] == 0)
+        a->A = (int*)realloc(a->A, a->n);
+    else
+        a->n = a->n + 1;
 }
 
 /*N-6: multiplies number by digit (но это не точно)*/
