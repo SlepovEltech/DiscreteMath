@@ -186,7 +186,7 @@ N* SUB_NN_N (N *a, N *b)
     return S;
 }
 
-/*N-6: multiplies number by digit (но это не точно)*/
+/*N-6: multiplies number by digit*/
 N* MUL_ND_N (N *a, int num)
 {
     N *S=NULL;
