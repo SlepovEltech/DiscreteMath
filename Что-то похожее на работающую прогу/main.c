@@ -12,7 +12,9 @@ int new_gets(char *s, int lim)
 	*s = '\0';
 	return i;
 }
-
+/*
+New_gets and input read string and make a sign and array for Z, make array for N
+*/
 int input(N *q,char *s, int n) 
 {
 	int i,sign;
