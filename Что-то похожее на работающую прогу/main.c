@@ -49,8 +49,8 @@ int natural()
 {
 	int key;
 	printf("Choose operation with natural numbers: ");
-	printf("\n1-Comparison of natural numbers\n2-Check to zero\n3-Appendix 1\n4-Addition of natural numbers\n");
-	printf("5-Subtraction(first - the biggest, second -smaller)\n6-Multiplying a natural number by a digit\n");
+	printf("\n1-Comparison of natural numbers\n2-Check if zero\n3-Appendix 1\n4-Addition of natural numbers\n");
+	printf("5-Subtraction(the first - the biggest, the second -smaller)\n6-Multiplying a natural number by a digit\n");
 	printf("7-Multiplying a natural number by 10 in deg\n8-Multiplication of natural numbers\n");
 	printf("9-Subtraction from other natural, multiplied by a digit\n10-Calculation of the first digit of the division of greater natural by less, multiplied by 10^k\n");
 	printf("11-The DIV of the numbers\n12-The MOD of the numbers\n13-NOD of the numbers\n14-NOK of the numbers\n\n");
@@ -135,7 +135,10 @@ int main()
 								n = new_gets(s,lim);
 								w->A = (int*)malloc(n*sizeof(int));
 								input(w,s,n);
-								printf("Result: %d\n",COM_NN_D(q,w));
+								if(COM_NN_D(q,w)==2) printf("The first number is bigger"); 
+								else 
+									if(COM_NN_D(q,w)==0) printf("The numbers are equal"); 
+									else printf("The second number is bigger");
 								free(q->A);
 								free(w->A);
 								q->A = NULL; w->A = NULL;
