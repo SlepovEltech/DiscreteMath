@@ -142,7 +142,6 @@ N* SUB_NN_N (N *a, N *b)
     int i,t;
     t=0;
     S=(N*)malloc(sizeof(N));
-    S->n=a->n;
     if(S)
     {
         S->A = (int*)calloc(a->n,sizeof(int));
@@ -179,8 +178,16 @@ N* SUB_NN_N (N *a, N *b)
                         }
                     }
                 }
+                if ( S->A[a->n]==0)
+                {
+                    S->A=(int*)realloc(S->A, S->n-1);
+                    S->n=a->n-1;
+                }
+                else
+                {
+                    S->n=a->n;
+                }
             }
-
         }
     }
     return S;
