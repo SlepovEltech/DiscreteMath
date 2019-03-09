@@ -215,3 +215,44 @@ N* MUL_Nk_N (N *a, int k)
     }
     return S;
 }
+
+/*N8: Function to multiply two natural numbers*/
+N *MUL_NN_N (N *a, N *b)
+{
+    int k;
+    N *res=NULL;
+    res=(N*)malloc(sizeof(N));
+    if (res) for (k=0;k<b->n;k++) res=ADD_NN_N(res,MUL_Nk_N(MUL_ND_N(a,b->A[k]),k));
+    return res;
+}
+
+/*N-9: Subtracting natural number multiplied by a digit
+from anther natural number for cases with non-negative results*/
+N *SUB_NDN_N (N *a, int d, N *b)
+{
+    N *res=NULL;
+    res=(N*)malloc(sizeof(N));
+    if (res)
+    {
+        if ((COM_NN_D(a,MUL_ND_N(b,d)))!=1) res=SUB_NN_N(a,MUL_ND_N(b,d));
+        else
+        {
+            free(res);
+            res=NULL;
+        };
+    }
+    return res;
+}
+
+ /*N-10: Calculating first digit of division of a bigger natural number by a smaller natural
+ number multiplied by 10^k where k is number of digit's position (starting with zero)*/
+int DIV_NN_Dk (N *a, N *b)
+{
+    int d=-1;
+    if ((COM_NN_D(a,b))!=1)
+    {
+        b=MUL_Nk_N(b,(a->n-b->n));
+        if ((COM_NN_D(a,b))!=1) d=a->A[a->n]/b->A[b->n];
+    }
+    return d;
+}
