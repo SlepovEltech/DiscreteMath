@@ -209,7 +209,7 @@ N* MUL_ND_N (N *a, int num)
     return S;
 }
 
-/*N-7: multiplies number by 10^k (но это не точно)*/
+/*N-7: multiplies number by 10^k*/
 N* MUL_Nk_N (N *a, int k)
 {
     N *S=NULL;
