@@ -13,7 +13,7 @@ int new_gets(char *s, int lim)
 	return i;
 }
 /*
-New_gets and input read string and make a sign and array for Z, make array for N
+New_gets and input read string and makes a sign and array for Z and makes an array for N
 */
 int input(N *q,char *s, int n) 
 {
@@ -50,7 +50,7 @@ int natural()
 	int key;
 	printf("Choose operation with natural numbers: ");
 	printf("\n1-Comparison of natural numbers\n2-Check to zero\n3-Appendix 1\n4-Addition of natural numbers\n");
-	printf("5-Subtraction(first - large, second -smaller)\n6-Multiplying a natural number by a digit\n");
+	printf("5-Subtraction(first - the biggest, second -smaller)\n6-Multiplying a natural number by a digit\n");
 	printf("7-Multiplying a natural number by 10 in deg\n8-Multiplication of natural numbers\n");
 	printf("9-Subtraction from other natural, multiplied by a digit\n10-Calculation of the first digit of the division of greater natural by less, multiplied by 10^k\n");
 	printf("11-The DIV of the numbers\n12-The MOD of the numbers\n13-NOD of the numbers\n14-NOK of the numbers\n\n");
@@ -126,12 +126,12 @@ int main()
 	        			switch(natural())
 						{
 							case 1:
-								printf("Enter first number: ");
+								printf("Enter the first number: ");
 								getchar();
 								n = new_gets(s,lim);
 								q->A = (int*)malloc(n*sizeof(int));
 								input(q,s,n);
-								printf("Enter second number: ");
+								printf("Enter the second number: ");
 								n = new_gets(s,lim);
 								w->A = (int*)malloc(n*sizeof(int));
 								input(w,s,n);
@@ -147,9 +147,9 @@ int main()
 								q->A = (int*)malloc(n*sizeof(int));
 								input(q,s,n);
 								if(NZER_N_B(q) == 1)
-									printf("Your number is zero\n");
+									printf("Your number equals zero\n");
 								else
-									printf("Your number isn't zero\n");
+									printf("Your number equals zero\n");
 								free(q->A);
 								q->A = NULL;
 								break;
@@ -166,12 +166,12 @@ int main()
 								q->A = NULL;
 								break;		
 							case 4:
-								printf("Enter first number: ");
+								printf("Enter the first number: ");
 								getchar();
 								n = new_gets(s,lim);
 								q->A = (int*)malloc(n*sizeof(int));
 								input(q,s,n);
-								printf("Enter second number: ");
+								printf("Enter the second number: ");
 								n = new_gets(s,lim);
 								w->A = (int*)malloc(n*sizeof(int));
 								input(w,s,n);
@@ -180,12 +180,12 @@ int main()
 								output(res);
 								break;		
 							case 5: 
-								printf("Enter first number: ");
+								printf("Enter the first number: ");
 								getchar();
 								n = new_gets(s,lim);
 								q->A = (int*)malloc(n*sizeof(int));
 								input(q,s,n);
-								printf("Enter second number: ");
+								printf("Enter the second number: ");
 								n = new_gets(s,lim);
 								w->A = (int*)malloc(n*sizeof(int));
 								input(w,s,n);
