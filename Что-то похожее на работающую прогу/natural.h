@@ -217,7 +217,7 @@ N* MUL_ND_N (N *a, int num)
             }
             else
             {
-                S->A=(int*)realloc(S->A, S->n);
+                S->A=(int*)realloc(S->A, a->n);
                 S->n=a->n;
             }
         }
