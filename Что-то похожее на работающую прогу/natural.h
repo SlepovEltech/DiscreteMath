@@ -135,35 +135,52 @@ N* ADD_NN_N (N *a, N *b)
     return S;
 }
 
-/*N-5: Subtracting from the first natural number of the second which is less or equal (но это не точно)*/
+/*N-5: Subtracting from the first natural number the second which is less or equal */
 N* SUB_NN_N (N *a, N *b)
 {
     N *S=NULL;
     int i,t;
     t=0;
-    S=(N*)malloc(sizeof(N)); 
+    S=(N*)malloc(sizeof(N));
+    //S->n=a->n;
     if(S)
     {
         S->A = (int*)calloc(a->n,sizeof(int));
-        S->n= a->n;
         if (S->A)
         {
             if(COM_NN_D(a, b)==2)
             {
-                for (i=0; i<a->n-1; i++)
+                for (i=0; i<a->n; i++)
                 {
-                    if (a->A[i]-t>=b->A[i])
+                    if(i<b->n)
                     {
-                        S->A[i]=(a->A[i]-b->A[i]-t);
-                        t=0;
+                        if (a->A[i]-t>=b->A[i])
+                        {
+                            S->A[i]=(a->A[i]-b->A[i]-t);
+                            t=0;
+                        }
+                        else
+                        {
+                            S->A[i]=(a->A[i]+10-b->A[i]-t);
+                            t=1;
+                        }
                     }
                     else
                     {
-                        S->A[i]=(a->A[i]+10-b->A[i]);
-                        t=1;
+                        if (a->A[i]>=t)
+                        {
+                            S->A[i]=(a->A[i]-t);
+                            t=0;
+                        }
+                        else
+                        {
+                            S->A[i]=(a->A[i]+10-t);
+                            t=1;
+                        }
                     }
                 }
             }
+
         }
     }
     return S;
