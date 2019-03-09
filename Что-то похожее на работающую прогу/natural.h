@@ -259,12 +259,28 @@ N* MUL_Nk_N (N *a, int k)
 }
 
 /*N8: Function to multiply two natural numbers*/
+/*probably not working oth really long numbers*/
 N *MUL_NN_N (N *a, N *b)
 {
     int k;
     N *res=NULL;
     res=(N*)malloc(sizeof(N));
-    if (res) for (k=0;k<b->n;k++) res=ADD_NN_N(res,MUL_Nk_N(MUL_ND_N(a,b->A[k]),k));
+    if (res)
+    {
+        res->A=(int*)calloc(((a->n)+(b->n)),sizeof(int));
+        for (k=0;k<((a->n)+(b->n));k++) printf("%d ",res->A[k]);
+        puts("");
+        if (res->A)
+        {
+            res->n=((a->n)+(b->n));
+            for (k=0;k<b->n;k++) res=ADD_NN_N(res,MUL_Nk_N(MUL_ND_N(a,b->A[k]),k));
+        }
+        if (res->A[(a->n)+(b->n)-1]==0)
+        {
+            realloc(res->A,1);
+            res->n--;
+        }
+    }
     return res;
 }
 
