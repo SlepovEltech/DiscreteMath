@@ -201,7 +201,7 @@ int main()
 								getchar();
 								n = new_gets(s,lim);
 								q->A = (int*)malloc(n*sizeof(int));
-								input(q,s,lim);
+								input(q,s,n);
 								printf("Enter digit: ");
 								scanf("%d", &num);
 								res = MUL_ND_N(q,num);
@@ -220,7 +220,7 @@ int main()
 								getchar();
 								n = new_gets(s,lim);
 								q->A = (int*)malloc(n*sizeof(int));
-								input(q,s,lim);
+								input(q,s,n);
 								printf("Enter k: ");
 								scanf("%d", &num);
 								res = MUL_Nk_N(q,num);
