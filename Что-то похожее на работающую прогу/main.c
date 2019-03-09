@@ -233,7 +233,6 @@ int main()
 								}
 								else 
 									printf("Result is NULL!\n");
-									
 								break;
 							default:
 							break;

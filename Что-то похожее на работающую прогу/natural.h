@@ -178,9 +178,9 @@ N* SUB_NN_N (N *a, N *b)
                         }
                     }
                 }
-                if ( S->A[a->n]==0)
+                if ( S->A[a->n-1]==0)
                 {
-                    S->A=(int*)realloc(S->A, S->n-1);
+                    S->A=(int*)realloc(S->A, a->n-1);
                     S->n=a->n-1;
                 }
                 else
