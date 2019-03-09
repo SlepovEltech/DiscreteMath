@@ -218,9 +218,10 @@ N* MUL_Nk_N (N *a, int k)
     if(S)
     {
         S->A = (int*)calloc(a->n+k,sizeof(int));
-        S->n= a->n+k;
+        //S->n= a->n+k;
         if (S->A)
         {
+            S->n= a->n+k;
             for (i=a->n-1; i>=0; i--)
             {
                 S->A[i+k]=a->A[i];
