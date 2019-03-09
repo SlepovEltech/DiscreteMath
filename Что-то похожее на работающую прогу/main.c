@@ -3,7 +3,8 @@
 #include <ctype.h>
 #include "struct.h"
 #include "natural.h"
-int new_gets(char *s, int lim)
+
+int new_gets(char *s, int lim) 
 {
 	int i;
 	char c;
@@ -12,15 +13,22 @@ int new_gets(char *s, int lim)
 	return i;
 }
 
-void input(N *q,char *s, int n)
+void input(N *q,char *s, int n) 
 {
 	int i;
+	q->n = n;
 	for(i = 0; i < n; i++)
 	{
 		q->A[n-i-1] = s[i]-'0';
 	}
 }
-
+void output(N *q)
+{
+	int i;
+	for(i = q->n-1; i >= 0; i--)
+		printf("%d", q->A[i]);
+	printf("\n");
+}
 int natural()
 {
 	int key;
@@ -43,7 +51,7 @@ void clear(int sys)
 
 void print_header()
 {
-	printf("\t\t\t     Discrethe Math\n\t\tСomputer Algebra System by students 8306");
+	printf("\t\t\t     Discrethe Math\n\t\tComputer Algebra System by students 8306");
 }
 
 int menu()
@@ -69,11 +77,11 @@ int main()
 	int sys;
 	lim = 150;
 	printf("Choose your OS type:\n1-Windows\n2-Linux\nYour answer: ");
-	scanf("%d", &sys);	
+	scanf("%d", &sys);
 	while(sys < 0 || sys > 2)
 	{
 		printf("Wrong answer! Try again: ");
-		scanf("%d", &sys);	
+		scanf("%d", &sys);
 	}
 	clear(sys);
 	s = (char*)malloc(lim*sizeof(char));
@@ -81,6 +89,7 @@ int main()
 	{
 		while( (key = menu()) != 3)
 		{
+		    clear(sys);
 		    if(key != 3 && key != 2 && key != 1)
 	        {
 	            printf("Enter a correct answer!\n");
@@ -90,7 +99,7 @@ int main()
 	        	printf("Choose class of number to work:\n1-Natural+{0}\n2-Integer\n3-Rational\n4-Polinom\nYour answer: ");
 	        	scanf("%d", &clas);
 	        	clear(sys);
-	        	if(clas == 1) 
+	        	if(clas == 1)
 	        	{
 	        		q = (N*)malloc(sizeof(N));
 	        		w = (N*)malloc(sizeof(N));
@@ -99,36 +108,60 @@ int main()
 	        			switch(natural())
 						{
 							case 1:
-								printf("Enter first number: "); 
+								printf("Enter first number: ");
 								getchar();
 								n = new_gets(s,lim);
 								q->A = (int*)malloc(n*sizeof(int));
-								input(q,s,n);		
-								printf("Enter second number: "); 
+								input(q,s,n);
+								printf("Enter second number: ");
 								n = new_gets(s,lim);
 								w->A = (int*)malloc(n*sizeof(int));
-								input(w,s,n);	
+								input(w,s,n);
 								printf("Result: %d\n",COM_NN_D(q,w));
-								break;					
-							case 2: 
+								free(q->A);
+								free(w->A);
+								q->A = NULL; w->A = NULL;
+								break;
+							case 2:
 								printf("Enter your number: ");
-								n = new_gets(s,lim); 
-								q->A = (int*)malloc(n*sizeof(int));
-								input(q,s,n);	
-							case 6:
-								printf("Enter your number: "); 
 								getchar();
-								input(q,s,lim);	
-								printf("Enter digit: "); 
+								n = new_gets(s,lim);
+								q->A = (int*)malloc(n*sizeof(int));
+								input(q,s,n);
+								if(NZER_N_B(q) == 1)
+									printf("Your number is zero\n");
+								else
+									printf("Your number isn't zero\n");
+								free(q->A);
+								q->A = NULL;
+								break;
+							case 3:
+								printf("Enter your number: ");
+								getchar();
+								n = new_gets(s,lim);
+								q->A = (int*)malloc((n+1)*sizeof(int));
+								input(q,s,n);
+								printf("Result: ");
+								ADD_1N_N(q);
+								output(q);
+								free(q->A);
+								q->A = NULL;
+								break;							
+							case 6:
+								printf("Enter your number: ");
+								getchar();
+								input(q,s,lim);
+								printf("Enter digit: ");
 								scanf("%d", &num);
 								MUL_ND_N(q,num);
 								printf("\n");
 								for(i = q->n-1;i>=0;i++)
-								printf("%d", q->A[i]);
-							default: 
+									printf("%d", q->A[i]);
+								break;
+							default:
 							break;
-						}		   
-	        		}     		
+						}
+	        		}
 	        	}
 	        	if(clas == 2)
 	        	{
@@ -153,4 +186,3 @@ int main()
 	return 0;
 }
 
- 

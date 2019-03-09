@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
-//#include "struct.h"
+#include "struct.h"
 
 int new_gets(char *s, int lim)
 {
