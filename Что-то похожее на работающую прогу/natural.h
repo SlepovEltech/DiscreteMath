@@ -142,7 +142,7 @@ N* SUB_NN_N (N *a, N *b)
     int i,t;
     t=0;
     S=(N*)malloc(sizeof(N));
-    //S->n=a->n;
+    S->n=a->n;
     if(S)
     {
         S->A = (int*)calloc(a->n,sizeof(int));
