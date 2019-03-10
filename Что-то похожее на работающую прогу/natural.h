@@ -144,10 +144,10 @@ N* SUB_NN_N (N *a, N *b)
     S=(N*)malloc(sizeof(N));
     if(S)
     {
-        S->A = (int*)calloc(a->n,sizeof(int));
-        if (S->A)
+        if(COM_NN_D(a, b)==2)
         {
-            if(COM_NN_D(a, b)==2)
+            S->A = (int*)calloc(a->n,sizeof(int));
+            if (S->A)
             {
                 for (i=0; i<a->n; i++)
                 {
@@ -189,6 +189,11 @@ N* SUB_NN_N (N *a, N *b)
                 }
             }
         }
+        else if (COM_NN_D(a, b)==0)
+            {
+                S->n=1;
+                S->A=(int*)calloc(1,sizeof(int));
+            }
     }
     return S;
 }
