@@ -315,7 +315,8 @@ N *SUB_NDN_N (N *a, int d, N *b)
 int DIV_NN_Dk (N *a, N *b)
 {
     int d=-1;
-    if ((COM_NN_D(a,b))!=1)
+    if ((COM_NN_D(a,b))==0) d=1;
+    else if ((COM_NN_D(a,b))==2)
     {
         b=MUL_Nk_N(b,a->n-b->n);
         if ((COM_NN_D(a,b))!=1) d=a->A[a->n-1]/b->A[b->n-1];
