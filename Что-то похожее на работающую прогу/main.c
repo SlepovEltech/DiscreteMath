@@ -152,7 +152,7 @@ int main()
 								if(NZER_N_B(q) == 1)
 									printf("Your number equals zero\n");
 								else
-									printf("Your number equals zero\n");
+									printf("Your number doesn't equal zero\n");
 								free(q->A);
 								q->A = NULL;
 								break;
