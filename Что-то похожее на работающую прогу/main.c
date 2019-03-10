@@ -135,10 +135,10 @@ int main()
 								n = new_gets(s,lim);
 								w->A = (int*)malloc(n*sizeof(int));
 								input(w,s,n);
-								if(COM_NN_D(q,w)==2) printf("The first number is bigger"); 
+								if(COM_NN_D(q,w)==2) printf("The first number is bigger\n"); 
 								else 
-									if(COM_NN_D(q,w)==0) printf("The numbers are equal"); 
-									else printf("The second number is bigger");
+									if(COM_NN_D(q,w)==0) printf("The numbers are equal\n"); 
+									else printf("The second number is bigger\n");
 								free(q->A);
 								free(w->A);
 								q->A = NULL; w->A = NULL;
