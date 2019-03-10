@@ -217,6 +217,8 @@ int main()
 								}
 								else 
 									printf("Result is NULL!\n");
+								free(q->A);
+								q->A = NULL; 
 								break;
 							case 7:
 								printf("Enter your number: ");
@@ -236,6 +238,74 @@ int main()
 								}
 								else 
 									printf("Result is NULL!\n");
+								free(q->A);
+								q->A = NULL;
+								break;
+							case 8: 
+								printf("Enter the first number: ");
+								getchar();
+								n = new_gets(s,lim);
+								q->A = (int*)malloc(n*sizeof(int));
+								input(q,s,n);
+								printf("Enter the second number: ");
+								n = new_gets(s,lim);
+								w->A = (int*)malloc(n*sizeof(int));
+								input(w,s,n);
+								res = MUL_NN_N(q,w);
+								if(res != NULL )
+								{
+									printf("Result: ");
+									output(res);
+									free(res);
+									res = NULL;
+								}
+								else 
+									printf("Result is NULL!\n");
+								free(q->A);
+								free(w->A);
+								q->A = NULL; w->A = NULL;
+								break;
+							 case 9:
+							 	printf("Enter the first number: ");
+								getchar();
+								n = new_gets(s,lim);
+								q->A = (int*)malloc(n*sizeof(int));
+								input(q,s,n);
+								printf("Enter digit: ");
+								scanf("%d", &num);
+								printf("Enter the second number: ");
+								getchar();
+								n = new_gets(s,lim);
+								w->A = (int*)malloc(n*sizeof(int));
+								input(w,s,n);
+								res = SUB_NDN_N(q,num,w);
+								if(res != NULL )
+								{
+									printf("Result: ");
+									output(res);
+									free(res);
+									res = NULL;
+								}
+								else 
+									printf("Result is NULL!\n");
+								free(q->A);
+								free(w->A);
+								q->A = NULL; w->A = NULL;
+								break;
+							case 10:
+								printf("Enter the first number: ");
+								getchar();
+								n = new_gets(s,lim);
+								q->A = (int*)malloc(n*sizeof(int));
+								input(q,s,n);
+								printf("Enter the second number: ");
+								n = new_gets(s,lim);
+								w->A = (int*)malloc(n*sizeof(int));
+								input(w,s,n);
+								printf("Result: %d", DIV_NN_Dk(q,w));
+								free(q->A);
+								free(w->A);
+								q->A = NULL; w->A = NULL;
 								break;
 							default:
 							break;

@@ -268,8 +268,8 @@ N *MUL_NN_N (N *a, N *b)
     if (res)
     {
         res->A=(int*)calloc(((a->n)+(b->n)),sizeof(int));
-        for (k=0;k<((a->n)+(b->n));k++) printf("%d ",res->A[k]);
-        puts("");
+        /*for (k=0;k<((a->n)+(b->n));k++) printf("%d ",res->A[k]);
+        puts("");*/
         if (res->A)
         {
             res->n=((a->n)+(b->n));
@@ -277,7 +277,7 @@ N *MUL_NN_N (N *a, N *b)
         }
         if (res->A[(a->n)+(b->n)-1]==0)
         {
-            realloc(res->A,1);
+            res->A = (int*)realloc(res->A,1);
             res->n--;
         }
     }
@@ -309,8 +309,8 @@ int DIV_NN_Dk (N *a, N *b)
     int d=-1;
     if ((COM_NN_D(a,b))!=1)
     {
-        b=MUL_Nk_N(b,(a->n-b->n));
-        if ((COM_NN_D(a,b))!=1) d=a->A[a->n]/b->A[b->n];
+        b=MUL_Nk_N(b,((a->n)-(b->n)));
+        if ((COM_NN_D(a,b))!=1) d=a->A[a->n-1]/b->A[b->n-1];
     }
     return d;
 }
