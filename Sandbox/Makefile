@@ -18,4 +18,4 @@ alternative:
 	gcc alternative.c -o alternative.out
 
 rational:
-	gcc number.c -o number.o
+	gcc number.c -o number.out

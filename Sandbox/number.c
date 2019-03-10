@@ -32,7 +32,7 @@ return rat;
 void printRat(Q* rat){
 // Выводит это число на экран
 int i;
-printf("Info: sign:%d sizeM:%d sizeN:%d\n",rat->m.sign,rat->m.num.n,rat->n.n);
+//printf("Info: sign:%d sizeM:%d sizeN:%d\n",rat->m.sign,rat->m.num.n,rat->n.n);
 printf("%c",(rat->m.sign)?'-':'+');
 for(i=0;i<rat->m.num.n;i++)
     printf("%d",rat->m.num.A[i]);
