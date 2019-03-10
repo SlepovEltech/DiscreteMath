@@ -241,17 +241,25 @@ N* MUL_Nk_N (N *a, int k)
     S=(N*)malloc(sizeof(N));
     if(S)
     {
-        S->A = (int*)calloc(a->n+k,sizeof(int));
-        if (S->A)
+        if ((a->n==1)&&(a->A[0]==0))
         {
-            S->n= a->n+k;
-            for (i=a->n-1; i>=0; i--)
+            S->n=1;
+            S->A=(int*)calloc(1,sizeof(int));
+        }
+        else
+        {
+            S->A = (int*)calloc(a->n+k,sizeof(int));
+            if (S->A)
             {
-                S->A[i+k]=a->A[i];
-            }
-            for (i=0; i<k; i++)
-            {
-                S->A[i]=0;
+                S->n= a->n+k;
+                for (i=a->n-1; i>=0; i--)
+                {
+                    S->A[i+k]=a->A[i];
+                }
+                for (i=0; i<k; i++)
+                {
+                    S->A[i]=0;
+                }
             }
         }
     }
