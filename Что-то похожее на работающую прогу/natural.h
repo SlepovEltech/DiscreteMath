@@ -259,25 +259,26 @@ N* MUL_Nk_N (N *a, int k)
 }
 
 /*N8: Function to multiply two natural numbers*/
-/*probably not working oth really long numbers*/
 N *MUL_NN_N (N *a, N *b)
 {
-    int k;
+    int i;
     N *res=NULL;
     res=(N*)malloc(sizeof(N));
     if (res)
     {
         res->A=(int*)calloc(((a->n)+(b->n)),sizeof(int));
-        /*for (k=0;k<((a->n)+(b->n));k++) printf("%d ",res->A[k]);
-        puts("");*/
         if (res->A)
         {
             res->n=((a->n)+(b->n));
-            for (k=0;k<b->n;k++) res=ADD_NN_N(res,MUL_Nk_N(MUL_ND_N(a,b->A[k]),k));
+            for (i=0;i<(b->n);i++)
+            {
+                printf("b%d=%d\n",i,b->A[i]);
+                res=ADD_NN_N(res,MUL_Nk_N(MUL_ND_N(a,b->A[i]),i));
+            }
         }
         if (res->A[(a->n)+(b->n)-1]==0)
         {
-            res->A = (int*)realloc(res->A,1);
+            realloc(res->A,1);
             res->n--;
         }
     }
@@ -292,7 +293,15 @@ N *SUB_NDN_N (N *a, int d, N *b)
     res=(N*)malloc(sizeof(N));
     if (res)
     {
-        if ((COM_NN_D(a,MUL_ND_N(b,d)))!=1) res=SUB_NN_N(a,MUL_ND_N(b,d));
+        if ((COM_NN_D(a,MUL_ND_N(b,d)))!=1)
+        {
+            res=SUB_NN_N(a,MUL_ND_N(b,d));
+            if (res->A[res->n-1]==0)
+            {
+                realloc(res->A,1);
+                res->n--;
+            }
+        }
         else
         {
             free(res);
@@ -301,16 +310,17 @@ N *SUB_NDN_N (N *a, int d, N *b)
     }
     return res;
 }
-
  /*N-10: Calculating first digit of division of a bigger natural number by a smaller natural
- number multiplied by 10^k where k is number of digit's position (starting with zero)*/
+ number, multiplied by 10^k, where k is number of digit's position (starting with zero)*/
 int DIV_NN_Dk (N *a, N *b)
 {
     int d=-1;
     if ((COM_NN_D(a,b))!=1)
     {
-        b=MUL_Nk_N(b,((a->n)-(b->n)));
+        b=MUL_Nk_N(b,a->n-b->n);
         if ((COM_NN_D(a,b))!=1) d=a->A[a->n-1]/b->A[b->n-1];
+        else d=(10*a->A[a->n-1]+a->A[a->n-2])/b->A[b->n-1];
+        while (COM_NN_D(MUL_Nk_N(a,1),MUL_ND_N(b,d))==1) d--;
     }
     return d;
 }
