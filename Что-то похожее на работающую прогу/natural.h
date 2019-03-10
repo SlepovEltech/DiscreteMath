@@ -324,6 +324,7 @@ N *SUB_NDN_N (N *a, int d, N *b)
     }
     return res;
 }
+
  /*N-10: Calculating first digit of division of a bigger natural number by a smaller natural
  number, multiplied by 10^k, where k is number of digit's position (starting with zero)*/
 int DIV_NN_Dk (N *a, N *b)
@@ -338,4 +339,68 @@ int DIV_NN_Dk (N *a, N *b)
         while (COM_NN_D(MUL_Nk_N(a,1),MUL_ND_N(b,d))==1) d--;
     }
     return d;
+}
+
+/*N-11: Quotient of division with remainder of a bigger natural number by a smaller or equal natural number (divider is nonzero*/
+N *DIV_NN_N (N *a, N *b)
+{
+    int i,k;
+    i=0;
+    N *res=NULL;
+    res=(N*)malloc(sizeof(N));
+    if (res)
+    {
+        res->A=(int*)calloc(i,sizeof(int));
+        if (res->A)
+        {
+            res->n=(a->n-b->n+1);
+            while (DIV_NN_Dk(a,b)>0)
+            {
+                res->A[i]=DIV_NN_Dk(a,b);
+                a=SUB_NDN_N(a,res->A[i],MUL_Nk_N(b,a->n-b->n));
+                i++;
+            }
+            for(i=0;i<res->n/2;i++)
+            {
+                k=res->A[i];
+                res->A[i]=res->A[res->n-i];
+                res->A[res->n-i]=k;
+            }
+        }
+        else{free(res);res=NULL;}
+    }
+    return res;
+}
+
+/*N-12: Remainder of division of a bigger natural number by a smaller or equal natural number (divider is nonzero)*/
+void MOD_NN_N (N *a, N *b)
+{
+    int i;
+    for (i=0;i<DIV_NN_N(a,b)->n;i++) a=SUB_NDN_N(a,(DIV_NN_N(a,b)->A[i]),MUL_Nk_N(b,i));
+}
+
+/*N-13: GCF of two natural numbers*/
+N *GCF_NN_N(N *a, N *b)
+{
+    N *res=NULL;
+    res=(N*)malloc(sizeof(N));
+    if (res)
+    {
+        while ((NZER_N_B(a)==1)&&(NZER_N_B(b)==1))
+        {
+            if (COM_NN_D(a,b)==2) MOD_NN_N(a,b);
+            else MOD_NN_N(b,a);
+        }
+        res=ADD_NN_N(a,b);
+    }
+    return res;
+}
+
+/*N-14: LCM of two natural numbers*/
+N *LCM_NN_N(N *a, N *b)
+{
+    N *res=NULL;
+    res=(N*)malloc(sizeof(N));
+    if (res) res=(DIV_NN_N(MUL_NN_N(a,b),GCF_NN_N(a,b)));// supposed to work because a*b/gcf(a,b) is an integer
+    return res;
 }
