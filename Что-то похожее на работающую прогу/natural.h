@@ -194,6 +194,7 @@ N* SUB_NN_N (N *a, N *b)
                 S->n=1;
                 S->A=(int*)calloc(1,sizeof(int));
             }
+            else S=NULL;
     }
     return S;
 }
