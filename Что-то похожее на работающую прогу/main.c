@@ -50,7 +50,7 @@ int natural()
 	int key;
 	printf("Choose operation with natural numbers: ");
 	printf("\n1-Comparison of natural numbers\n2-Check if zero\n3-Appendix 1\n4-Addition of natural numbers\n");
-	printf("5-Subtraction(the first - the biggest, the second -smaller)\n6-Multiplying a natural number by a digit\n");
+	printf("5-Subtraction(the first - the biggest, the second -smaller or equal)\n6-Multiplying a natural number by a digit\n");
 	printf("7-Multiplying a natural number by 10 in deg\n8-Multiplication of natural numbers\n");
 	printf("9-Subtraction from other natural, multiplied by a digit\n10-Calculation of the first digit of the division of greater natural by less, multiplied by 10^k\n");
 	printf("11-The DIV of the numbers\n12-The MOD of the numbers\n13-NOD of the numbers\n14-NOK of the numbers\n\n");
