@@ -178,14 +178,11 @@ N* SUB_NN_N (N *a, N *b)
                         }
                     }
                 }
-                if ( S->A[a->n-1]==0)
+		        S->n=a->n;
+                while ( S->A[S->n-1]==0)
                 {
-                    S->A=(int*)realloc(S->A, a->n-1);
-                    S->n=a->n-1;
-                }
-                else
-                {
-                    S->n=a->n;
+                    S->A=(int*)realloc(S->A,1);
+                    S->n--;
                 }
             }
         }
