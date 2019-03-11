@@ -391,10 +391,10 @@ N *GCF_NN_N(N *a, N *b)
     res=(N*)malloc(sizeof(N));
     if (res)
     {
-        while ((NZER_N_B(a)==1)&&(NZER_N_B(b)==1))
+        while ((NZER_N_B(a)==0)&&(NZER_N_B(b)==0))
         {
-            if (COM_NN_D(a,b)==2) MOD_NN_N(a,b);
-            else MOD_NN_N(b,a);
+            if (COM_NN_D(a,b)==2) a=MOD_NN_N(a,b);
+            else b=MOD_NN_N(b,a);
         }
         res=ADD_NN_N(a,b);
     }
@@ -406,6 +406,6 @@ N *LCM_NN_N(N *a, N *b)
 {
     N *res=NULL;
     res=(N*)malloc(sizeof(N));
-    if (res) res=(DIV_NN_N(MUL_NN_N(a,b),GCF_NN_N(a,b)));// supposed to work because a*b/gcf(a,b) is an integer
+    if (res) res=(DIV_NN_N(MUL_NN_N(a,b),GCF_NN_N(a,b)));
     return res;
 }
