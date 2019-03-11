@@ -178,22 +178,19 @@ N* SUB_NN_N (N *a, N *b)
                         }
                     }
                 }
-                if ( S->A[a->n-1]==0)
+	        	S->n=a->n;
+                while ( S->A[S->n-1]==0)
                 {
-                    S->A=(int*)realloc(S->A, a->n-1);
-                    S->n=a->n-1;
-                }
-                else
-                {
-                    S->n=a->n;
+                    S->n--;
+                    //S->A=(int*)realloc(S->A,S->n);
                 }
             }
         }
         else if (COM_NN_D(a, b)==0)
-            {
-                S->n=1;
-                S->A=(int*)calloc(1,sizeof(int));
-            }
+        {
+            S->n=1;
+            S->A=(int*)calloc(1,sizeof(int));
+        }
             else S=NULL;
     }
     return S;
@@ -225,7 +222,7 @@ N* MUL_ND_N (N *a, int num)
                 }
                 else
                 {
-                    S->A=(int*)realloc(S->A, a->n);
+                    //S->A=(int*)realloc(S->A, a->n);
                     S->n=a->n;
                 }
             }
