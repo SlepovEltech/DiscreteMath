@@ -292,7 +292,7 @@ N *MUL_NN_N (N *a, N *b)
         }
         if (res->A[(a->n)+(b->n)-1]==0)
         {
-            realloc(res->A,1);
+            res->A = (int*)realloc(res->A, 1);
             res->n--;
         }
     }
@@ -312,7 +312,7 @@ N *SUB_NDN_N (N *a, int d, N *b)
             res=SUB_NN_N(a,MUL_ND_N(b,d));
             if (res->A[res->n-1]==0)
             {
-                realloc(res->A,1);
+                res->A = (int*)realloc(res->A, 1);
                 res->n--;
             }
         }
@@ -373,10 +373,18 @@ N *DIV_NN_N (N *a, N *b)
 }
 
 /*N-12: Remainder of division of a bigger natural number by a smaller or equal natural number (divider is nonzero)*/
-void MOD_NN_N (N *a, N *b)
+N* MOD_NN_N (N *a, N *b)
 {
     int i;
-    for (i=0;i<DIV_NN_N(a,b)->n;i++) a=SUB_NDN_N(a,(DIV_NN_N(a,b)->A[i]),MUL_Nk_N(b,i));
+    N *res;
+    res=(N*)malloc(sizeof(N));
+    if (res)
+    {
+        res->A=(int*)calloc(i,sizeof(int));
+        if (res->A)
+            for (i=0;i<DIV_NN_N(a,b)->n;i++) res=SUB_NDN_N(a,(DIV_NN_N(a,b)->A[i]),MUL_Nk_N(b,i));
+    }
+    return res;
 }
 
 /*N-13: GCF of two natural numbers*/

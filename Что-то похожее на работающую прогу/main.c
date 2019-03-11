@@ -307,6 +307,102 @@ int main()
 								free(w->A);
 								q->A = NULL; w->A = NULL;
 								break;
+							case 11:
+								printf("Enter the first number: ");
+								getchar();
+								n = new_gets(s,lim);
+								q->A = (int*)malloc(n*sizeof(int));
+								input(q,s,n);
+								printf("Enter the second number: ");
+								n = new_gets(s,lim);
+								w->A = (int*)malloc(n*sizeof(int));
+								input(w,s,n);
+								res = DIV_NN_N(q,w);
+								if(res != NULL )
+								{
+									printf("Result: ");
+									output(res);
+									free(res);
+									res = NULL;
+								}
+								else 
+									printf("Result is NULL!\n");
+								free(q->A);
+								free(w->A);
+								q->A = NULL; w->A = NULL;
+								break;
+							case 12:
+								printf("Enter the first number: ");
+								getchar();
+								n = new_gets(s,lim);
+								q->A = (int*)malloc(n*sizeof(int));
+								input(q,s,n);
+								printf("Enter the second number: ");
+								n = new_gets(s,lim);
+								w->A = (int*)malloc(n*sizeof(int));
+								input(w,s,n);
+								res = MOD_NN_N(q,w);
+								if(res != NULL )
+								{
+									printf("Result: ");
+									output(res);
+									free(res);
+									res = NULL;
+								}
+								else 
+									printf("Result is NULL!\n");
+								free(q->A);
+								free(w->A);
+								q->A = NULL; w->A = NULL;
+								break;
+							case 13:
+								printf("Enter the first number: ");
+								getchar();
+								n = new_gets(s,lim);
+								q->A = (int*)malloc(n*sizeof(int));
+								input(q,s,n);
+								printf("Enter the second number: ");
+								n = new_gets(s,lim);
+								w->A = (int*)malloc(n*sizeof(int));
+								input(w,s,n);
+								res = GCF_NN_N(q,w);
+								if(res != NULL )
+								{
+									printf("Result: ");
+									output(res);
+									free(res);
+									res = NULL;
+								}
+								else 
+									printf("Result is NULL!\n");
+								free(q->A);
+								free(w->A);
+								q->A = NULL; w->A = NULL;
+								break;
+							case 14:
+								printf("Enter the first number: ");
+								getchar();
+								n = new_gets(s,lim);
+								q->A = (int*)malloc(n*sizeof(int));
+								input(q,s,n);
+								printf("Enter the second number: ");
+								n = new_gets(s,lim);
+								w->A = (int*)malloc(n*sizeof(int));
+								input(w,s,n);
+								res = LCM_NN_N(q,w);
+								if(res != NULL )
+								{
+									printf("Result: ");
+									output(res);
+									free(res);
+									res = NULL;
+								}
+								else 
+									printf("Result is NULL!\n");
+								free(q->A);
+								free(w->A);
+								q->A = NULL; w->A = NULL;
+								break;
 							default:
 							break;
 						}
