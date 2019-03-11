@@ -339,7 +339,8 @@ int *DIV_NN_Dk (N *a, N *b)
     return d;
 }
 
-/*N-11: Quotient of division with remainder of a bigger natural number by a smaller or equal natural number (divider is nonzero*/
+/*N-11: Quotient of division with remainder of a bigger natural number
+by a smaller or equal natural number (divider is nonzero)*/
 N *DIV_NN_N (N *a, N *b)
 {
     int i=0,k;
@@ -354,16 +355,17 @@ N *DIV_NN_N (N *a, N *b)
             while (COM_NN_D(a,b)!=1)
             {
                 res->A[i]=DIV_NN_Dk(a,b)[0];
-		a=SUB_NDN_N(a,res->A[i],MUL_Nk_N(b,DIV_NN_Dk(a,b)[1]));
+                a=SUB_NDN_N(a,res->A[i],MUL_Nk_N(b,DIV_NN_Dk(a,b)[1]));
                 i++;
             }
-            while (res->A[res->n-1]==0) res->n--;
+            if (res->A[res->n-1]==0) res->n--;
             for (i=0;i<res->n/2;i++)
             {
                 k=res->A[i];
                 res->A[i]=res->A[res->n-1-i];
                 res->A[res->n-1-i]=k;
             }
+            while ((res->A[res->n-1]==0)&&(res->n>0)) res->n--;
         }
         else{free(res);res=NULL;}
     }
@@ -397,6 +399,7 @@ N *GCF_NN_N(N *a, N *b)
             else b=MOD_NN_N(b,a);
         }
         res=ADD_NN_N(a,b);
+        while (res->A[res->n-1]==0) res->n--;
     }
     return res;
 }
