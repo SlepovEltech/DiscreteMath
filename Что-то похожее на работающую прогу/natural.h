@@ -331,7 +331,7 @@ int *DIV_NN_Dk (N *a, N *b)
             while ((COM_NN_D(a,b))!=1) {d[1]++;b=MUL_Nk_N(b,1);}
             a=MUL_Nk_N(a,1);
             if (a->n>b->n) d[0]=(10*a->A[a->n-1]+a->A[a->n-2])/b->A[b->n-1];
-            else d[0]=a->A[a->n-2]/b->A[b->n-1];
+            else d[0]=a->A[a->n-1]/b->A[b->n-1];
             while (COM_NN_D(a,MUL_ND_N(b,d[0]))==1) d[0]--;
         }
     }
@@ -371,16 +371,15 @@ N *DIV_NN_N (N *a, N *b)
 }
 
 /*N-12: Remainder of division of a bigger natural number by a smaller or equal natural number (divider is nonzero)*/
-N* MOD_NN_N (N *a, N *b)
+N *MOD_NN_N (N *a, N *b)
 {
     int i;
     N *res;
     res=(N*)malloc(sizeof(N));
     if (res)
     {
-        res->A=(int*)calloc(i,sizeof(int));
-        if (res->A)
-            for (i=0;i<DIV_NN_N(a,b)->n;i++) res=SUB_NDN_N(a,(DIV_NN_N(a,b)->A[i]),MUL_Nk_N(b,i));
+        res=a;
+        for (i=0;i<DIV_NN_N(a,b)->n;i++) res=SUB_NDN_N(res,(DIV_NN_N(a,b)->A[i]),MUL_Nk_N(b,i));
     }
     return res;
 }
@@ -392,10 +391,10 @@ N *GCF_NN_N(N *a, N *b)
     res=(N*)malloc(sizeof(N));
     if (res)
     {
-        while ((NZER_N_B(a)==1)&&(NZER_N_B(b)==1))
+        while ((NZER_N_B(a)==0)&&(NZER_N_B(b)==0))
         {
-            if (COM_NN_D(a,b)==2) MOD_NN_N(a,b);
-            else MOD_NN_N(b,a);
+            if (COM_NN_D(a,b)==2) a=MOD_NN_N(a,b);
+            else b=MOD_NN_N(b,a);
         }
         res=ADD_NN_N(a,b);
     }
@@ -407,6 +406,6 @@ N *LCM_NN_N(N *a, N *b)
 {
     N *res=NULL;
     res=(N*)malloc(sizeof(N));
-    if (res) res=(DIV_NN_N(MUL_NN_N(a,b),GCF_NN_N(a,b)));// supposed to work because a*b/gcf(a,b) is an integer
+    if (res) res=(DIV_NN_N(MUL_NN_N(a,b),GCF_NN_N(a,b)));
     return res;
 }
