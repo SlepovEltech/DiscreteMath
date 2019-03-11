@@ -371,16 +371,15 @@ N *DIV_NN_N (N *a, N *b)
 }
 
 /*N-12: Remainder of division of a bigger natural number by a smaller or equal natural number (divider is nonzero)*/
-N* MOD_NN_N (N *a, N *b)
+N *MOD_NN_N (N *a, N *b)
 {
     int i;
     N *res;
     res=(N*)malloc(sizeof(N));
     if (res)
     {
-        res->A=(int*)calloc(i,sizeof(int));
-        if (res->A)
-            for (i=0;i<DIV_NN_N(a,b)->n;i++) res=SUB_NDN_N(a,(DIV_NN_N(a,b)->A[i]),MUL_Nk_N(b,i));
+        res=a;
+        for (i=0;i<DIV_NN_N(a,b)->n;i++) res=SUB_NDN_N(res,(DIV_NN_N(a,b)->A[i]),MUL_Nk_N(b,i));
     }
     return res;
 }
