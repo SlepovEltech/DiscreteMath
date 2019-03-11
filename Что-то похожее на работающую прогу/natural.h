@@ -331,7 +331,7 @@ int *DIV_NN_Dk (N *a, N *b)
             while ((COM_NN_D(a,b))!=1) {d[1]++;b=MUL_Nk_N(b,1);}
             a=MUL_Nk_N(a,1);
             if (a->n>b->n) d[0]=(10*a->A[a->n-1]+a->A[a->n-2])/b->A[b->n-1];
-            else d[0]=a->A[a->n-2]/b->A[b->n-1];
+            else d[0]=a->A[a->n-1]/b->A[b->n-1];
             while (COM_NN_D(a,MUL_ND_N(b,d[0]))==1) d[0]--;
         }
     }
