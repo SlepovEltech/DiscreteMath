@@ -181,7 +181,7 @@ N* SUB_NN_N (N *a, N *b)
 	        	S->n=a->n;
                 while ( S->A[S->n-1]==0)
                 {
-                    S->n--;
+                    S->n-=1;
                     //S->A=(int*)realloc(S->A,S->n);
                 }
             }
