@@ -289,7 +289,7 @@ N *MUL_NN_N (N *a, N *b)
         }
         if (res->A[(a->n)+(b->n)-1]==0)
         {
-            res->A = (int*)realloc(res->A, 1);
+            //res->A = (int*)realloc(res->A, 1);
             res->n--;
         }
     }
@@ -307,11 +307,6 @@ N *SUB_NDN_N (N *a, int d, N *b)
         if ((COM_NN_D(a,MUL_ND_N(b,d)))!=1)
         {
             res=SUB_NN_N(a,MUL_ND_N(b,d));
-            if (res->A[res->n-1]==0)
-            {
-                res->A = (int*)realloc(res->A, 1);
-                res->n--;
-            }
         }
         else
         {
@@ -324,44 +319,50 @@ N *SUB_NDN_N (N *a, int d, N *b)
 
  /*N-10: Calculating first digit of division of a bigger natural number by a smaller natural
  number, multiplied by 10^k, where k is number of digit's position (starting with zero)*/
-int DIV_NN_Dk (N *a, N *b)
+int *DIV_NN_Dk (N *a, N *b)
 {
-    int d=-1;
-    if ((COM_NN_D(a,b))==0) d=1;
-    else if ((COM_NN_D(a,b))==2)
+    int *d=NULL;
+    if (COM_NN_D(a,b)==1){}
+    else
     {
-        b=MUL_Nk_N(b,a->n-b->n);
-        if ((COM_NN_D(a,b))!=1) d=a->A[a->n-1]/b->A[b->n-1];
-        else d=(10*a->A[a->n-1]+a->A[a->n-2])/b->A[b->n-1];
-        while (COM_NN_D(MUL_Nk_N(a,1),MUL_ND_N(b,d))==1) d--;
+        d=calloc(2,sizeof(int));
+        if(d)
+        {
+            while ((COM_NN_D(a,b))!=1) {d[1]++;b=MUL_Nk_N(b,1);}
+            a=MUL_Nk_N(a,1);
+            if (a->n>b->n) d[0]=(10*a->A[a->n-1]+a->A[a->n-2])/b->A[b->n-1];
+            else d[0]=a->A[a->n-2]/b->A[b->n-1];
+            while (COM_NN_D(a,MUL_ND_N(b,d[0]))==1) d[0]--;
+        }
     }
+    d[1]--;
     return d;
 }
 
 /*N-11: Quotient of division with remainder of a bigger natural number by a smaller or equal natural number (divider is nonzero*/
 N *DIV_NN_N (N *a, N *b)
 {
-    int i,k;
-    i=0;
+    int i=0,k;
     N *res=NULL;
     res=(N*)malloc(sizeof(N));
     if (res)
     {
-        res->A=(int*)calloc(i,sizeof(int));
+        res->A=(int*)calloc(a->n-b->n+1,sizeof(int));
         if (res->A)
         {
-            res->n=(a->n-b->n+1);
-            while (DIV_NN_Dk(a,b)>0)
+            res->n=a->n-b->n+1;
+            while (COM_NN_D(a,b)!=1)
             {
-                res->A[i]=DIV_NN_Dk(a,b);
-                a=SUB_NDN_N(a,res->A[i],MUL_Nk_N(b,a->n-b->n));
+                res->A[i]=DIV_NN_Dk(a,b)[0];
+		a=SUB_NDN_N(a,res->A[i],MUL_Nk_N(b,DIV_NN_Dk(a,b)[1]));
                 i++;
             }
-            for(i=0;i<res->n/2;i++)
+            while (res->A[res->n-1]==0) res->n--;
+            for (i=0;i<res->n/2;i++)
             {
                 k=res->A[i];
-                res->A[i]=res->A[res->n-i];
-                res->A[res->n-i]=k;
+                res->A[i]=res->A[res->n-1-i];
+                res->A[res->n-1-i]=k;
             }
         }
         else{free(res);res=NULL;}
