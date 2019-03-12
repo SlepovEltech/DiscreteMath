@@ -325,7 +325,7 @@ int *DIV_NN_Dk (N *a, N *b)
     if (COM_NN_D(a,b)==1){}
     else
     {
-        d=calloc(2,sizeof(int));
+        d=(int*)calloc(2,sizeof(int));
         if(d)
         {
             while ((COM_NN_D(a,b))!=1) {d[1]++;b=MUL_Nk_N(b,1);}

@@ -3,6 +3,8 @@
 #include <ctype.h>
 #include "struct.h"
 #include "natural.h"
+#include "integer.h"
+#include "rational.h"
 
 int new_gets(char *s, int lim) 
 {
@@ -38,12 +40,18 @@ int input(N *q,char *s, int n)
 	}
 	return sign;
 }
+
 void output(N *q)
 {
 	int i;
 	for(i = q->n-1; i >= 0; i--)
 		printf("%d", q->A[i]);
 	printf("\n");
+}
+void output_int(Z *a)
+{
+	if(a->sign == 1) printf("-");
+	output(a->num);
 }
 int natural()
 {
@@ -302,7 +310,7 @@ int main()
 								n = new_gets(s,lim);
 								w->A = (int*)malloc(n*sizeof(int));
 								input(w,s,n);
-								printf("Result: %d", DIV_NN_Dk(q,w));
+								printf("Result: %d", DIV_NN_Dk(q,w)[0]);
 								free(q->A);
 								free(w->A);
 								q->A = NULL; w->A = NULL;
@@ -421,8 +429,8 @@ int main()
 	        			d->num = (N*)malloc(sizeof(N));
 	        			d->num->A = (int*)malloc(n*sizeof(int));
 	        			d->sign = input(d->num,s,n);
-	        			printf("Result: %d ",d->sign);
-	        			output(d->num);
+	        			printf("Result: ");
+	        			output_int(d);
 	        		}
 
 	        	}
