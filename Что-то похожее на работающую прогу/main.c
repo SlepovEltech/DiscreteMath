@@ -53,19 +53,7 @@ void output_int(Z *a)
 	if(a->sign == 1) printf("-");
 	output(a->num);
 }
-int natural()
-{
-	int key;
-	printf("Choose operation with natural numbers: ");
-	printf("\n1-Comparison of natural numbers\n2-Check if zero\n3-Appendix 1\n4-Addition of natural numbers\n");
-	printf("5-Subtraction(the first - the biggest, the second -smaller or equal)\n6-Multiplying a natural number by a digit\n");
-	printf("7-Multiplying a natural number by 10 in deg\n8-Multiplication of natural numbers\n");
-	printf("9-Subtraction from other natural, multiplied by a digit\n10-Calculation of the first digit of the division of greater natural by less, multiplied by 10^k\n");
-	printf("11-The DIV of the numbers\n12-The MOD of the numbers\n13-NOD of the numbers\n14-NOK of the numbers\n\n");
-	printf("Your answer: ");
-	scanf("%d", &key);
-	return key;
-}
+
 
 void clear(int sys)
 {
@@ -96,7 +84,7 @@ int main()
 	N *q, *w,*res;
 	Z *d, *t;
 	P g,f;
-	int n,i,lim,key,clas,num,sign;
+	int n,i,lim,key,clas,num,sign,key1;
 	char c_sign;
 	char *s;
 	int sys;
@@ -422,15 +410,32 @@ int main()
 	        		t = (Z*)malloc(sizeof(Z));
 	        		if(d && t)
 	        		{
-	        			//Zdes' budet vibor variantov, strutcra chtaetsa tak:
-	        			printf("Enter your number: ");
-	        			getchar();
-	        			n = new_gets(s,lim);
-	        			d->num = (N*)malloc(sizeof(N));
-	        			d->num->A = (int*)malloc(n*sizeof(int));
-	        			d->sign = input(d->num,s,n);
-	        			printf("Result: ");
-	        			output_int(d);
+	        			scanf("%d", &key1);
+	        			if(key1 == 1)
+	        			{
+	        				//Zdes' budet vibor variantov, strutcra chtaetsa tak:
+		        			printf("Enter your number: ");
+		        			getchar();
+		        			n = new_gets(s,lim);
+		        			d->num = (N*)malloc(sizeof(N));
+		        			d->num->A = (int*)malloc(n*sizeof(int));
+		        			d->sign = input(d->num,s,n);
+		        			printf("Result: ");
+		        			output_int(d);
+	        			}
+	        			if(key1 == 2)
+	        			{
+	        				//Zdes' budet vibor variantov, strutcra chtaetsa tak:
+		        			printf("Enter your number: ");
+		        			getchar();
+		        			n = new_gets(s,lim);
+		        			d->num = (N*)malloc(sizeof(N));
+		        			d->num->A = (int*)malloc(n*sizeof(int));
+		        			d->sign = input(d->num,s,n);
+		        			printf("Result: ");
+		        			output_int(d);
+	        			}
+	        			
 	        		}
 
 	        	}
