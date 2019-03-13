@@ -10,7 +10,7 @@ int new_gets(char *s, int lim)
 {
 	int i;
 	char c;
-	for(i = 0;(lim -1) && ( (c = getchar()) != '\n'); s++,i++) *s = c;
+	for(i = 0;(i < lim -1) &&  ((c = getchar()) != '\n'); s++,i++) *s = c;
 	*s = '\0';
 	return i;
 }
@@ -29,7 +29,7 @@ int input(N *q,char *s, int n)
 		}
 		q->n = n-1;
 	}
-	else
+	if(s[0] != '-')
 	{
 		sign = 0;
 		q->n = n;
@@ -41,20 +41,25 @@ int input(N *q,char *s, int n)
 	return sign;
 }
 
-void output(N *q)
+void output(N *a)
 {
 	int i;
-	for(i = q->n-1; i >= 0; i--)
-		printf("%d", q->A[i]);
-	printf("\n");
+	for(i = a->n-1; i >= 0; i--)
+		printf("%d", a->A[i]);
+	//printf("\n");
 }
 void output_int(Z *a)
 {
 	if(a->sign == 1) printf("-");
 	output(a->num);
 }
-
-
+void output_rat(Q* a)
+{
+	output_int(a->m);
+	printf("/");
+	output(a->n);
+	printf("\n");
+}
 void clear(int sys)
 {
 	if(sys == 1) system("CLS");
@@ -83,6 +88,7 @@ int main()
 {
 	N *q, *w,*res;
 	Z *d, *t;
+	Q *h, *l;
 	P g,f;
 	int n,i,lim,key,clas,num,sign,key1;
 	char c_sign;
@@ -160,6 +166,7 @@ int main()
 								input(q,s,n);
 								printf("Result: ");
 								ADD_1N_N(q);
+								printf("\n");
 								output(q);
 								free(q->A);
 								q->A = NULL;
@@ -177,6 +184,8 @@ int main()
 								res =ADD_NN_N(q,w);
 								printf("Result ");
 								output(res);
+								printf("\n");
+								
 								break;		
 							case 5: 
 								printf("Enter the first number: ");
@@ -410,38 +419,76 @@ int main()
 	        		t = (Z*)malloc(sizeof(Z));
 	        		if(d && t)
 	        		{
-	        			scanf("%d", &key1);
-	        			if(key1 == 1)
+	        			switch(integer())
 	        			{
-	        				//Zdes' budet vibor variantov, strutcra chtaetsa tak:
-		        			printf("Enter your number: ");
-		        			getchar();
-		        			n = new_gets(s,lim);
-		        			d->num = (N*)malloc(sizeof(N));
-		        			d->num->A = (int*)malloc(n*sizeof(int));
-		        			d->sign = input(d->num,s,n);
-		        			printf("Result: ");
-		        			output_int(d);
+	        				case 1:
+			        			printf("Enter your number: ");
+			        			getchar();
+			        			n = new_gets(s,lim);
+			        			d->num = (N*)malloc(sizeof(N));
+			        			d->num->A = (int*)malloc(n*sizeof(int));
+			        			d->sign = input(d->num,s,n);
+			        			printf("Result: ");
+			        			output(ABS_Z_N(d));
+		     					break;
+	        				case 2:
+			        			printf("Enter your number: ");
+			        			getchar();
+			        			n = new_gets(s,lim);
+			        			d->num = (N*)malloc(sizeof(N));
+			        			d->num->A = (int*)malloc(n*sizeof(int));
+			        			d->sign = input(d->num,s,n);
+			        			printf("Result: ");
+			        			if(POZ_Z_D(d) == 2) printf("The number is positive\n");
+			        			if(POZ_Z_D(d) == 1) printf("The number is negative\n");
+			        			if(POZ_Z_D(d) == 0) printf("The number is zero\n");
+			        			break;
+		        			case 3:
+			        			printf("Enter your number: ");
+			        			getchar();
+			        			n = new_gets(s,lim);
+			        			d->num = (N*)malloc(sizeof(N));
+			        			d->num->A = (int*)malloc(n*sizeof(int));
+			        			d->sign = input(d->num,s,n);
+			        			printf("Result: ");
+			        			MUL_ZM_Z(d);
+			        			output_int(d);
+		        				break;
+	        				default:
+	        				break;
 	        			}
-	        			if(key1 == 2)
-	        			{
-	        				//Zdes' budet vibor variantov, strutcra chtaetsa tak:
-		        			printf("Enter your number: ");
-		        			getchar();
-		        			n = new_gets(s,lim);
-		        			d->num = (N*)malloc(sizeof(N));
-		        			d->num->A = (int*)malloc(n*sizeof(int));
-		        			d->sign = input(d->num,s,n);
-		        			printf("Result: ");
-		        			output_int(d);
-	        			}
-	        			
 	        		}
 
 	        	}
 	        	if(clas == 3)
 	        	{
-
+	        		h = (Q*)malloc(sizeof(Q));
+	        		l =	(Q*)malloc(sizeof(Q));
+	        		if(h && l)
+	        		{
+	        			switch(rational())
+	        			{
+	        				case 1:
+	        					printf("Enter numerator of number: ");
+								getchar();
+								n = new_gets(s,lim);
+								h->m = (Z*)malloc(sizeof(Z));
+								h->m->num = (N*)malloc(sizeof(N));
+								h->m->num->A = (int*)malloc(n*sizeof(int));
+								h->m->sign = input(h->m->num,s,n);
+								printf("Enter denumerator of number: ");
+								n = new_gets(s,lim);
+								h->n = (N*)malloc(sizeof(N));
+								h->n->A = (int*)malloc(n*sizeof(int));
+								input(h->n,s,n);
+								h = RED_Q_Q(h);
+								output_rat(h);
+								break;
+	        				default:
+	        				break;
+	        			}
+	        		}
+	        
 	        	}
 	        	if(clas == 4)
 	        	{

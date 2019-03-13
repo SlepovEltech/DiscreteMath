@@ -1,9 +1,9 @@
-struct integer
+struct natural
 {
 	int n;
 	int *A;
 };
-typedef struct integer N;
+typedef struct natural N;
 
 struct zahlen
 {
@@ -25,3 +25,5 @@ struct polinom
 	Q *c;
 };
 typedef struct polinom P;
+
+//void output(N *q);
