@@ -25,5 +25,3 @@ struct polinom
 	Q *c;
 };
 typedef struct polinom P;
-
-//void output(N *q);

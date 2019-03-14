@@ -76,8 +76,10 @@ void ADD_1N_N (N *a)
             i++;
         }
     }
-    if(a->A[a->n] != 0)
-		a->n = a->n + 1;   
+    if(a->A[a->n] == 0)
+        a->A = (int*)realloc(a->A, a->n);
+    else
+        a->n = a->n + 1;
 }
 
 /*N-4: Addition of natural numbers*/
@@ -190,7 +192,7 @@ N* SUB_NN_N (N *a, N *b)
                         }
                     }
                 }
-	        	S->n=a->n;
+                S->n=a->n;
                 while ( S->A[S->n-1]==0)
                 {
                     S->n-=1;
@@ -379,7 +381,7 @@ N *DIV_NN_N (N *a, N *b)
             }
             while ((res->A[res->n-1]==0)&&(res->n>0)) res->n--;
         }
-        else{free(res);res=NULL;}
+        //else{free(res);res=NULL;}
     }
     return res;
 }
