@@ -454,6 +454,40 @@ int main()
 			        			MUL_ZM_Z(d);
 			        			output_int(d);
 		        				break;
+		        			case 4:
+		        				printf("Enter your number: ");
+			        			getchar();
+			        			n = new_gets(s,lim);
+			        			q = (N*)malloc(sizeof(N));
+			        			q->A = (int*)malloc(n*sizeof(int));
+			        			input(q,s,n);
+			        			d = TRANS_N_Z(q);
+			        			printf("Result: ");
+			        			output_int(d);
+			        		case 5:
+		        				printf("Enter your number: ");
+			        			getchar();
+			        			n = new_gets(s,lim);
+			        			d->num = (N*)malloc(sizeof(N));
+			        			d->num->A = (int*)malloc(n*sizeof(int));
+			        			d->sign = input(d->num,s,n);
+			        			TRANS_Z_N(d);
+			        			printf("Result: ");
+			        			output(q);
+			        		case 6:
+			        			printf("Enter first number: ");
+			        			getchar();
+			        			n = new_gets(s,lim);
+			        			d->num = (N*)malloc(sizeof(N));
+			        			d->num->A = (int*)malloc(n*sizeof(int));
+			        			d->sign = input(d->num,s,n);
+			        			printf("Enter second number: ");
+			        			getchar();
+			        			n = new_gets(s,lim);
+			        			t->num = (N*)malloc(sizeof(N));
+			        			t->num->A = (int*)malloc(n*sizeof(int));
+			        			t->sign = input(t->num,s,n);
+			        			output_int(ADD_ZZ_Z(d,t));
 	        				default:
 	        				break;
 	        			}
