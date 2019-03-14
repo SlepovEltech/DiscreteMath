@@ -372,7 +372,7 @@ N *DIV_NN_N (N *a, N *b)
                 a=SUB_NDN_N(a,res->A[i],MUL_Nk_N(b,DIV_NN_Dk(a,b)[1]));
                 i++;
             }
-            if (res->A[res->n-1]==0) res->n--;
+            if ((res->A[res->n-1]==0)&&(a->A[a->n-1]!=0)) res->n--;
             for (i=0;i<res->n/2;i++)
             {
                 k=res->A[i];
