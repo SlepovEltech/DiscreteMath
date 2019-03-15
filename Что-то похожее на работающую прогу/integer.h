@@ -78,7 +78,7 @@ Z* ADD_ZZ_Z(Z* first, Z* second)
 {
     Z* result = NULL;
     Z *t = NULL;
-
+    int i;
     if(POZ_Z_D(first) == 0 && POZ_Z_D(second) != 0)
         result = second;
     if(POZ_Z_D(first) != 0 && POZ_Z_D(second) == 0)
@@ -88,10 +88,7 @@ Z* ADD_ZZ_Z(Z* first, Z* second)
         if(((result = (Z*)malloc(sizeof(Z)))!= NULL))
         {
             result->sign = first->sign;
-            result->num = ADD_NN_N(first->num, second->num);
-            /*int i;
-            for(i = result->num->n-1; i >= 0; i--)
-                printf("%d", result->num->A[i]);   */     
+            result->num = ADD_NN_N(first->num, second->num); 
         }
         else
             puts("Memory allocation error!");

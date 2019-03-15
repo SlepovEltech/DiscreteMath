@@ -87,7 +87,7 @@ int menu()
 int main()
 {
 	N *q, *w,*res;
-	Z *d, *t;
+	Z *d, *t, *resZ;
 	Q *h, *l;
 	P g,f;
 	int n,i,lim,key,clas,num,sign,key1;
@@ -417,6 +417,7 @@ int main()
 	        	{
 	        		d = (Z*)malloc(sizeof(Z));
 	        		t = (Z*)malloc(sizeof(Z));
+	        		resZ = (Z*)malloc(sizeof(Z));
 	        		if(d && t)
 	        		{
 	        			switch(integer())
@@ -482,12 +483,88 @@ int main()
 			        			d->num->A = (int*)malloc(n*sizeof(int));
 			        			d->sign = input(d->num,s,n);
 			        			printf("Enter second number: ");
-			        			getchar();
 			        			n = new_gets(s,lim);
 			        			t->num = (N*)malloc(sizeof(N));
 			        			t->num->A = (int*)malloc(n*sizeof(int));
 			        			t->sign = input(t->num,s,n);
-			        			output_int(ADD_ZZ_Z(d,t));
+			        			resZ = ADD_ZZ_Z(d,t);
+			        			printf("Result: ");
+			        			output_int(resZ);
+			        			free(resZ);
+			        			resZ=NULL;
+			        			break;
+			        		case 7:
+			        			printf("Enter first number: ");
+			        			getchar();
+			        			n = new_gets(s,lim);
+			        			d->num = (N*)malloc(sizeof(N));
+			        			d->num->A = (int*)malloc(n*sizeof(int));
+			        			d->sign = input(d->num,s,n);
+			        			printf("Enter second number: ");
+			        			n = new_gets(s,lim);
+			        			t->num = (N*)malloc(sizeof(N));
+			        			t->num->A = (int*)malloc(n*sizeof(int));
+			        			t->sign = input(t->num,s,n);
+			        			resZ = SUB_ZZ_Z(d,t);
+			        			printf("Result: ");
+			        			output_int(resZ);
+			        			free(resZ);
+			        			resZ=NULL;
+			        			break;
+			        		case 8:
+			        			printf("Enter first number: ");
+			        			getchar();
+			        			n = new_gets(s,lim);
+			        			d->num = (N*)malloc(sizeof(N));
+			        			d->num->A = (int*)malloc(n*sizeof(int));
+			        			d->sign = input(d->num,s,n);
+			        			printf("Enter second number: ");
+			        			n = new_gets(s,lim);
+			        			t->num = (N*)malloc(sizeof(N));
+			        			t->num->A = (int*)malloc(n*sizeof(int));
+			        			t->sign = input(t->num,s,n);
+			        			resZ = MUL_ZZ_Z(d,t);
+			        			printf("Result: ");
+			        			output_int(resZ);
+			        			free(resZ);
+			        			resZ=NULL;
+		        				break;
+		        			case 9:
+			        			printf("Enter first number: ");
+			        			getchar();
+			        			n = new_gets(s,lim);
+			        			d->num = (N*)malloc(sizeof(N));
+			        			d->num->A = (int*)malloc(n*sizeof(int));
+			        			d->sign = input(d->num,s,n);
+			        			printf("Enter second number: ");
+			        			n = new_gets(s,lim);
+			        			t->num = (N*)malloc(sizeof(N));
+			        			t->num->A = (int*)malloc(n*sizeof(int));
+			        			t->sign = input(t->num,s,n);
+			        			resZ = DIV_ZZ_Z(d,t);
+			        			printf("Result: ");
+			        			output_int(resZ);
+			        			free(resZ);
+			        			resZ=NULL;
+		        				break;
+		        			case 10:
+			        			printf("Enter first number: ");
+			        			getchar();
+			        			n = new_gets(s,lim);
+			        			d->num = (N*)malloc(sizeof(N));
+			        			d->num->A = (int*)malloc(n*sizeof(int));
+			        			d->sign = input(d->num,s,n);
+			        			printf("Enter second number: ");
+			        			n = new_gets(s,lim);
+			        			t->num = (N*)malloc(sizeof(N));
+			        			t->num->A = (int*)malloc(n*sizeof(int));
+			        			t->sign = input(t->num,s,n);
+			        			resZ = MOD_ZZ_Z(d,t);
+			        			printf("Result: ");
+			        			output_int(resZ);
+			        			free(resZ);
+			        			resZ=NULL;
+		        				break;
 	        				default:
 	        				break;
 	        			}
@@ -515,8 +592,143 @@ int main()
 								h->n = (N*)malloc(sizeof(N));
 								h->n->A = (int*)malloc(n*sizeof(int));
 								input(h->n,s,n);
-								h = RED_Q_Q(h);
-								output_rat(h);
+								l = RED_Q_Q(h);
+								output_rat(l);
+								break;
+							case 3:
+								printf("Enter your number: ");
+			        			getchar();
+			        			n = new_gets(s,lim);
+			        			d = (Z*)malloc(sizeof(Z));
+			        			d->num = (N*)malloc(sizeof(N));
+			        			d->num->A = (int*)malloc(n*sizeof(int));
+			        			d->sign = input(d->num,s,n);
+			        			output_int(d);
+			        			printf("Result: ");
+			        			output_rat(TRANS_Z_Q(d));
+		     					break;
+		     				case 4:
+								printf("Enter numerator of first number: ");
+								getchar();
+								n = new_gets(s,lim);
+								h->m = (Z*)malloc(sizeof(Z));
+								h->m->num = (N*)malloc(sizeof(N));
+								h->m->num->A = (int*)malloc(n*sizeof(int));
+								h->m->sign = input(h->m->num,s,n);
+								printf("Enter denumerator of first number: ");
+								n = new_gets(s,lim);
+								h->n = (N*)malloc(sizeof(N));
+								h->n->A = (int*)malloc(n*sizeof(int));
+								input(h->n,s,n);
+			        			
+			        			printf("Result: ");
+			        			output_int(TRANS_Q_Z(h));
+		     					break;
+							case 5:
+								printf("Enter numerator of first number: ");
+								getchar();
+								n = new_gets(s,lim);
+								h->m = (Z*)malloc(sizeof(Z));
+								h->m->num = (N*)malloc(sizeof(N));
+								h->m->num->A = (int*)malloc(n*sizeof(int));
+								h->m->sign = input(h->m->num,s,n);
+								printf("Enter denumerator of first number: ");
+								n = new_gets(s,lim);
+								h->n = (N*)malloc(sizeof(N));
+								h->n->A = (int*)malloc(n*sizeof(int));
+								input(h->n,s,n);
+								printf("Enter numerator of second number: ");
+								n = new_gets(s,lim);
+								l->m = (Z*)malloc(sizeof(Z));
+								l->m->num = (N*)malloc(sizeof(N));
+								l->m->num->A = (int*)malloc(n*sizeof(int));
+								l->m->sign = input(l->m->num,s,n);
+								printf("Enter denumerator of second number: ");
+								n = new_gets(s,lim);
+								l->n = (N*)malloc(sizeof(N));
+								l->n->A = (int*)malloc(n*sizeof(int));
+								input(l->n,s,n);
+								output_rat(ADD_QQ_Q(h,l));
+								break;
+							case 6:
+								printf("Enter numerator of first number: ");
+								getchar();
+								n = new_gets(s,lim);
+								h->m = (Z*)malloc(sizeof(Z));
+								h->m->num = (N*)malloc(sizeof(N));
+								h->m->num->A = (int*)malloc(n*sizeof(int));
+								h->m->sign = input(h->m->num,s,n);
+								printf("Enter denumerator of first number: ");
+								n = new_gets(s,lim);
+								h->n = (N*)malloc(sizeof(N));
+								h->n->A = (int*)malloc(n*sizeof(int));
+								input(h->n,s,n);
+								printf("Enter numerator of second number: ");
+								n = new_gets(s,lim);
+								l->m = (Z*)malloc(sizeof(Z));
+								l->m->num = (N*)malloc(sizeof(N));
+								l->m->num->A = (int*)malloc(n*sizeof(int));
+								l->m->sign = input(l->m->num,s,n);
+								printf("Enter denumerator of second number: ");
+								n = new_gets(s,lim);
+								l->n = (N*)malloc(sizeof(N));
+								l->n->A = (int*)malloc(n*sizeof(int));
+								input(l->n,s,n);
+								output_rat(l);
+								output_rat(SUB_QQ_Q(h,l));
+								break;
+							case 7:
+								printf("Enter numerator of first number: ");
+								getchar();
+								n = new_gets(s,lim);
+								h->m = (Z*)malloc(sizeof(Z));
+								h->m->num = (N*)malloc(sizeof(N));
+								h->m->num->A = (int*)malloc(n*sizeof(int));
+								h->m->sign = input(h->m->num,s,n);
+								printf("Enter denumerator of first number: ");
+								n = new_gets(s,lim);
+								h->n = (N*)malloc(sizeof(N));
+								h->n->A = (int*)malloc(n*sizeof(int));
+								input(h->n,s,n);
+								printf("Enter numerator of second number: ");
+								n = new_gets(s,lim);
+								l->m = (Z*)malloc(sizeof(Z));
+								l->m->num = (N*)malloc(sizeof(N));
+								l->m->num->A = (int*)malloc(n*sizeof(int));
+								l->m->sign = input(l->m->num,s,n);
+								printf("Enter denumerator of second number: ");
+								n = new_gets(s,lim);
+								l->n = (N*)malloc(sizeof(N));
+								l->n->A = (int*)malloc(n*sizeof(int));
+								input(l->n,s,n);
+
+								output_rat(MUL_QQ_Q(h,l));
+								break;
+							case 8:
+								printf("Enter numerator of first number: ");
+								getchar();
+								n = new_gets(s,lim);
+								h->m = (Z*)malloc(sizeof(Z));
+								h->m->num = (N*)malloc(sizeof(N));
+								h->m->num->A = (int*)malloc(n*sizeof(int));
+								h->m->sign = input(h->m->num,s,n);
+								printf("Enter denumerator of first number: ");
+								n = new_gets(s,lim);
+								h->n = (N*)malloc(sizeof(N));
+								h->n->A = (int*)malloc(n*sizeof(int));
+								input(h->n,s,n);
+								printf("Enter numerator of second number: ");
+								n = new_gets(s,lim);
+								l->m = (Z*)malloc(sizeof(Z));
+								l->m->num = (N*)malloc(sizeof(N));
+								l->m->num->A = (int*)malloc(n*sizeof(int));
+								l->m->sign = input(l->m->num,s,n);
+								printf("Enter denumerator of second number: ");
+								n = new_gets(s,lim);
+								l->n = (N*)malloc(sizeof(N));
+								l->n->A = (int*)malloc(n*sizeof(int));
+								input(l->n,s,n);
+								output_rat(MUL_QQ_Q(h,l));
 								break;
 	        				default:
 	        				break;
