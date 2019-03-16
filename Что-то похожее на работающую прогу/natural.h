@@ -353,35 +353,59 @@ int *DIV_NN_Dk (N *a, N *b)
     return d;
 }
 
-/*N-11: Quotient of division with remainder of a bigger natural number
-by a smaller or equal natural number (divider is nonzero)*/
+/*N-11: Quotient of division with remainder of a bigger natural number by a smaller or equal natural number (divider is nonzero)*/
 N *DIV_NN_N (N *a, N *b)
 {
-    int i=0,k;
-    N *res=NULL;
+    int i=0,j=0,k;
+    N *res=NULL, *tmp1=NULL, *tmp2=NULL;
     res=(N*)malloc(sizeof(N));
-    if (res)
+    tmp1=(N*)malloc(sizeof(N));
+    tmp2=(N*)malloc(sizeof(N));
+    if (res&&tmp1&&tmp2)
     {
         res->A=(int*)calloc(a->n-b->n+1,sizeof(int));
-        if (res->A)
+        tmp1->A=(int*)calloc(1,sizeof(int));
+        tmp2->A=(int*)calloc(1,sizeof(int));
+        if (res->A&&tmp1->A&&tmp2->A)
         {
-            res->n=a->n-b->n+1;
-            while (COM_NN_D(a,b)!=1)
+            i=0;
+            while (b->A[b->n-i-1]<=a->A[a->n-i-1]) i++;
+            if (i==b->n) res->n=a->n-b->n+1;
+            else res->n=a->n-b->n;
+            tmp1->n=1;
+            tmp2->n=1;
+            i=0;
+            while (COM_NN_D(tmp1,b)==1)//finding first n figures of a that make a number more or equal than b
             {
-                res->A[i]=DIV_NN_Dk(a,b)[0];
-                a=SUB_NDN_N(a,res->A[i],MUL_Nk_N(b,DIV_NN_Dk(a,b)[1]));
+                tmp2->A[0]=a->A[a->n-1-i];
+                tmp1=ADD_NN_N(MUL_Nk_N(tmp1,1),tmp2);
                 i++;
             }
-            if ((res->A[res->n-1]==0)&&(a->A[a->n-1]!=0)) res->n--;
+            while (COM_NN_D(a,b)!=1)
+            {
+                res->A[j]=DIV_NN_Dk(tmp1,b)[0];
+                a=SUB_NDN_N(a,res->A[j],MUL_Nk_N(b,DIV_NN_Dk(a,b)[1]));
+                tmp1=SUB_NDN_N(tmp1,res->A[j],b);
+                j++;
+                if (NZER_N_B(tmp1)==1) k=0;
+                else k=tmp1->n;
+                i=0;
+                while (COM_NN_D(tmp1,b)==1)
+                {
+                    tmp2->A[0]=a->A[a->n-1-i-k];
+                    tmp1=ADD_NN_N(MUL_Nk_N(tmp1,1),tmp2);
+                    i++;
+                }
+                for (k=0;k<i-1;k++) {res->A[j]=0;j++;}
+            }
             for (i=0;i<res->n/2;i++)
             {
                 k=res->A[i];
                 res->A[i]=res->A[res->n-1-i];
                 res->A[res->n-1-i]=k;
             }
-            while ((res->A[res->n-1]==0)&&(res->n>0)) res->n--;
         }
-        //else{free(res);res=NULL;}
+        else{free(res);res=NULL;}
     }
     return res;
 }
