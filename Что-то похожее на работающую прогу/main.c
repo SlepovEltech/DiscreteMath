@@ -592,8 +592,8 @@ int main()
 								h->n = (N*)malloc(sizeof(N));
 								h->n->A = (int*)malloc(n*sizeof(int));
 								input(h->n,s,n);
-								l = RED_Q_Q(h);
-								output_rat(l);
+								
+								output_rat(RED_Q_Q(h));
 								break;
 							case 3:
 								printf("Enter your number: ");
@@ -728,7 +728,7 @@ int main()
 								l->n = (N*)malloc(sizeof(N));
 								l->n->A = (int*)malloc(n*sizeof(int));
 								input(l->n,s,n);
-								output_rat(MUL_QQ_Q(h,l));
+								output_rat(DIV_QQ_Q(h,l));
 								break;
 	        				default:
 	        				break;

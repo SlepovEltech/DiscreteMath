@@ -74,7 +74,7 @@ Q* SUB_QQ_Q(Q* a, Q*b)
 	//res->m = (Z*)malloc(sizeof(Z));
 	res->m = SUB_ZZ_Z(MUL_ZZ_Z(a->m,TRANS_N_Z(b->n)),MUL_ZZ_Z(b->m,TRANS_N_Z(a->n)));
 	res->n = MUL_NN_N(a->n,b->n);
-	//res = RED_Q_Q(res);
+	res = RED_Q_Q(res);
 	return res;
 }
 //Q-7
@@ -87,3 +87,13 @@ Q* MUL_QQ_Q(Q* a, Q* b)
 	return res;
 }
 
+//Q-8
+Q* DIV_QQ_Q(Q* a, Q*b)
+{
+	Q* res;
+	res = (Q*)malloc(sizeof(Q));
+	res->m = MUL_ZZ_Z(a->m, TRANS_N_Z(b->n));
+	res->n = TRANS_Z_N(MUL_ZZ_Z(TRANS_N_Z(a->n), b->m));
+	res = RED_Q_Q(res);
+	return res;
+}
