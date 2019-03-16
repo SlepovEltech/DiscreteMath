@@ -356,7 +356,8 @@ int *DIV_NN_Dk (N *a, N *b)
 /*N-11: Quotient of division with remainder of a bigger natural number by a smaller or equal natural number (divider is nonzero)*/
 N *DIV_NN_N (N *a, N *b)
 {
-    int i=0,j=0,k;
+    int i,j,k;
+    j=0;
     N *res=NULL, *tmp1=NULL, *tmp2=NULL;
     res=(N*)malloc(sizeof(N));
     tmp1=(N*)malloc(sizeof(N));
@@ -364,15 +365,16 @@ N *DIV_NN_N (N *a, N *b)
     if (res&&tmp1&&tmp2)
     {
         res->A=(int*)calloc(a->n-b->n+1,sizeof(int));
-        tmp1->A=(int*)calloc(1,sizeof(int));
+        tmp1->A=(int*)calloc(b->n,sizeof(int));
         tmp2->A=(int*)calloc(1,sizeof(int));
         if (res->A&&tmp1->A&&tmp2->A)
         {
-            i=0;
-            while ((b->A[b->n-i-1]<=a->A[a->n-i-1])&&(i<b->n)) i++;
-            if (i==b->n) res->n=a->n-b->n+1;
-            else res->n=a->n-b->n;
+            tmp1->n=b->n;
+            for (i=0;i<b->n;i++) tmp1->A[i]=a->A[a->n-b->n+i];
+            if (COM_NN_D(tmp1,b)==1) res->n=a->n-b->n;
+            else res->n=a->n-b->n+1;
             tmp1->n=1;
+            tmp1->A[0]=0;
             tmp2->n=1;
             i=0;
             while (COM_NN_D(tmp1,b)==1)//finding first n figures of a that make a number more or equal than b
@@ -404,6 +406,7 @@ N *DIV_NN_N (N *a, N *b)
                 res->A[i]=res->A[res->n-1-i];
                 res->A[res->n-1-i]=k;
             }
+            if (res->n==0) {res->n=1;res->A[0]=0;}
         }
         else{free(res);res=NULL;}
     }
