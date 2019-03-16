@@ -369,7 +369,7 @@ N *DIV_NN_N (N *a, N *b)
         if (res->A&&tmp1->A&&tmp2->A)
         {
             i=0;
-            while (b->A[b->n-i-1]<=a->A[a->n-i-1]) i++;
+            while ((b->A[b->n-i-1]<=a->A[a->n-i-1])&&(i<b->n)) i++;
             if (i==b->n) res->n=a->n-b->n+1;
             else res->n=a->n-b->n;
             tmp1->n=1;
