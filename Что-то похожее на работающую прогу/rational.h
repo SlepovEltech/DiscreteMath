@@ -19,6 +19,17 @@ Q* RED_Q_Q(Q* h)
 	res->n = DIV_NN_N(h->n,GCF_NN_N(h->m->num,h->n));
 	return res;
 }
+//Q-2
+int INT_Q_B(Q* a)
+{
+	int f;
+	a = RED_Q_Q(a);
+	if((a->n->n == 1) && (a->n->A[0] == 1))
+		f = 1;
+	else
+		f = 0;
+	return f;
+}
 //Q-3
 Q* TRANS_Z_Q(Z *a)
 {	

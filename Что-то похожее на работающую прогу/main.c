@@ -1,10 +1,647 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <string.h>
 #include "struct.h"
+#include "functions.h"
 #include "natural.h"
 #include "integer.h"
 #include "rational.h"
+
+int main()
+{
+	N *q, *w,*res;
+	Z *d, *t, *resZ;
+	Q *h, *l, *resQ;
+	P *g,*f, *resP;
+	int n,i,lim,key,clas,num,sign,key1;
+	char c_sign;
+	char *s;
+	int sys;
+	lim = 150;
+	printf("Choose your OS type:\n1-Windows\n2-Linux\nYour answer: ");
+	scanf("%d", &sys);
+	while(sys < 0 || sys > 2)
+	{
+		printf("Wrong answer! Try again: ");
+		scanf("%d", &sys);
+	}
+	clear(sys);
+	s = (char*)malloc(lim*sizeof(char));
+	if(s != NULL)
+	{
+		while( (key = menu()) != 3)
+		{
+		    clear(sys);
+		    if(key != 3 && key != 2 && key != 1)
+	        {
+	            printf("Enter a correct answer!\n");
+	        }
+	        if(key == 1)
+	        {
+	        	printf("Choose class of number to work:\n1-Natural+{0}\n2-Integer\n3-Rational\n4-Polinom\nYour answer: ");
+	        	scanf("%d", &clas);
+	        	clear(sys);
+	        	if(clas == 1)
+	        	{
+	        			switch(natural())
+						{
+							case 1:
+								printf("Enter the first number: ");
+								getchar();
+								q = natural_parsing(s,lim);
+								printf("Enter the second number: ");
+								w = natural_parsing(s,lim);
+								if(q && w)
+								{
+									if(COM_NN_D(q,w)==2) 
+										printf("The first number is bigger\n"); 
+									else 
+										if(COM_NN_D(q,w)==0) 
+											printf("The numbers are equal\n"); 
+										else 
+											printf("The second number is bigger\n");
+									clear_N(q);
+									clear_N(w);
+								}
+								else
+									printf("Error at number allocation!\n");
+								break;
+							case 2:
+								printf("Enter your number: ");
+								q = natural_parsing(s,lim);
+								if(q)
+								{
+									if(NZER_N_B(q) == 1)
+										printf("Your number equals zero\n");
+									else
+										printf("Your number doesn't equal zero\n");
+									clear_N(q);
+								}
+								else
+									printf("Error at number allocation!\n");
+								break;
+							case 3:
+								printf("Enter your number: ");
+								q = natural_parsing(s,lim);
+								if(q)
+								{
+									ADD_1N_N(q);
+									printf("Result: ");
+									output(q);
+									puts("");
+									clear_N(q);
+								}
+								else 
+									printf("Error at number allocation!\n");
+								break;		
+							case 4:
+								printf("Enter the first number: ");
+								getchar();
+								q = natural_parsing(s,lim);
+								printf("Enter the second number: ");
+								w = natural_parsing(s,lim);
+								res = ADD_NN_N(q,w);
+								if(q && w && res)
+								{
+									printf("Result: ");
+									output(res);
+									printf("\n");
+									clear_N(q);
+									clear_N(w);
+									clear_N(res);
+								}
+									printf("Error at number allocation!\n");
+								break;		
+							case 5: 
+								printf("Enter the first number: ");
+								getchar();
+								q = natural_parsing(s,lim);
+								printf("Enter the second number: ");
+								w = natural_parsing(s,lim);
+								res = SUB_NN_N(q,w);
+								if(q && w && res)
+								{
+									printf("Result: ");
+									output(res);
+									printf("\n");
+									clear_N(res);
+									clear_N(q);
+									clear_N(w);
+								}
+									printf("Error at number allocation!\n");
+								break;		
+							case 6:
+								printf("Enter your number: ");
+								getchar();
+								q = natural_parsing(s,lim);
+								printf("Enter digit: ");
+								scanf("%d", &num);
+								res = MUL_NN_N(q,w);
+								if(q && res)
+								{
+									printf("Result: ");
+									output(res);
+									printf("\n");
+									clear_N(q);
+									clear_N(res);
+								}
+								else 
+									printf("Error at number allocation!\n");
+								break;
+							case 7:
+								printf("Enter your number: ");
+								getchar();
+								q = natural_parsing(s,lim);
+								printf("Enter k: ");
+								scanf("%d", &num);
+								res = MUL_Nk_N(q,num);
+								if(q && res)
+								{
+									printf("Result: ");
+									output(res);
+									puts("");
+									clear_N(res);
+									clear_N(q);
+								}
+								else 
+									printf("Error at number allocation!\n");
+								break;
+							case 8: 
+								printf("Enter the first number: ");
+								getchar();
+								q = natural_parsing(s,lim);
+								printf("Enter the second number: ");
+								w = natural_parsing(s,lim);
+								res = MUL_NN_N(q,w);
+								if(q && w && res)
+								{
+									printf("Result: ");
+									output(res);
+									puts("");
+									clear_N(res);
+									clear_N(q);
+									clear_N(w);
+								}
+								else 
+									printf("Error at number allocation!\n");
+								break;
+							 case 9:
+							 	printf("Enter the first number: ");
+								getchar();
+								q = natural_parsing(s,lim);
+								printf("Enter digit: ");
+								scanf("%d", &num);
+								printf("Enter the second number: ");
+								getchar();
+								w = natural_parsing(s,lim);
+								res = SUB_NDN_N(q,num,w);
+								if(q && w && SUB_NDN_N(q,num,w))
+								{
+									printf("Result: ");
+									output(res);
+									puts("");
+									clear_N(SUB_NDN_N(q,num,w));
+									clear_N(q);
+									clear_N(w);
+								}
+								else 
+									printf("Eror at at number allocation!\n");
+								break;
+							case 10:
+								printf("Enter the first number: ");
+								getchar();
+								q = natural_parsing(s,lim);
+								printf("Enter the second number: ");
+								w = natural_parsing(s,lim);
+								if(q && w)
+								{
+									printf("Result: %d", DIV_NN_Dk(q,w)[0]);
+									puts("");
+									clear_N(q);
+									clear_N(w);
+								}
+								break;
+							case 11:
+								printf("Enter the first number: ");
+								getchar();
+								q = natural_parsing(s,lim);
+								printf("Enter the second number: ");
+								w = natural_parsing(s,lim);
+								res = DIV_NN_N(q,w);
+								if(q && w && res)
+								{
+									printf("Result: ");
+									output(res);
+									puts("");
+									clear_N(q);
+									clear_N(w);
+									clear_N(res);
+								}
+								else 
+									printf("Error at at number allocation!\n");
+								break;
+							case 12:
+								printf("Enter the first number: ");
+								getchar();
+								q = natural_parsing(s,lim);
+								printf("Enter the second number: ");
+								w = natural_parsing(s,lim);
+								res = MOD_NN_N(q,w);
+								if(q && w && res)
+								{
+									printf("Result: ");
+									output(res);
+									puts("");
+									clear_N(q);
+									clear_N(w);
+									clear_N(res);
+								}
+								else 
+									printf("Result is NULL!\n");
+								break;
+							case 13:
+								printf("Enter the first number: ");
+								getchar();
+								q = natural_parsing(s,lim);
+								printf("Enter the second number: ");
+								w = natural_parsing(s,lim);
+								res = GCF_NN_N(q,w);
+								if(q && w && res)
+								{
+									printf("Result: ");
+									output(res);
+									puts("");
+									clear_N(q);
+									clear_N(w);
+									clear_N(res);
+								}
+								else 
+									printf("Result is NULL!\n");
+								break;
+							case 14:
+								printf("Enter the first number: ");
+								getchar();
+								q = natural_parsing(s,lim);
+								printf("Enter the second number: ");
+								w = natural_parsing(s,lim);
+								res = LCM_NN_N(q,w);
+								if(res && q && w)
+								{
+									printf("Result: ");
+									output(res);
+									puts("");
+									clear_N(q);
+									clear_N(w);
+									clear_N(res);
+								}
+								else 
+									printf("Result is NULL!\n");
+								break;
+							default:
+							break;
+						}
+	        	}
+	        	if(clas == 2)
+	        	{
+        			switch(integer())
+        			{
+        				case 1:
+		        			printf("Enter your number: ");
+		        			getchar();
+		        			d = int_parsing(s,lim);
+		        			if(d)
+		        			{
+		        				printf("Result: ");
+		        				output(ABS_Z_N(d));
+		        				puts("");
+		        				clear_Z(d);
+		        			}
+		        			else
+		        				printf("Error at array allocation!\n");
+	     					break;
+        				case 2:
+		        			printf("Enter your number: ");
+		        			getchar();
+		        			d = int_parsing(s,lim);
+		        			if(d)
+		        			{
+		        				printf("Result: ");
+			        			if(POZ_Z_D(d) == 2) printf("The number is positive\n");
+			        			if(POZ_Z_D(d) == 1) printf("The number is negative\n");
+			        			if(POZ_Z_D(d) == 0) printf("The number is zero\n");
+			        			clear_Z(d);
+		        			}
+		        			else
+		        				printf("Error at array allocation!\n");
+		        			break;
+	        			case 3:
+		        			printf("Enter your number: ");
+		        			getchar();
+		        			d = int_parsing(s,lim);
+		        			if(d)
+		        			{
+		        				printf("Result: ");
+		        				MUL_ZM_Z(d);
+		        				output_int(d);
+		        				puts("");
+		        				clear_Z(d);
+		        			}
+		        			else
+		        				printf("Error at array allocation!\n");
+
+	        				break;
+	        			case 4:
+	        				printf("Enter your number: ");
+		        			getchar();
+		        			q = natural_parsing(s,lim);
+		        			if(d)
+		        			{
+		        				d = TRANS_N_Z(q);
+		        				printf("Result: ");
+		        				output_int(d);
+		        				puts("");
+		        				clear_Z(d);
+		        				clear_N(q);
+		        			}
+		        				printf("Error at array allocation!\n");		        			
+		        		case 5:
+	        				printf("Enter your number: ");
+		        			getchar();
+		        			d = int_parsing(s,lim);
+		        			if(d)
+		        			{
+		        				q = TRANS_Z_N(d);
+			        			printf("Result: ");
+			        			output(q);
+			        			puts("");
+			        			clear_N(q);
+			        			clear_Z(d);
+		        			}
+		        			else
+		        				printf("Error at array allocation!\n");
+
+		        		case 6:
+		        			printf("Enter first number: ");
+		        			getchar();
+		        			d = int_parsing(s,lim);
+		        			printf("Enter second number: ");
+		        			t = int_parsing(s,lim);
+		        			if(d && t)
+		        			{
+		        				resZ = ADD_ZZ_Z(d,t);
+		        				printf("Result: ");
+		        				output_int(resZ);
+		        				puts("");
+		        				clear_Z(d);
+		        				clear_Z(t);
+		        				clear_Z(resZ);
+		        			}
+		        			else
+		        				printf("Error at array allocation!\n");
+		        			break;
+		        		case 7:
+		        			printf("Enter first number: ");
+		        			getchar();
+		        			d = int_parsing(s,lim);
+		        			printf("Enter second number: ");
+		        			t = int_parsing(s,lim);
+		        			resZ = SUB_ZZ_Z(d,t);
+		        			if(resZ && d && t)
+		        			{
+		        				printf("Result: ");
+		        				output_int(resZ);
+		        				puts("");
+		        				clear_Z(resZ);
+		        				clear_Z(d);
+		        				clear_Z(t);
+		        			}
+		        			else
+		        				printf("Error at array allocatin!\n");
+		        			break;
+		        		case 8:
+		        			printf("Enter first number: ");
+		        			getchar();
+		        			d = int_parsing(s,lim);
+		        			printf("Enter second number: ");
+		        			t = int_parsing(s,lim);
+		        			resZ = MUL_ZZ_Z(d,t);
+		        			if(resZ && d && t)
+		        			{
+			        			printf("Result: ");
+			        			output_int(resZ);
+			        			puts("");
+			        			clear_Z(resZ);
+		        				clear_Z(d);
+		        				clear_Z(t);
+			        		}
+			        		else
+		        				printf("Error at array allocatin!\n");
+	        				break;
+	        			case 9:
+		        			printf("Enter first number: ");
+		        			getchar();
+		        			d = int_parsing(s,lim);
+		        			printf("Enter second number: ");
+		        			t = int_parsing(s,lim);
+		        			resZ = DIV_ZZ_Z(d,t);
+		        			if(resZ && d && t)
+		        			{
+		        				printf("Result: ");
+		        				output_int(resZ);
+		        				puts("");
+		        				clear_Z(resZ);
+		        				clear_Z(d);
+		        				clear_Z(t);
+		        			}
+		        			else
+		        				printf("Error at array allocatin!\n");
+	        				break;
+	        			case 10:
+		        			printf("Enter first number: ");
+		        			getchar();
+		        			d = int_parsing(s,lim);
+		        			printf("Enter second number: ");
+		        			t = int_parsing(s,lim);
+		        			resZ = MOD_ZZ_Z(d,t);
+		        			if(resZ && d && t)
+		        			{
+		        				printf("Result: ");
+		        				output_int(resZ);
+		        				puts("");
+		        				clear_Z(resZ);
+		        				clear_Z(d);
+		        				clear_Z(t);
+		        			}
+		        			else
+		        				printf("Error at array allocatin!\n");
+	        				break;
+        				default:
+        				break;
+        			}
+        		}
+	        	if(clas == 3)
+	        	{
+	        		h = (Q*)malloc(sizeof(Q));
+	        		l =	(Q*)malloc(sizeof(Q));
+	        		if(h && l)
+	        		{
+	        			switch(rational())
+	        			{
+	        				case 1:
+	        					printf("Enter your number: ");
+								getchar();
+								h = rat_parsing(s,lim);
+								if(h)
+								{
+									printf("Result: ");
+									output_rat(RED_Q_Q(h));
+									puts("");
+									clear_Q(h);
+								}
+								break;
+							case 2:
+								printf("Enter your number: ");
+								getchar();
+								h = rat_parsing(s,lim);
+								if(h)
+								{
+									if(INT_Q_B(h) == 1) 
+									{
+										printf("Your number is integer: ");
+										output_rat(RED_Q_Q(h));
+
+									}
+									else
+									{
+										printf("Your number is rational: ");
+										output_rat(RED_Q_Q(h));									
+									}
+									puts("");
+								}
+								else
+									printf("Error at number allocation!\n");
+								break;
+							case 3:
+								printf("Enter your number: ");
+			        			getchar();
+			        			d = int_parsing(s,lim);
+			        			if(h)
+			        			{
+			        				printf("Result: ");
+			        				output_rat(TRANS_Z_Q(d));
+			        				clear_Q(TRANS_Z_Q(d));
+			        			}
+			        			else
+									printf("Error at number allocation!\n");
+		     					break;
+		     				case 4:
+								printf("Enter your number: ");
+								getchar();
+								h = rat_parsing(s,lim);
+								if(h)
+								{
+			        				printf("Result: ");
+			        				output_int(TRANS_Q_Z(h));
+			        				clear_Z(TRANS_Q_Z(h));
+			        				puts("");
+			        			}
+			        			else
+									printf("Error at number allocation!\n");
+		     					break;
+							case 5:
+								printf("Enter your first number: ");
+								getchar();
+								h = rat_parsing(s,lim);
+								printf("Enter your second number: ");
+								l = rat_parsing(s,lim);
+								resQ = ADD_QQ_Q(h,l);
+								if(h && l && resQ)
+								{
+									printf("Result: ");
+									output_rat(resQ);
+									clear_Q(h);
+									clear_Q(l);
+									clear_Q(resQ);
+								}
+								else
+									printf("Error at number allocation!\n");
+								break;
+							case 6:
+								printf("Enter your first number: ");
+								getchar();
+								h = rat_parsing(s,lim);
+								printf("Enter your second number: ");
+								l = rat_parsing(s,lim);
+								resQ = SUB_QQ_Q(h,l);
+								if(h && l && resQ)
+								{
+									printf("Result: ");
+									output_rat(resQ);
+									clear_Q(h);
+									clear_Q(l);
+									clear_Q(resQ);
+								}
+								else
+									printf("Error at number allocation!\n");
+								break;
+							case 7:
+								printf("Enter your first number: ");
+								getchar();
+								n = new_gets(s,lim);
+								h = rat_parsing(s,lim);
+								printf("Enter your second number: ");
+								l = rat_parsing(s,lim);
+								resQ = MUL_QQ_Q(h,l);
+								if(h && l && resQ)
+								{
+									printf("Result: ");
+									output_rat(resQ);
+									clear_Q(h);
+									clear_Q(l);
+									clear_Q(resQ);
+								}
+								else
+									printf("Error at number allocation!\n");
+								break;
+							case 8:
+								printf("Enter your first number: ");
+								getchar();
+								h = rat_parsing(s,lim);
+								printf("Enter your second number: ");
+								l = rat_parsing(s,lim);
+								resQ = DIV_QQ_Q(h,l);
+								if(h && l && resQ)
+								{
+									printf("Result: ");
+									output_rat(resQ);
+									clear_Q(h);
+									clear_Q(l);
+									clear_Q(resQ);
+								}
+								else
+									printf("Error at number allocation!\n");
+								break;
+	        				default:
+	        				break;
+	        			}
+	        		}
+	        
+	        	}
+	        	if(clas == 4)
+	        	{
+
+	        	}
+
+        	}
+        }
+	    free(s);
+		s = NULL;
+	}
+	else
+		printf("Error at memory location! Bye!");
+	return 0;
+}
 
 int new_gets(char *s, int lim) 
 {
@@ -56,8 +693,11 @@ void output_int(Z *a)
 void output_rat(Q* a)
 {
 	output_int(a->m);
-	printf("/");
-	output(a->n);
+	if( (a->n->n != 1) && (a->n->A[0] != 1) )
+	{
+		printf("/");
+		output(a->n);
+	}
 	printf("\n");
 }
 void clear(int sys)
@@ -68,7 +708,7 @@ void clear(int sys)
 
 void print_header()
 {
-	printf("\t\t\t     Discrethe Math\n\t\tComputer Algebra System by students 8306");
+	printf("\t\t\t\tDiscrethe Math\n\t\tComputer Algebra System by students 8306");
 }
 
 int menu()
@@ -83,671 +723,109 @@ int menu()
 	return key;
 }
 
-
-int main()
+N* natural_parsing(char *s, int lim)
 {
-	N *q, *w,*res;
-	Z *d, *t, *resZ;
-	Q *h, *l;
-	P g,f;
-	int n,i,lim,key,clas,num,sign,key1;
-	char c_sign;
-	char *s;
-	int sys;
-	lim = 150;
-	printf("Choose your OS type:\n1-Windows\n2-Linux\nYour answer: ");
-	scanf("%d", &sys);
-	while(sys < 0 || sys > 2)
+	N* b;
+	int n;
+	n = new_gets(s,lim);
+	b = (N*)malloc(sizeof(N));
+	if(b)
 	{
-		printf("Wrong answer! Try again: ");
-		scanf("%d", &sys);
+		b->A = (int*)malloc(n*sizeof(int));
+		input(b,s,n);
 	}
-	clear(sys);
-	s = (char*)malloc(lim*sizeof(char));
-	if(s != NULL)
+	return b;
+}
+
+Z* int_parsing(char *s, int lim)
+{
+	Z* a;
+	int n;
+	n = new_gets(s,lim);
+	a = (Z*)malloc(sizeof(Z));
+	a->num = (N*)malloc(sizeof(N));
+	a->num->A = (int*)malloc(n*sizeof(int));
+	a->sign = input(a->num,s,n);
+	return a;
+}
+
+Q* rat_parsing(char *s, int lim)
+{
+	char *s1,*s2;
+	Q* a;
+	int i,j,size_s1,size_s2;
+	new_gets(s,lim);
+	s1 = (char*)malloc(lim*sizeof(char));
+	s2 = (char*)malloc(lim*sizeof(char));
+	i = 0;
+	j = 0;
+	if(s1 && s2)
 	{
-		while( (key = menu()) != 3)
+		while(s[i] != '/' && s[i] != '\0')
 		{
-		    clear(sys);
-		    if(key != 3 && key != 2 && key != 1)
-	        {
-	            printf("Enter a correct answer!\n");
-	        }
-	        if(key == 1)
-	        {
-	        	printf("Choose class of number to work:\n1-Natural+{0}\n2-Integer\n3-Rational\n4-Polinom\nYour answer: ");
-	        	scanf("%d", &clas);
-	        	clear(sys);
-	        	if(clas == 1)
-	        	{
-	        		q = (N*)malloc(sizeof(N));
-	        		w = (N*)malloc(sizeof(N));
-	        		res = (N*)malloc(sizeof(N));
-	        		if(q && w && res)
-	        		{
-	        			switch(natural())
-						{
-							case 1:
-								printf("Enter the first number: ");
-								getchar();
-								n = new_gets(s,lim);
-								q->A = (int*)malloc(n*sizeof(int));
-								input(q,s,n);
-								printf("Enter the second number: ");
-								n = new_gets(s,lim);
-								w->A = (int*)malloc(n*sizeof(int));
-								input(w,s,n);
-								if(COM_NN_D(q,w)==2) printf("The first number is bigger\n"); 
-								else 
-									if(COM_NN_D(q,w)==0) printf("The numbers are equal\n"); 
-									else printf("The second number is bigger\n");
-								free(q->A);
-								free(w->A);
-								q->A = NULL; w->A = NULL;
-								break;
-							case 2:
-								printf("Enter your number: ");
-								getchar();
-								n = new_gets(s,lim);
-								q->A = (int*)malloc(n*sizeof(int));
-								input(q,s,n);
-								if(NZER_N_B(q) == 1)
-									printf("Your number equals zero\n");
-								else
-									printf("Your number doesn't equal zero\n");
-								free(q->A);
-								q->A = NULL;
-								break;
-							case 3:
-								printf("Enter your number: ");
-								getchar();
-								n = new_gets(s,lim);
-								q->A = (int*)malloc((n+1)*sizeof(int));
-								input(q,s,n);
-								printf("Result: ");
-								ADD_1N_N(q);
-								printf("\n");
-								output(q);
-								free(q->A);
-								q->A = NULL;
-								break;		
-							case 4:
-								printf("Enter the first number: ");
-								getchar();
-								n = new_gets(s,lim);
-								q->A = (int*)malloc(n*sizeof(int));
-								input(q,s,n);
-								printf("Enter the second number: ");
-								n = new_gets(s,lim);
-								w->A = (int*)malloc(n*sizeof(int));
-								input(w,s,n);
-								res =ADD_NN_N(q,w);
-								printf("Result ");
-								output(res);
-								printf("\n");
-								
-								break;		
-							case 5: 
-								printf("Enter the first number: ");
-								getchar();
-								n = new_gets(s,lim);
-								q->A = (int*)malloc(n*sizeof(int));
-								input(q,s,n);
-								printf("Enter the second number: ");
-								n = new_gets(s,lim);
-								w->A = (int*)malloc(n*sizeof(int));
-								input(w,s,n);
-								res = SUB_NN_N(q,w);
-								printf("Result: ");
-								output(res);
-								free(q->A);
-								free(w->A);
-								q->A = NULL; w->A = NULL;
-								break;		
-							case 6:
-								printf("Enter your number: ");
-								getchar();
-								n = new_gets(s,lim);
-								q->A = (int*)malloc(n*sizeof(int));
-								input(q,s,n);
-								printf("Enter digit: ");
-								scanf("%d", &num);
-								res = MUL_ND_N(q,num);
-								if(res != NULL )
-								{
-									printf("Result: ");
-									output(res);
-									free(res);
-									res = NULL;
-								}
-								else 
-									printf("Result is NULL!\n");
-								free(q->A);
-								q->A = NULL; 
-								break;
-							case 7:
-								printf("Enter your number: ");
-								getchar();
-								n = new_gets(s,lim);
-								q->A = (int*)malloc(n*sizeof(int));
-								input(q,s,n);
-								printf("Enter k: ");
-								scanf("%d", &num);
-								res = MUL_Nk_N(q,num);
-								if(res != NULL )
-								{
-									printf("Result: ");
-									output(res);
-									free(res);
-									res = NULL;
-								}
-								else 
-									printf("Result is NULL!\n");
-								free(q->A);
-								q->A = NULL;
-								break;
-							case 8: 
-								printf("Enter the first number: ");
-								getchar();
-								n = new_gets(s,lim);
-								q->A = (int*)malloc(n*sizeof(int));
-								input(q,s,n);
-								printf("Enter the second number: ");
-								n = new_gets(s,lim);
-								w->A = (int*)malloc(n*sizeof(int));
-								input(w,s,n);
-								res = MUL_NN_N(q,w);
-								if(res != NULL )
-								{
-									printf("Result: ");
-									output(res);
-									free(res);
-									res = NULL;
-								}
-								else 
-									printf("Result is NULL!\n");
-								free(q->A);
-								free(w->A);
-								q->A = NULL; w->A = NULL;
-								break;
-							 case 9:
-							 	printf("Enter the first number: ");
-								getchar();
-								n = new_gets(s,lim);
-								q->A = (int*)malloc(n*sizeof(int));
-								input(q,s,n);
-								printf("Enter digit: ");
-								scanf("%d", &num);
-								printf("Enter the second number: ");
-								getchar();
-								n = new_gets(s,lim);
-								w->A = (int*)malloc(n*sizeof(int));
-								input(w,s,n);
-								res = SUB_NDN_N(q,num,w);
-								if(res != NULL )
-								{
-									printf("Result: ");
-									output(res);
-									free(res);
-									res = NULL;
-								}
-								else 
-									printf("Result is NULL!\n");
-								free(q->A);
-								free(w->A);
-								q->A = NULL; w->A = NULL;
-								break;
-							case 10:
-								printf("Enter the first number: ");
-								getchar();
-								n = new_gets(s,lim);
-								q->A = (int*)malloc(n*sizeof(int));
-								input(q,s,n);
-								printf("Enter the second number: ");
-								n = new_gets(s,lim);
-								w->A = (int*)malloc(n*sizeof(int));
-								input(w,s,n);
-								printf("Result: %d", DIV_NN_Dk(q,w)[0]);
-								free(q->A);
-								free(w->A);
-								q->A = NULL; w->A = NULL;
-								break;
-							case 11:
-								printf("Enter the first number: ");
-								getchar();
-								n = new_gets(s,lim);
-								q->A = (int*)malloc(n*sizeof(int));
-								input(q,s,n);
-								printf("Enter the second number: ");
-								n = new_gets(s,lim);
-								w->A = (int*)malloc(n*sizeof(int));
-								input(w,s,n);
-								res = DIV_NN_N(q,w);
-								if(res != NULL )
-								{
-									printf("Result: ");
-									output(res);
-									free(res);
-									res = NULL;
-								}
-								else 
-									printf("Result is NULL!\n");
-								free(q->A);
-								free(w->A);
-								q->A = NULL; w->A = NULL;
-								break;
-							case 12:
-								printf("Enter the first number: ");
-								getchar();
-								n = new_gets(s,lim);
-								q->A = (int*)malloc(n*sizeof(int));
-								input(q,s,n);
-								printf("Enter the second number: ");
-								n = new_gets(s,lim);
-								w->A = (int*)malloc(n*sizeof(int));
-								input(w,s,n);
-								res = MOD_NN_N(q,w);
-								if(res != NULL )
-								{
-									printf("Result: ");
-									output(res);
-									free(res);
-									res = NULL;
-								}
-								else 
-									printf("Result is NULL!\n");
-								free(q->A);
-								free(w->A);
-								q->A = NULL; w->A = NULL;
-								break;
-							case 13:
-								printf("Enter the first number: ");
-								getchar();
-								n = new_gets(s,lim);
-								q->A = (int*)malloc(n*sizeof(int));
-								input(q,s,n);
-								printf("Enter the second number: ");
-								n = new_gets(s,lim);
-								w->A = (int*)malloc(n*sizeof(int));
-								input(w,s,n);
-								res = GCF_NN_N(q,w);
-								if(res != NULL )
-								{
-									printf("Result: ");
-									output(res);
-									free(res);
-									res = NULL;
-								}
-								else 
-									printf("Result is NULL!\n");
-								free(q->A);
-								free(w->A);
-								q->A = NULL; w->A = NULL;
-								break;
-							case 14:
-								printf("Enter the first number: ");
-								getchar();
-								n = new_gets(s,lim);
-								q->A = (int*)malloc(n*sizeof(int));
-								input(q,s,n);
-								printf("Enter the second number: ");
-								n = new_gets(s,lim);
-								w->A = (int*)malloc(n*sizeof(int));
-								input(w,s,n);
-								res = LCM_NN_N(q,w);
-								if(res != NULL )
-								{
-									printf("Result: ");
-									output(res);
-									free(res);
-									res = NULL;
-								}
-								else 
-									printf("Result is NULL!\n");
-								free(q->A);
-								free(w->A);
-								q->A = NULL; w->A = NULL;
-								break;
-							default:
-							break;
-						}
-	        		}
-	        	}
-	        	if(clas == 2)
-	        	{
-	        		d = (Z*)malloc(sizeof(Z));
-	        		t = (Z*)malloc(sizeof(Z));
-	        		resZ = (Z*)malloc(sizeof(Z));
-	        		if(d && t)
-	        		{
-	        			switch(integer())
-	        			{
-	        				case 1:
-			        			printf("Enter your number: ");
-			        			getchar();
-			        			n = new_gets(s,lim);
-			        			d->num = (N*)malloc(sizeof(N));
-			        			d->num->A = (int*)malloc(n*sizeof(int));
-			        			d->sign = input(d->num,s,n);
-			        			printf("Result: ");
-			        			output(ABS_Z_N(d));
-		     					break;
-	        				case 2:
-			        			printf("Enter your number: ");
-			        			getchar();
-			        			n = new_gets(s,lim);
-			        			d->num = (N*)malloc(sizeof(N));
-			        			d->num->A = (int*)malloc(n*sizeof(int));
-			        			d->sign = input(d->num,s,n);
-			        			printf("Result: ");
-			        			if(POZ_Z_D(d) == 2) printf("The number is positive\n");
-			        			if(POZ_Z_D(d) == 1) printf("The number is negative\n");
-			        			if(POZ_Z_D(d) == 0) printf("The number is zero\n");
-			        			break;
-		        			case 3:
-			        			printf("Enter your number: ");
-			        			getchar();
-			        			n = new_gets(s,lim);
-			        			d->num = (N*)malloc(sizeof(N));
-			        			d->num->A = (int*)malloc(n*sizeof(int));
-			        			d->sign = input(d->num,s,n);
-			        			printf("Result: ");
-			        			MUL_ZM_Z(d);
-			        			output_int(d);
-		        				break;
-		        			case 4:
-		        				printf("Enter your number: ");
-			        			getchar();
-			        			n = new_gets(s,lim);
-			        			q = (N*)malloc(sizeof(N));
-			        			q->A = (int*)malloc(n*sizeof(int));
-			        			input(q,s,n);
-			        			d = TRANS_N_Z(q);
-			        			printf("Result: ");
-			        			output_int(d);
-			        		case 5:
-		        				printf("Enter your number: ");
-			        			getchar();
-			        			n = new_gets(s,lim);
-			        			d->num = (N*)malloc(sizeof(N));
-			        			d->num->A = (int*)malloc(n*sizeof(int));
-			        			d->sign = input(d->num,s,n);
-			        			TRANS_Z_N(d);
-			        			printf("Result: ");
-			        			output(q);
-			        		case 6:
-			        			printf("Enter first number: ");
-			        			getchar();
-			        			n = new_gets(s,lim);
-			        			d->num = (N*)malloc(sizeof(N));
-			        			d->num->A = (int*)malloc(n*sizeof(int));
-			        			d->sign = input(d->num,s,n);
-			        			printf("Enter second number: ");
-			        			n = new_gets(s,lim);
-			        			t->num = (N*)malloc(sizeof(N));
-			        			t->num->A = (int*)malloc(n*sizeof(int));
-			        			t->sign = input(t->num,s,n);
-			        			resZ = ADD_ZZ_Z(d,t);
-			        			printf("Result: ");
-			        			output_int(resZ);
-			        			free(resZ);
-			        			resZ=NULL;
-			        			break;
-			        		case 7:
-			        			printf("Enter first number: ");
-			        			getchar();
-			        			n = new_gets(s,lim);
-			        			d->num = (N*)malloc(sizeof(N));
-			        			d->num->A = (int*)malloc(n*sizeof(int));
-			        			d->sign = input(d->num,s,n);
-			        			printf("Enter second number: ");
-			        			n = new_gets(s,lim);
-			        			t->num = (N*)malloc(sizeof(N));
-			        			t->num->A = (int*)malloc(n*sizeof(int));
-			        			t->sign = input(t->num,s,n);
-			        			resZ = SUB_ZZ_Z(d,t);
-			        			printf("Result: ");
-			        			output_int(resZ);
-			        			free(resZ);
-			        			resZ=NULL;
-			        			break;
-			        		case 8:
-			        			printf("Enter first number: ");
-			        			getchar();
-			        			n = new_gets(s,lim);
-			        			d->num = (N*)malloc(sizeof(N));
-			        			d->num->A = (int*)malloc(n*sizeof(int));
-			        			d->sign = input(d->num,s,n);
-			        			printf("Enter second number: ");
-			        			n = new_gets(s,lim);
-			        			t->num = (N*)malloc(sizeof(N));
-			        			t->num->A = (int*)malloc(n*sizeof(int));
-			        			t->sign = input(t->num,s,n);
-			        			resZ = MUL_ZZ_Z(d,t);
-			        			printf("Result: ");
-			        			output_int(resZ);
-			        			free(resZ);
-			        			resZ=NULL;
-		        				break;
-		        			case 9:
-			        			printf("Enter first number: ");
-			        			getchar();
-			        			n = new_gets(s,lim);
-			        			d->num = (N*)malloc(sizeof(N));
-			        			d->num->A = (int*)malloc(n*sizeof(int));
-			        			d->sign = input(d->num,s,n);
-			        			printf("Enter second number: ");
-			        			n = new_gets(s,lim);
-			        			t->num = (N*)malloc(sizeof(N));
-			        			t->num->A = (int*)malloc(n*sizeof(int));
-			        			t->sign = input(t->num,s,n);
-			        			resZ = DIV_ZZ_Z(d,t);
-			        			printf("Result: ");
-			        			output_int(resZ);
-			        			free(resZ);
-			        			resZ=NULL;
-		        				break;
-		        			case 10:
-			        			printf("Enter first number: ");
-			        			getchar();
-			        			n = new_gets(s,lim);
-			        			d->num = (N*)malloc(sizeof(N));
-			        			d->num->A = (int*)malloc(n*sizeof(int));
-			        			d->sign = input(d->num,s,n);
-			        			printf("Enter second number: ");
-			        			n = new_gets(s,lim);
-			        			t->num = (N*)malloc(sizeof(N));
-			        			t->num->A = (int*)malloc(n*sizeof(int));
-			        			t->sign = input(t->num,s,n);
-			        			resZ = MOD_ZZ_Z(d,t);
-			        			printf("Result: ");
-			        			output_int(resZ);
-			        			free(resZ);
-			        			resZ=NULL;
-		        				break;
-	        				default:
-	        				break;
-	        			}
-	        		}
+			s1[i] = s[i];
+			i++;
+		}
+		s1[i] = '\0';
+		i+=1;
+		if(s[i] != '\0')
+		{
+			while(s[i] != '\0')
+			{
+				s2[j] = s[i];
+				i++;
+				j++;
+			}
+			size_s1 = strlen(s1);
+			size_s2 = strlen(s2);		
+			a = (Q*)malloc(sizeof(Q));
+			a->m = (Z*)malloc(sizeof(Z));
+			a->m->num = (N*)malloc(sizeof(N));
+			a->m->num->A = (int*)malloc(size_s1*sizeof(int));
+			a->m->sign = input(a->m->num,s1,size_s1);
+			a->n = (N*)malloc(sizeof(N));
+			a->n->A = (int*)malloc(size_s2*sizeof(int));
+			input(a->n,s2,size_s2);
+		}
+		else
+		{
+			s2[0] = '1';
+			s2[1] = '\0';
+			size_s1 = strlen(s1);
+			size_s2 = strlen(s2);		
+			a = (Q*)malloc(sizeof(Q));
+			a->m = (Z*)malloc(sizeof(Z));
+			a->m->num = (N*)malloc(sizeof(N));
+			a->m->num->A = (int*)malloc(size_s1*sizeof(int));
+			a->m->sign = input(a->m->num,s1,size_s1);
+			a->n = (N*)malloc(sizeof(N));
+			a->n->A = (int*)malloc(size_s2*sizeof(int));
+			input(a->n,s2,size_s2);
+		}
 
-	        	}
-	        	if(clas == 3)
-	        	{
-	        		h = (Q*)malloc(sizeof(Q));
-	        		l =	(Q*)malloc(sizeof(Q));
-	        		if(h && l)
-	        		{
-	        			switch(rational())
-	        			{
-	        				case 1:
-	        					printf("Enter numerator of number: ");
-								getchar();
-								n = new_gets(s,lim);
-								h->m = (Z*)malloc(sizeof(Z));
-								h->m->num = (N*)malloc(sizeof(N));
-								h->m->num->A = (int*)malloc(n*sizeof(int));
-								h->m->sign = input(h->m->num,s,n);
-								printf("Enter denumerator of number: ");
-								n = new_gets(s,lim);
-								h->n = (N*)malloc(sizeof(N));
-								h->n->A = (int*)malloc(n*sizeof(int));
-								input(h->n,s,n);
-								
-								output_rat(RED_Q_Q(h));
-								break;
-							case 3:
-								printf("Enter your number: ");
-			        			getchar();
-			        			n = new_gets(s,lim);
-			        			d = (Z*)malloc(sizeof(Z));
-			        			d->num = (N*)malloc(sizeof(N));
-			        			d->num->A = (int*)malloc(n*sizeof(int));
-			        			d->sign = input(d->num,s,n);
-			        			output_int(d);
-			        			printf("Result: ");
-			        			output_rat(TRANS_Z_Q(d));
-		     					break;
-		     				case 4:
-								printf("Enter numerator of first number: ");
-								getchar();
-								n = new_gets(s,lim);
-								h->m = (Z*)malloc(sizeof(Z));
-								h->m->num = (N*)malloc(sizeof(N));
-								h->m->num->A = (int*)malloc(n*sizeof(int));
-								h->m->sign = input(h->m->num,s,n);
-								printf("Enter denumerator of first number: ");
-								n = new_gets(s,lim);
-								h->n = (N*)malloc(sizeof(N));
-								h->n->A = (int*)malloc(n*sizeof(int));
-								input(h->n,s,n);
-			        			
-			        			printf("Result: ");
-			        			output_int(TRANS_Q_Z(h));
-		     					break;
-							case 5:
-								printf("Enter numerator of first number: ");
-								getchar();
-								n = new_gets(s,lim);
-								h->m = (Z*)malloc(sizeof(Z));
-								h->m->num = (N*)malloc(sizeof(N));
-								h->m->num->A = (int*)malloc(n*sizeof(int));
-								h->m->sign = input(h->m->num,s,n);
-								printf("Enter denumerator of first number: ");
-								n = new_gets(s,lim);
-								h->n = (N*)malloc(sizeof(N));
-								h->n->A = (int*)malloc(n*sizeof(int));
-								input(h->n,s,n);
-								printf("Enter numerator of second number: ");
-								n = new_gets(s,lim);
-								l->m = (Z*)malloc(sizeof(Z));
-								l->m->num = (N*)malloc(sizeof(N));
-								l->m->num->A = (int*)malloc(n*sizeof(int));
-								l->m->sign = input(l->m->num,s,n);
-								printf("Enter denumerator of second number: ");
-								n = new_gets(s,lim);
-								l->n = (N*)malloc(sizeof(N));
-								l->n->A = (int*)malloc(n*sizeof(int));
-								input(l->n,s,n);
-								output_rat(ADD_QQ_Q(h,l));
-								break;
-							case 6:
-								printf("Enter numerator of first number: ");
-								getchar();
-								n = new_gets(s,lim);
-								h->m = (Z*)malloc(sizeof(Z));
-								h->m->num = (N*)malloc(sizeof(N));
-								h->m->num->A = (int*)malloc(n*sizeof(int));
-								h->m->sign = input(h->m->num,s,n);
-								printf("Enter denumerator of first number: ");
-								n = new_gets(s,lim);
-								h->n = (N*)malloc(sizeof(N));
-								h->n->A = (int*)malloc(n*sizeof(int));
-								input(h->n,s,n);
-								printf("Enter numerator of second number: ");
-								n = new_gets(s,lim);
-								l->m = (Z*)malloc(sizeof(Z));
-								l->m->num = (N*)malloc(sizeof(N));
-								l->m->num->A = (int*)malloc(n*sizeof(int));
-								l->m->sign = input(l->m->num,s,n);
-								printf("Enter denumerator of second number: ");
-								n = new_gets(s,lim);
-								l->n = (N*)malloc(sizeof(N));
-								l->n->A = (int*)malloc(n*sizeof(int));
-								input(l->n,s,n);
-								output_rat(l);
-								output_rat(SUB_QQ_Q(h,l));
-								break;
-							case 7:
-								printf("Enter numerator of first number: ");
-								getchar();
-								n = new_gets(s,lim);
-								h->m = (Z*)malloc(sizeof(Z));
-								h->m->num = (N*)malloc(sizeof(N));
-								h->m->num->A = (int*)malloc(n*sizeof(int));
-								h->m->sign = input(h->m->num,s,n);
-								printf("Enter denumerator of first number: ");
-								n = new_gets(s,lim);
-								h->n = (N*)malloc(sizeof(N));
-								h->n->A = (int*)malloc(n*sizeof(int));
-								input(h->n,s,n);
-								printf("Enter numerator of second number: ");
-								n = new_gets(s,lim);
-								l->m = (Z*)malloc(sizeof(Z));
-								l->m->num = (N*)malloc(sizeof(N));
-								l->m->num->A = (int*)malloc(n*sizeof(int));
-								l->m->sign = input(l->m->num,s,n);
-								printf("Enter denumerator of second number: ");
-								n = new_gets(s,lim);
-								l->n = (N*)malloc(sizeof(N));
-								l->n->A = (int*)malloc(n*sizeof(int));
-								input(l->n,s,n);
-
-								output_rat(MUL_QQ_Q(h,l));
-								break;
-							case 8:
-								printf("Enter numerator of first number: ");
-								getchar();
-								n = new_gets(s,lim);
-								h->m = (Z*)malloc(sizeof(Z));
-								h->m->num = (N*)malloc(sizeof(N));
-								h->m->num->A = (int*)malloc(n*sizeof(int));
-								h->m->sign = input(h->m->num,s,n);
-								printf("Enter denumerator of first number: ");
-								n = new_gets(s,lim);
-								h->n = (N*)malloc(sizeof(N));
-								h->n->A = (int*)malloc(n*sizeof(int));
-								input(h->n,s,n);
-								printf("Enter numerator of second number: ");
-								n = new_gets(s,lim);
-								l->m = (Z*)malloc(sizeof(Z));
-								l->m->num = (N*)malloc(sizeof(N));
-								l->m->num->A = (int*)malloc(n*sizeof(int));
-								l->m->sign = input(l->m->num,s,n);
-								printf("Enter denumerator of second number: ");
-								n = new_gets(s,lim);
-								l->n = (N*)malloc(sizeof(N));
-								l->n->A = (int*)malloc(n*sizeof(int));
-								input(l->n,s,n);
-								output_rat(DIV_QQ_Q(h,l));
-								break;
-	        				default:
-	        				break;
-	        			}
-	        		}
-	        
-	        	}
-	        	if(clas == 4)
-	        	{
-
-	        	}
-
-        	}
-        }
-	    free(s);
-		s = NULL;
+		
 	}
-	else
-		printf("Error at memory location! Bye!");
-	return 0;
+	return a;
+}
+
+void clear_N(N* a)
+{
+	free(a->A);
+	a->A = NULL;
+	free(a);
+	a = NULL;
+}
+
+void clear_Z(Z* a)
+{
+	clear_N(a->num);
+	free(a);
+	a = NULL;
+}
+
+void clear_Q(Q* a)
+{
+	clear_Z(a->m);
+	clear_N(a->n);
 }
 

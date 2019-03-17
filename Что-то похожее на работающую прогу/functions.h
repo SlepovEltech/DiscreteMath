@@ -1,0 +1,14 @@
+int new_gets(char *s, int lim);
+int input(N *q,char *s, int n); 
+void output(N *a);
+void output_int(Z *a);
+void output_rat(Q* a);
+void clear(int sys);
+void print_header();
+int menu();
+N* natural_parsing(char *s, int lim);
+Z* int_parsing(char *s, int lim);
+Q* rat_parsing(char *s,int lim);
+void clear_N(N* a);
+void clear_Z(Z* a);
+void clear_Q(Q* a);

@@ -196,7 +196,6 @@ N* SUB_NN_N (N *a, N *b)
                 while ( S->A[S->n-1]==0)
                 {
                     S->n-=1;
-                    //S->A=(int*)realloc(S->A,S->n);
                 }
             }
         }
@@ -236,7 +235,6 @@ N* MUL_ND_N (N *a, int num)
                 }
                 else
                 {
-                    //S->A=(int*)realloc(S->A, a->n);
                     S->n=a->n;
                 }
             }
@@ -296,16 +294,10 @@ N *MUL_NN_N (N *a, N *b)
         {
             res->n=((a->n)+(b->n));
             for (i=0;i<(b->n);i++)
-            {
-                printf("b%d=%d\n",i,b->A[i]);
                 res=ADD_NN_N(res,MUL_Nk_N(MUL_ND_N(a,b->A[i]),i));
-            }
         }
         if (res->A[(a->n)+(b->n)-1]==0)
-        {
-            //res->A = (int*)realloc(res->A, 1);
             res->n--;
-        }
     }
     return res;
 }
