@@ -42,8 +42,10 @@ int POZ_Z_D(Z* a)
 //Z-3
 void MUL_ZM_Z(Z* a)
 {
-	if(a->sign == 0) a->sign = 1;
-	if(a->sign == 1) a->sign = 0;
+	if(a->sign == 0) 
+        a->sign = 1;
+	else
+        a->sign = 0;
 }
 //Z-4
 Z* TRANS_N_Z(N* n_num)
