@@ -4,13 +4,11 @@ int rational()
 	printf("Choose operation with rational numbers: ");
 	printf("\n0-To back to menu\n1-Fraction reduction\n2-Check into integer\n3-Converting integer into rational\n4-Converting rational into integer\n");
 	printf("5-Addition of rationall\n6-Substract of integers\n");
-<<<<<<< HEAD
 	printf("7-Multiplication of rationals\n8-Delenie of rational\n");
-	printf("Number enter as m/n when m - integer, n - natural\n");
-=======
 	printf("7-Multiplication of rationals\n8-Division of rational\n");
->>>>>>> eb262e066bf834a156befcdf9ec5e5cce4575318
+	printf("7-Multiplication of rationals\n8-Division of rational\n");
 	printf("Your answer: ");
+	printf("Number enter as m/n when m - integer, n - natural\n");
 	scanf("%d", &key);
 	return key;
 }
