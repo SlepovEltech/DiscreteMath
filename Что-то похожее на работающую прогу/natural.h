@@ -289,15 +289,23 @@ N *MUL_NN_N (N *a, N *b)
     res=(N*)malloc(sizeof(N));
     if (res)
     {
-        res->A=(int*)calloc(((a->n)+(b->n)),sizeof(int));
-        if (res->A)
-        {
-            res->n=((a->n)+(b->n));
-            for (i=0;i<(b->n);i++)
-                res=ADD_NN_N(res,MUL_Nk_N(MUL_ND_N(a,b->A[i]),i));
-        }
-        if (res->A[(a->n)+(b->n)-1]==0)
-            res->n--;
+    	if( (NZER_N_B(a) == 1) || (NZER_N_B(b) == 1))
+    	{
+    		res->A = (int*)calloc(1,sizeof(int));
+    		res->n = 1;
+    	}
+    	else
+    	{
+    		res->A=(int*)calloc(((a->n)+(b->n)),sizeof(int));
+	        if (res->A)
+	        {
+	            res->n=((a->n)+(b->n));
+	            for (i=0;i<(b->n);i++)
+	                res=ADD_NN_N(res,MUL_Nk_N(MUL_ND_N(a,b->A[i]),i));
+	        }
+	        if (res->A[(a->n)+(b->n)-1]==0)
+	            res->n--;
+    	}
     }
     return res;
 }

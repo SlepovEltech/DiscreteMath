@@ -613,8 +613,6 @@ int main()
 									printf("Enter your second number: ");
 									new_gets(s,lim);
 									l = rat_parsing(s,lim);
-									output_rat(h);
-									output_rat(l);
 									resQ = MUL_QQ_Q(h,l);
 									if(h && l && resQ)
 									{
