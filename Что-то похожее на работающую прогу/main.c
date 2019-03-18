@@ -571,6 +571,7 @@ int main()
 									new_gets(s,lim);
 									h = rat_parsing(s,lim);
 									printf("Enter your second number: ");
+									new_gets(s,lim);
 									l = rat_parsing(s,lim);
 									resQ = ADD_QQ_Q(h,l);
 									if(h && l && resQ)
@@ -590,6 +591,7 @@ int main()
 									new_gets(s,lim);
 									h = rat_parsing(s,lim);
 									printf("Enter your second number: ");
+									new_gets(s,lim);
 									l = rat_parsing(s,lim);
 									resQ = SUB_QQ_Q(h,l);
 									if(h && l && resQ)
@@ -609,6 +611,7 @@ int main()
 									new_gets(s,lim);
 									h = rat_parsing(s,lim);
 									printf("Enter your second number: ");
+									new_gets(s,lim);
 									l = rat_parsing(s,lim);
 									output_rat(h);
 									output_rat(l);
@@ -630,6 +633,7 @@ int main()
 									new_gets(s,lim);
 									h = rat_parsing(s,lim);
 									printf("Enter your second number: ");
+									new_gets(s,lim);
 									l = rat_parsing(s,lim);
 									resQ = DIV_QQ_Q(h,l);
 									if(h && l && resQ)
