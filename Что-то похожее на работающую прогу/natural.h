@@ -3,7 +3,7 @@ int natural()
 {
 	int key;
 	printf("Choose operation with natural numbers: ");
-	printf("\n1-Comparison of natural numbers\n2-Check if zero\n3-Appendix 1\n4-Addition of natural numbers\n");
+	printf("\n0-To back to menu\n1-Comparison of natural numbers\n2-Check if zero\n3-Appendix 1\n4-Addition of natural numbers\n");
 	printf("5-Subtraction(the first - the biggest, the second -smaller or equal)\n6-Multiplying a natural number by a digit\n");
 	printf("7-Multiplying a natural number by 10 in deg\n8-Multiplication of natural numbers\n");
 	printf("9-Subtraction from other natural, multiplied by a digit\n10-Calculation of the first digit of the division of greater natural by less, multiplied by 10^k\n");

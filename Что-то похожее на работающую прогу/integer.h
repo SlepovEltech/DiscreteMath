@@ -6,7 +6,7 @@ int integer()
 {
 	int key;
 	printf("Choose operation with integer numbers: ");
-	printf("\n1-The absolute value of the number\n2-The positivity of the number\n3-Multiplying by (-1)\n4-Converting natural into integer\n");
+	printf("\n0-To back to menu\n1-The absolute value of the number\n2-The positivity of the number\n3-Multiplying by (-1)\n4-Converting natural into integer\n");
 	printf("5-Converting integer into natural\n6-Addition of integers\n");
 	printf("7-Subtract integers\n8-Multiplication of integer numbers\n");
 	printf("9-The DIV of integer numbers\n10-The MOD of integer numbers\n");
