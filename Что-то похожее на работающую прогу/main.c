@@ -493,6 +493,7 @@ int main()
 	        				case 1:
 	        					printf("Enter your number: ");
 								getchar();
+								new_gets(s,lim);
 								h = rat_parsing(s,lim);
 								if(h)
 								{
@@ -505,6 +506,7 @@ int main()
 							case 2:
 								printf("Enter your number: ");
 								getchar();
+								new_gets(s,lim);
 								h = rat_parsing(s,lim);
 								if(h)
 								{
@@ -527,6 +529,7 @@ int main()
 							case 3:
 								printf("Enter your number: ");
 			        			getchar();
+			        			new_gets(s,lim);
 			        			d = int_parsing(s,lim);
 			        			if(h)
 			        			{
@@ -540,6 +543,7 @@ int main()
 		     				case 4:
 								printf("Enter your number: ");
 								getchar();
+								new_gets(s,lim);
 								h = rat_parsing(s,lim);
 								if(h)
 								{
@@ -554,6 +558,7 @@ int main()
 							case 5:
 								printf("Enter your first number: ");
 								getchar();
+								new_gets(s,lim);
 								h = rat_parsing(s,lim);
 								printf("Enter your second number: ");
 								l = rat_parsing(s,lim);
@@ -572,6 +577,7 @@ int main()
 							case 6:
 								printf("Enter your first number: ");
 								getchar();
+								new_gets(s,lim);
 								h = rat_parsing(s,lim);
 								printf("Enter your second number: ");
 								l = rat_parsing(s,lim);
@@ -590,6 +596,7 @@ int main()
 							case 7:
 								printf("Enter your first number: ");
 								getchar();
+								new_gets(s,lim);
 								h = rat_parsing(s,lim);
 								printf("Enter your second number: ");
 								l = rat_parsing(s,lim);
@@ -610,6 +617,7 @@ int main()
 							case 8:
 								printf("Enter your first number: ");
 								getchar();
+								new_gets(s,lim);
 								h = rat_parsing(s,lim);
 								printf("Enter your second number: ");
 								l = rat_parsing(s,lim);
@@ -761,7 +769,6 @@ Q* rat_parsing(char *s, int lim)
 	char *s1,*s2;
 	Q* a;
 	int i,j,size_s1,size_s2;
-	new_gets(s,lim);
 	s1 = (char*)malloc(lim*sizeof(char));
 	s2 = (char*)malloc(lim*sizeof(char));
 	i = 0;
