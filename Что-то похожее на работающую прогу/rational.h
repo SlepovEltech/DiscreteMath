@@ -4,7 +4,7 @@ int rational()
 	printf("Choose operation with rational numbers: ");
 	printf("\n0-To back to menu\n1-Fraction reduction\n2-Check into integer\n3-Converting integer into rational\n4-Converting rational into integer\n");
 	printf("5-Addition of rationall\n6-Substract of integers\n");
-	printf("7-Multiplication of rationals\n8-Delenie of rational\n");
+	printf("7-Multiplication of rationals\n8-Division of rational\n");
 	printf("Your answer: ");
 	scanf("%d", &key);
 	return key;
