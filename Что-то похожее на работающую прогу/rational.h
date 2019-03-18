@@ -71,7 +71,6 @@ Q* ADD_QQ_Q(Q* a, Q*b)
 {
 	Q* res;
 	res = (Q*)malloc(sizeof(Q));
-	//res->m = (Z*)malloc(sizeof(Z));
 	res->m = ADD_ZZ_Z(MUL_ZZ_Z(a->m,TRANS_N_Z(b->n)),MUL_ZZ_Z(b->m,TRANS_N_Z(a->n)));
 	res->n = MUL_NN_N(a->n,b->n);
 	res = RED_Q_Q(res);

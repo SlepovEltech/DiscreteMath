@@ -69,6 +69,7 @@ int main()
 								break;
 							case 2:
 								printf("Enter your number: ");
+								getchar();
 								q = natural_parsing(s,lim);
 								if(q)
 								{
@@ -83,6 +84,7 @@ int main()
 								break;
 							case 3:
 								printf("Enter your number: ");
+								getchar();
 								q = natural_parsing(s,lim);
 								if(q)
 								{
@@ -588,10 +590,11 @@ int main()
 							case 7:
 								printf("Enter your first number: ");
 								getchar();
-								n = new_gets(s,lim);
 								h = rat_parsing(s,lim);
 								printf("Enter your second number: ");
 								l = rat_parsing(s,lim);
+								output_rat(h);
+								output_rat(l);
 								resQ = MUL_QQ_Q(h,l);
 								if(h && l && resQ)
 								{
@@ -693,12 +696,16 @@ void output_int(Z *a)
 void output_rat(Q* a)
 {
 	output_int(a->m);
-	if( (a->n->n != 1) && (a->n->A[0] != 1) )
+	if( (a->n->n == 1) && (a->n->A[0] == 1) )
+	{
+		printf("\n");
+	}
+	else
 	{
 		printf("/");
 		output(a->n);
+		printf("\n");
 	}
-	printf("\n");
 }
 void clear(int sys)
 {
@@ -767,17 +774,18 @@ Q* rat_parsing(char *s, int lim)
 			i++;
 		}
 		s1[i] = '\0';
-		i+=1;
-		if(s[i] != '\0')
+		if(s[i] == '/')
 		{
+			i+=1;
 			while(s[i] != '\0')
 			{
 				s2[j] = s[i];
 				i++;
 				j++;
 			}
+			s2[j] = '\0';
 			size_s1 = strlen(s1);
-			size_s2 = strlen(s2);		
+			size_s2 = strlen(s2);	
 			a = (Q*)malloc(sizeof(Q));
 			a->m = (Z*)malloc(sizeof(Z));
 			a->m->num = (N*)malloc(sizeof(N));
@@ -802,8 +810,10 @@ Q* rat_parsing(char *s, int lim)
 			a->n->A = (int*)malloc(size_s2*sizeof(int));
 			input(a->n,s2,size_s2);
 		}
-
-		
+		free(s1);
+		free(s2);
+		s1 = NULL;
+		s2 = NULL;
 	}
 	return a;
 }
