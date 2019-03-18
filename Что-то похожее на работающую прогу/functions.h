@@ -8,7 +8,7 @@ void print_header();
 int menu();
 N* natural_parsing(char *s, int lim);
 Z* int_parsing(char *s, int lim);
-Q* rat_parsing(char *s,int lim);
+Q* rat_parsing(char *s);
 void clear_N(N* a);
 void clear_Z(Z* a);
 void clear_Q(Q* a);
