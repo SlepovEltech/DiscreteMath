@@ -7,6 +7,14 @@
 #include "natural.h"
 #include "integer.h"
 #include "rational.h"
+#include "polynom.h"
+
+
+int mainT(){
+    P* tmp = polyGet();
+    polyPrint(tmp);
+    polyFree(tmp);
+}
 
 int main()
 {
@@ -724,7 +732,7 @@ void output_rat(Q* a)
 	output_int(a->m);
 	if( (a->n->n == 1) && (a->n->A[0] == 1) )
 	{
-		printf("\n");
+		;//printf("\n"); ЕСЛИ НЕ БУДЕТ РАБОТАТЬ, СДЕЛАЙТЕ ПЕРЕГРУЗКУ С ФУНКЦИЕЙ
 	}
 	else
 	{
@@ -749,7 +757,7 @@ int menu()
 	int key;
 	print_header();
 	printf("\n\t\t\t\tMENU\n");
-	printf("Press '1' to start\nPress '2' to check information about program\nPress '3' to close the program\nYour answer: ");
+	printf("Press '1' to start\nPress '2' to check information about program\nPress '3' to close the program\nPress 'F' to pay respect\nYour answer: ");
 	scanf("%d", &key);
 	system("clear");
 
