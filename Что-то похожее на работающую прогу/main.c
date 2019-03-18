@@ -14,6 +14,7 @@ int mainT(){
     P* tmp = polyGet();
     polyPrint(tmp);
     polyFree(tmp);
+	return 0;
 }
 
 int main()
