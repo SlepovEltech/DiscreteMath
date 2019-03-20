@@ -1,6 +1,6 @@
-#include <stdio.h>
+/*#include <stdio.h>
 #include <stdlib.h>
-#include "natural.h"
+#include "natural.h"*/
 //Menu list with options
 int integer()
 {
