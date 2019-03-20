@@ -1,14 +1,14 @@
-/*#include <stdio.h>
-#include <stdlib.h>*/
-
+#include <stdio.h>
+#include <stdlib.h>
+#include "natural.h"
 //Menu list with options
 int integer()
 {
 	int key;
 	printf("Choose operation with integer numbers: ");
-	printf("\n0-To go back to menu\n1-The absolute value of the number\n2-The positivity of the number\n3-Multiplying by (-1)\n4-Converting natural into integer\n");
+	printf("\n1-The absolute value of the number\n2-The positivity of the number\n3-Multiplying by (-1)\n4-Converting natural into integer\n");
 	printf("5-Converting integer into natural\n6-Addition of integers\n");
-	printf("7-Subtraction of integers\n8-Multiplication of integer numbers\n");
+	printf("7-Subtract integers\n8-Multiplication of integer numbers\n");
 	printf("9-The DIV of integer numbers\n10-The MOD of integer numbers\n");
 	printf("Your answer: ");
 	scanf("%d", &key);
@@ -42,10 +42,8 @@ int POZ_Z_D(Z* a)
 //Z-3
 void MUL_ZM_Z(Z* a)
 {
-	if(a->sign == 0) 
-        a->sign = 1;
-	else
-        a->sign = 0;
+	if(a->sign == 0) a->sign = 1;
+	if(a->sign == 1) a->sign = 0;
 }
 //Z-4
 Z* TRANS_N_Z(N* n_num)
@@ -71,7 +69,7 @@ N* TRANS_Z_N(Z* z_num)
     if(z_num->sign == 0)
         result = z_num->num;
     else
-        puts("Your number is negative");
+        puts("It's negative number");
 
     return result;
 }
@@ -80,20 +78,22 @@ Z* ADD_ZZ_Z(Z* first, Z* second)
 {
     Z* result = NULL;
     Z *t = NULL;
-    int i;
+
     if(POZ_Z_D(first) == 0 && POZ_Z_D(second) != 0)
         result = second;
     if(POZ_Z_D(first) != 0 && POZ_Z_D(second) == 0)
+        result = first;
+    if(POZ_Z_D(first) == 0 && POZ_Z_D(second) == 0)
         result = first;
     if((POZ_Z_D(first) == 2 && POZ_Z_D(second) == 2) || (POZ_Z_D(first) == 1 && POZ_Z_D(second) == 1))
     {
         if(((result = (Z*)malloc(sizeof(Z)))!= NULL))
         {
             result->sign = first->sign;
-            result->num = ADD_NN_N(first->num, second->num); 
+            result->num = ADD_NN_N(first->num, second->num);
         }
         else
-            puts("Memory allocation error!");
+                puts("Memory allocation error!");
     }
     if(POZ_Z_D(first) == 2 && POZ_Z_D(second) == 1)
     {
