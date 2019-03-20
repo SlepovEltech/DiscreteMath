@@ -10,7 +10,7 @@
 #include "polynom.h"
 
 // Тестовый main хомяка. не трогать
-int mainT(){
+int main(){
 	printf("First:\n");
     P* A = polynom_parsing();
 	printf("Second:\n");
@@ -28,7 +28,7 @@ int mainT(){
 	return 0;
 }
 
-int main()
+int mainT()
 {
 	N *q, *w,*res;
 	Z *d, *t, *resZ;
