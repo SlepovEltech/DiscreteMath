@@ -137,6 +137,7 @@ int main()
 										clear_N(w);
 										clear_N(res);
 									}
+									else
 										printf("Error at number allocation!\n");
 									break;		
 								case 5: 
@@ -676,7 +677,7 @@ int main()
 
 		        	}
 		        
-		        printf("\bEnter any key when ready");
+		        printf("\nEnter any key when ready");
 		        getchar();
 		        clear(sys);
 		        printf("Choose class of number to work:\n0-Back to main menu\n1-Natural+{0}\n2-Integer\n3-Rational\n4-Polinom\nYour answer: ");
@@ -739,6 +740,7 @@ void output_int(Z *a)
 	if(a->sign == 1) printf("-");
 	output(a->num);
 }
+
 void output_rat(Q* a)
 {
 	output_int(a->m);

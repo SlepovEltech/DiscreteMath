@@ -7,8 +7,8 @@ int rational()
 	printf("7-Multiplication of rationals\n8-Delenie of rational\n");
 	printf("7-Multiplication of rationals\n8-Division of rational\n");
 	printf("7-Multiplication of rationals\n8-Division of rational\n");
-	printf("Your answer: ");
 	printf("Number enter as m/n when m - integer, n - natural\n");
+	printf("Your answer: ");
 	scanf("%d", &key);
 	return key;
 }
