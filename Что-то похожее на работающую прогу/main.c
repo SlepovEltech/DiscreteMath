@@ -760,11 +760,15 @@ void output_pol(P *mas){
     // Выводит многочлен в виде Ax^n+...+Z
     int i;
     for(i=mas->deg-1;i>=0;i--){
-        printf("%c",(mas->deg==1)?'\0':'+');
+    	if( ((mas->c[i].m->num->A[0]) != 0))
+	{
+		printf("%c",((mas->c[i].m->sign!=1)&&(i!=mas->deg-1))?'+':'\0');
         output_rat(&mas->c[i]);
-        printf("x^%d",i);
-        }
-        printf("\n");
+		if(i>0)
+        	printf("%s%d",((i!=0)?"x^":""),i);
+		}
+	}
+	printf("\n");
 }
 
 void clear(int sys)
