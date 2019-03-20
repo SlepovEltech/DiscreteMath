@@ -3,62 +3,39 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-P* polyGet(){
-    // Спрашивает у пользователя многочлен и возвращает его
-    int deg,i;
-    char buf[150];
-    P* result;
-    printf("Enter the highest degree of the polynom:");
-    scanf("%d", &deg);
-    deg++;
-    printf("Now program will ask you coef's at every power\n");
-    if(deg>0){
-        // Пошла жара
-        result = (P*)malloc(sizeof(P));
-        result->c = (Q*)calloc(deg,sizeof(Q));
-        result->deg =deg;
-    for(i=result->deg-1;i>=0;i--){
-            printf("x^%d: ",i);
-            fseek(stdin,0,SEEK_END);
-            new_gets(buf,150);
-            Q* tmp = rat_parsing(buf);
+void clear_P(P*);
+P* polynom_parsing();
+void output_pol(P*);
+P* ADD_PP_P(P* first,P* second){
+    int i;
+    int maxDeg = ((first->deg>second->deg)?first->deg:second->deg);
+    P* result = (P*)calloc(1,sizeof(P));
+    Q* tmp;
+    result->deg = maxDeg;
+    result->c = (Q*)calloc(maxDeg+1,sizeof(Q));
+    for(i=0;i<maxDeg;i++){
+        if((i<first->deg)&&(i<second->deg)){
+            printf("A\n");
+            tmp = ADD_QQ_Q(&(first->c[i]),&(second->c[i]));
             result->c[i] = *tmp;
             free(tmp);
         }
-    }
-    return result;
-}
-
-void polyPrint(P *mas){
-    // Выводит многочлен в виде Ax^n+...+Z
-    int i;
-    for(i=mas->deg-1;i>=0;i--){
-        printf("%c",(mas->deg==1)?'\0':'+');
-        output_rat(&mas->c[i]);
-        printf("x^%d",i);
+        else
+            if((i<first->deg)){
+            printf("B\n");
+            tmp = ADD_QQ_Q(&(first->c[i]),&(result->c[i]));
+            result->c[i] = *tmp;
+            free(tmp);
         }
-        printf("\n");
-}
-
-void polyFree(P *mas){
-    // Чистит всё, что связанно с многочленами
-    int i;
-    for(i=0;i<mas->deg;i++)
-        clear_Q(&mas->c[i]);
-    free(mas);
-}
-
-P* ADD_PP_P(P* first,P* second){
-    int i;
-    int maxDeg = (first->deg>second->deg)?first->deg:second->deg;
-    P* result = (P*)malloc(sizeof(P));
-    result->deg = maxDeg;
-    result->c = (Q*)calloc(maxDeg,sizeof(Q));
-    for(i=0;i<maxDeg;i++){
-        if((i<first->deg) && (i<second->deg)){
-            
-            ;
+                    
+            else
+                if((i<second->deg)){
+            printf("C\n");
+            tmp = ADD_QQ_Q(&(second->c[i]),&(result->c[i]));
+            result->c[i] = *tmp;
+            free(tmp);
         }
+        printf("%d\n",i);
     }
     return result;
 }

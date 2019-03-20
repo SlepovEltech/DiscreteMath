@@ -9,11 +9,22 @@
 #include "rational.h"
 #include "polynom.h"
 
-
+// Тестовый main хомяка. не трогать
 int mainT(){
-    P* tmp = polyGet();
-    polyPrint(tmp);
-    polyFree(tmp);
+	printf("First:\n");
+    P* A = polynom_parsing();
+	printf("Second:\n");
+	P* B = polynom_parsing();
+	P* C = ADD_PP_P(A,B);
+	printf("Your trying to add\n");
+	output_pol(A);
+	printf("with\n");
+	output_pol(B);
+	printf("And the sum is: ");
+	output_pol(C);
+    clear_P(A);
+    clear_P(B);
+    clear_P(C);
 	return 0;
 }
 
@@ -742,6 +753,18 @@ void output_rat(Q* a)
 		printf("\n");
 	}
 }
+
+void output_pol(P *mas){
+    // Выводит многочлен в виде Ax^n+...+Z
+    int i;
+    for(i=mas->deg-1;i>=0;i--){
+        printf("%c",(mas->deg==1)?'\0':'+');
+        output_rat(&mas->c[i]);
+        printf("x^%d",i);
+        }
+        printf("\n");
+}
+
 void clear(int sys)
 {
 	if(sys == 1) system("CLS");
@@ -790,6 +813,33 @@ Z* int_parsing(char *s, int lim)
 	a->sign = input(a->num,s,n);
 	return a;
 }
+
+P* polynom_parsing(){
+    // Спрашивает у пользователя многочлен и возвращает его
+    int deg,i;
+    char buf[150];
+    P* result;
+    printf("Enter the highest degree of the polynom:");
+    scanf("%d", &deg);
+    deg++;
+    printf("Now program will ask you coef's at every power\n");
+    if(deg>0){
+        // Пошла жара
+        result = (P*)malloc(sizeof(P));
+        result->c = (Q*)calloc(deg,sizeof(Q));
+        result->deg =deg;
+    for(i=result->deg-1;i>=0;i--){
+            printf("x^%d: ",i);
+            fseek(stdin,0,SEEK_END);
+            new_gets(buf,150);
+            Q* tmp = rat_parsing(buf);
+            result->c[i] = *tmp;
+            free(tmp);
+        }
+    }
+    return result;
+}
+
 
 Q* rat_parsing(char *s)
 {
@@ -875,3 +925,10 @@ void clear_Q(Q* a)
 	clear_N(a->n);
 }
 
+void clear_P(P *mas){
+    // Чистит всё, что связанно с многочленами
+    int i;
+    for(i=0;i<mas->deg;i++)
+        clear_Q(&(mas->c[i]));
+    free(mas);
+}
