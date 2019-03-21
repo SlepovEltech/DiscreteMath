@@ -125,3 +125,25 @@ Q* LED_P_Q(P* mas){
 int DEG_P_N(P* mas){
     return mas->deg;
 }
+
+//MUL_Pxk_P(Q* coef,d)
+P* DER_P_P(P* mas){
+    int i;
+    char buf[STDSIZE];
+    Q* tmp,*C;
+    P* result = (P*)calloc(1,sizeof(P));
+    int degree = mas->deg-1;
+    if(degree<0)
+        degree = 0;
+    result->c = (Q*)calloc(degree,sizeof(Q));
+    result->deg = degree;
+    for(i=0;i<degree;i++){
+        sprintf(buf,"%d",i);
+        C = rat_parsing(buf);
+        tmp = MUL_QQ_Q(&mas->c[i+1],C);
+        result->c[i] = *tmp;
+        free(tmp);
+        free(C);
+    }
+    return result;
+}

@@ -1,3 +1,5 @@
+#define STDSIZE 150
+// Оно тут специально, иначе заголовки не видят
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -17,8 +19,9 @@
 // Тестовый main хомяка. не трогать
 int mainT(){
     P* A = polynom_parsing();
-	Q *t = LED_P_Q(A); 
-	output_rat(t);
+	P* B = DER_P_P(A); 
+	output_pol(B);
+	clear_P(B);
 	clear_P(A);
 	return 0;
 }
@@ -32,7 +35,7 @@ int main()
 	int n,i,lim,key,clas,num,sign,key1;
 	char c_sign;
 	char *s;
-	lim = 150;
+	lim = STDSIZE;
 	s = (char*)malloc(lim*sizeof(char));
 	if(s != NULL)
 	{
@@ -800,7 +803,7 @@ Z* int_parsing(char *s, int lim)
 P* polynom_parsing(){
     // Спрашивает у пользователя многочлен и возвращает его
     int deg,i;
-    char buf[150];
+    char buf[STDSIZE];
     P* result;
     printf("Enter the highest degree of the polynom:");
     scanf("%d", &deg);
@@ -814,7 +817,7 @@ P* polynom_parsing(){
     for(i=result->deg-1;i>=0;i--){
             printf("x^%d: ",i);
             fseek(stdin,0,SEEK_END);
-            new_gets(buf,150);
+            new_gets(buf,STDSIZE);
             Q* tmp = rat_parsing(buf);
             result->c[i] = *tmp;
             free(tmp);
@@ -829,7 +832,7 @@ Q* rat_parsing(char *s)
 	char *s1,*s2;
 	Q* a;
 	int lim;
-	lim = 150;
+	lim = STDSIZE;
 	int i,j,size_s1,size_s2;
 	s1 = (char*)malloc(lim*sizeof(char));
 	s2 = (char*)malloc(lim*sizeof(char));
