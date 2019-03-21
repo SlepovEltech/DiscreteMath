@@ -413,9 +413,9 @@ int main()
 			        				printf("Result: ");
 			        				output_int(resZ);
 			        				puts("");
-			        				clear_Z(d);
-			        				clear_Z(t);
-			        				clear_Z(resZ);
+			        				//clear_Z(d);
+			        				//clear_Z(t);
+			        				//clear_Z(resZ);
 			        			}
 			        			else
 			        				printf("Error at array allocation!\n");
@@ -432,9 +432,9 @@ int main()
 			        				printf("Result: ");
 			        				output_int(resZ);
 			        				puts("");
-			        				clear_Z(resZ);
-			        				clear_Z(d);
-			        				clear_Z(t);
+			        				//clear_Z(resZ);
+			        				//clear_Z(d);
+			        				//clear_Z(t);
 			        			}
 			        			else
 			        				printf("Error at array allocatin!\n");
@@ -750,15 +750,11 @@ void output_pol(P *mas){
     // Выводит многочлен в виде Ax^n+...+Z
     int i;
     for(i=mas->deg-1;i>=0;i--){
-    if( ((mas->c[i].m->num->A[mas->c[i].m->num->n-1]) != 0))
-	{
-		printf("%c",((mas->c[i].m->sign!=1)&&(i!=mas->deg-1))?'+':'\0');
+        printf("%c",(mas->deg==1)?'\0':'+');
         output_rat(&mas->c[i]);
-		if(i>0)
-        	printf("%s%d",((i!=0)?"x^":""),i);
-		}
-	}
-	printf("\n");
+        printf("x^%d",i);
+        }
+        printf("\n");
 }
 
 void clear(int sys)

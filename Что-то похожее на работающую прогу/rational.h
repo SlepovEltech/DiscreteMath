@@ -20,6 +20,7 @@ Q* RED_Q_Q(Q* h)
 	res->m = (Z*)malloc(sizeof(Z));
 	res->m->num = DIV_NN_N(h->m->num,GCF_NN_N(h->m->num,h->n));
 	res->n = DIV_NN_N(h->n,GCF_NN_N(h->m->num,h->n));
+	res->m->sign = h->m->sign;
 	return res;
 }
 //Q-2
@@ -84,7 +85,6 @@ Q* SUB_QQ_Q(Q* a, Q*b)
 {
 	Q* res;
 	res = (Q*)malloc(sizeof(Q));
-	//res->m = (Z*)malloc(sizeof(Z));
 	res->m = SUB_ZZ_Z(MUL_ZZ_Z(a->m,TRANS_N_Z(b->n)),MUL_ZZ_Z(b->m,TRANS_N_Z(a->n)));
 	res->n = MUL_NN_N(a->n,b->n);
 	res = RED_Q_Q(res);
