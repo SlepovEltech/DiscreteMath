@@ -28,26 +28,20 @@ P* ADD_PP_P(P* first,P* second){
     zero.n = &b;
     //***
     result->deg = maxDeg;
-    result->c = (Q*)calloc(maxDeg+1,sizeof(Q));
+    result->c = (Q**)calloc(maxDeg+1,sizeof(Q*));
     for(i=0;i<maxDeg;i++){
         if((i<first->deg)&&(i<second->deg)){
-            tmp = ADD_QQ_Q(&(first->c[i]),&(second->c[i]));
-            result->c[i] = *tmp;
-            free(tmp);
+            result->c[i] = ADD_QQ_Q(first->c[i],second->c[i]);
         }
         else{
                 if((i<first->deg))
                 {
-                    tmp = ADD_QQ_Q(&(first->c[i]),&zero);
-                    result->c[i] = *tmp;
-                    free(tmp);
+                    result->c[i] = ADD_QQ_Q(first->c[i],&zero);
                 }                
                 else
                     if((i<second->deg))
                     {
-                        tmp = ADD_QQ_Q(&(second->c[i]),&zero);
-                        result->c[i] = *tmp;
-                        free(tmp);
+                        result->c[i] = ADD_QQ_Q(second->c[i],&zero);
                     }
         }
     }
@@ -59,8 +53,6 @@ P* SUB_PP_P(P* first,P* second){
     int i;
     int maxDeg = ((first->deg>second->deg)?first->deg:second->deg);
     P* result = (P*)calloc(1,sizeof(P));
-    Q* tmp;
-    
     // Описание 0
     Q zero;
     int nu[1] = {0};
@@ -77,26 +69,20 @@ P* SUB_PP_P(P* first,P* second){
     zero.n = &b;
     //***
     result->deg = maxDeg;
-    result->c = (Q*)calloc(maxDeg+1,sizeof(Q));
+    result->c = (Q**)calloc(maxDeg+1,sizeof(Q));
     for(i=0;i<maxDeg;i++){
         if((i<first->deg)&&(i<second->deg)){
-            tmp = SUB_QQ_Q(&(first->c[i]),&(second->c[i]));
-            result->c[i] = *tmp;
-            free(tmp);
+            result->c[i] = SUB_QQ_Q(first->c[i],second->c[i]);
         }
         else{
                 if((i<first->deg))
                 {
-                    tmp = SUB_QQ_Q(&(first->c[i]),&zero);
-                    result->c[i] = *tmp;
-                    free(tmp);
+                    result->c[i] = SUB_QQ_Q(first->c[i],&zero);
                 }                
                 else
                     if((i<second->deg))
                     {
-                        tmp = SUB_QQ_Q(&zero,&(second->c[i]));
-                        result->c[i] = *tmp;
-                        free(tmp);
+                        result->c[i] = SUB_QQ_Q(&zero,second->c[i]);
                     }
         }
     }
@@ -108,25 +94,39 @@ P* MUL_PQ_P(P* mas,Q* mult){
     Q *tmp;
     P* result = (P*)calloc(1,sizeof(P));
     int deg = mas->deg+1;
-    result->c = (Q*)calloc(deg,sizeof(Q));
+    result->c = (Q**)calloc(deg,sizeof(Q));
     for(i=0;i<deg;i++)
     {
-        tmp = MUL_QQ_Q(&(mas->c[i]),mult);
-        result->c = tmp;
-        free(tmp);
+        result->c[i] = MUL_QQ_Q(mas->c[i],mult);
     }
     return result;
 }
 
 Q* LED_P_Q(P* mas){
-    return &mas->c[mas->deg-1];
+    return mas->c[mas->deg-1];
 }
 
 int DEG_P_N(P* mas){
     return mas->deg;
 }
 
-//MUL_Pxk_P(Q* coef,d)
+P* MUL_Pxk_P(P* mas,int k){
+    P* result = (P*)calloc(1,sizeof(P));
+    int degree = mas->deg+k;
+    char buf[STDSIZE];
+    int i;
+    Q *C;
+    result->c = (Q**)calloc(degree,sizeof(Q));
+    result->deg = degree;
+    sprintf(buf,"1");
+    C = rat_parsing(buf);
+    for(i=0;i<mas->deg;i++)
+        {
+            result->c[i+k] = MUL_QQ_Q(mas->c[i],C);
+        }
+    clear_Q(C);
+    return result;
+}
 P* DER_P_P(P* mas){
     int i;
     char buf[STDSIZE];
@@ -135,14 +135,12 @@ P* DER_P_P(P* mas){
     int degree = mas->deg-1;
     if(degree<0)
         degree = 0;
-    result->c = (Q*)calloc(degree,sizeof(Q));
+    result->c = (Q**)calloc(degree,sizeof(Q));
     result->deg = degree;
     for(i=0;i<degree;i++){
-        sprintf(buf,"%d",i);
+        sprintf(buf,"%d",i+1);
         C = rat_parsing(buf);
-        tmp = MUL_QQ_Q(&mas->c[i+1],C);
-        result->c[i] = *tmp;
-        free(tmp);
+        result->c[i] = MUL_QQ_Q(mas->c[i+1],C);
         free(C);
     }
     return result;

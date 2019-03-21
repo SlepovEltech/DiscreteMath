@@ -22,6 +22,6 @@ typedef struct ratio Q;
 struct polinom
 {
 	int deg;
-	Q *c;
+	Q **c;
 };
 typedef struct polinom P;

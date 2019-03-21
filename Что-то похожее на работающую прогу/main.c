@@ -17,7 +17,7 @@
 #endif
 
 // Тестовый main хомяка. не трогать
-int mainT(){
+int main(){
     P* A = polynom_parsing();
 	P* B = DER_P_P(A); 
 	output_pol(B);
@@ -26,7 +26,7 @@ int mainT(){
 	return 0;
 }
 
-int main()
+int mainT()
 {
 	N *q, *w,*res;
 	Z *d, *t, *resZ;
@@ -750,7 +750,7 @@ void output_pol(P *mas){
     int i;
     for(i=mas->deg-1;i>=0;i--){
         printf("%c",(mas->deg==1)?'\0':'+');
-        output_rat(&mas->c[i]);
+        output_rat(mas->c[i]);
         printf("x^%d",i);
         }
         printf("\n");
@@ -812,15 +812,13 @@ P* polynom_parsing(){
     if(deg>0){
         // Пошла жара
         result = (P*)malloc(sizeof(P));
-        result->c = (Q*)calloc(deg,sizeof(Q));
+        result->c = (Q**)calloc(deg,sizeof(Q*));
         result->deg =deg;
     for(i=result->deg-1;i>=0;i--){
             printf("x^%d: ",i);
             fseek(stdin,0,SEEK_END);
             new_gets(buf,STDSIZE);
-            Q* tmp = rat_parsing(buf);
-            result->c[i] = *tmp;
-            free(tmp);
+            result->c[i] = rat_parsing(buf);
         }
     }
     return result;
@@ -914,7 +912,8 @@ void clear_Q(Q* a)
 void clear_P(P *mas){
     // Чистит всё, что связанно с многочленами
     int i;
-    for(i=0;i<mas->deg;i++)
-        clear_Q(&(mas->c[i]));
+    for(i=0;i<mas->deg;i++){
+        clear_Q(mas->c[i]);		
+		}
     free(mas);
 }
