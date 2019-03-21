@@ -8,6 +8,11 @@
 #include "integer.h"
 #include "rational.h"
 #include "polynom.h"
+#ifdef _WIN32
+#define CLEAR_WINDOW system("cls");
+#else
+#define CLEAR_WINDOW system("clear");
+#endif
 
 // Тестовый main хомяка. не трогать
 int mainT(){
@@ -27,22 +32,13 @@ int main()
 	int n,i,lim,key,clas,num,sign,key1;
 	char c_sign;
 	char *s;
-	int sys;
 	lim = 150;
-	printf("Choose your OS type:\n1-Windows\n2-Linux\nYour answer: ");
-	scanf("%d", &sys);
-	while(sys < 0 || sys > 2)
-	{
-		printf("Wrong answer! Try again: ");
-		scanf("%d", &sys);
-	}
-	clear(sys);
 	s = (char*)malloc(lim*sizeof(char));
 	if(s != NULL)
 	{
 		while( (key = menu()) != 3)
 		{
-		    clear(sys);
+		    CLEAR_WINDOW
 		    if(key != 3 && key != 2 && key != 1)
 	        {
 	            printf("Enter a correct answer!\n");
@@ -53,7 +49,7 @@ int main()
 	        	scanf("%d", &clas);
 	        	while(clas != 0)
 	        	{
-		        	clear(sys);
+		        	CLEAR_WINDOW
 		        	if(clas == 1)
 		        	{
 		        			switch(natural())
@@ -669,7 +665,7 @@ int main()
 		        
 		        printf("\nEnter any key when ready");
 		        getchar();
-		        clear(sys);
+		        CLEAR_WINDOW
 		        printf("Choose class of number to work:\n0-Back to main menu\n1-Natural+{0}\n2-Integer\n3-Rational\n4-Polinom\nYour answer: ");
 	        	scanf("%d", &clas);
         	}
@@ -757,14 +753,9 @@ void output_pol(P *mas){
         printf("\n");
 }
 
-void clear(int sys)
-{
-	if(sys == 1) system("CLS");
-	if(sys == 2) system("clear");
-}
-
 void print_header()
 {
+	CLEAR_WINDOW
 	printf("\t\t\t\tDiscrethe Math\n\t\tComputer Algebra System by students 8306");
 }
 

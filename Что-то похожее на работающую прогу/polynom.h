@@ -122,6 +122,6 @@ Q* LED_P_Q(P* mas){
     return &mas->c[mas->deg-1];
 }
 
-N* DEG_P_N(P* mas){
+int DEG_P_N(P* mas){
     return mas->deg;
 }
