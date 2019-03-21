@@ -102,3 +102,26 @@ P* SUB_PP_P(P* first,P* second){
     }
     return result;
 }
+
+P* MUL_PQ_P(P* mas,Q* mult){
+    int i;
+    Q *tmp;
+    P* result = (P*)calloc(1,sizeof(P));
+    int deg = mas->deg+1;
+    result->c = (Q*)calloc(deg,sizeof(Q));
+    for(i=0;i<deg;i++)
+    {
+        tmp = MUL_QQ_Q(&(mas->c[i]),mult);
+        result->c = tmp;
+        free(tmp);
+    }
+    return result;
+}
+
+Q* LED_P_Q(P* mas){
+    return &mas->c[mas->deg-1];
+}
+
+N* DEG_P_N(P* mas){
+    return mas->deg;
+}

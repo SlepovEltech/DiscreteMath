@@ -11,20 +11,10 @@
 
 // Тестовый main хомяка. не трогать
 int mainT(){
-	printf("First:\n");
     P* A = polynom_parsing();
-	printf("Second:\n");
-	P* B = polynom_parsing();
-	P* C = SUB_PP_P(A,B);
-	printf("Your trying to add\n");
-	output_pol(A);
-	printf("with\n");
-	output_pol(B);
-	printf("And the sum is: ");
-	output_pol(C);
-    clear_P(A);
-    clear_P(B);
-    clear_P(C);
+	Q *t = LED_P_Q(A); 
+	output_rat(t);
+	clear_P(A);
 	return 0;
 }
 
