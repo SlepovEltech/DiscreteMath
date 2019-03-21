@@ -24,10 +24,8 @@ int mainT(){
 	scanf("%d",&c);
 	P* B = MUL_Pxk_P(A,c);
 	printf("DoneA\n");
-	output_pol(A);
-	printf("DoneB\n");
+	output_pol(B);
 	clear_P(B);
-	printf("DoneC\n");
 	clear_P(A);
 	return 0;
 }
