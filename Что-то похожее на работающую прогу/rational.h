@@ -20,6 +20,7 @@ Q* RED_Q_Q(Q* h)
 	res->m = (Z*)malloc(sizeof(Z));
 	res->m->num = DIV_NN_N(h->m->num,GCF_NN_N(h->m->num,h->n));
 	res->n = DIV_NN_N(h->n,GCF_NN_N(h->m->num,h->n));
+	res->m->sign = h->m->sign;
 	return res;
 }
 //Q-2
