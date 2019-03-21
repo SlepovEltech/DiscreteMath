@@ -19,9 +19,15 @@
 // Тестовый main хомяка. не трогать
 int main(){
     P* A = polynom_parsing();
-	P* B = DER_P_P(A); 
-	output_pol(B);
+	int c;
+	printf("Enter the power:");
+	scanf("%d",&c);
+	P* B = MUL_Pxk_P(A,c);
+	printf("DoneA\n");
+	output_pol(A);
+	printf("DoneB\n");
 	clear_P(B);
+	printf("DoneC\n");
 	clear_P(A);
 	return 0;
 }
@@ -913,7 +919,8 @@ void clear_P(P *mas){
     // Чистит всё, что связанно с многочленами
     int i;
     for(i=0;i<mas->deg;i++){
-        clear_Q(mas->c[i]);		
+        clear_Q(mas->c[i]);	
 		}
+	free(mas->c);	
     free(mas);
 }

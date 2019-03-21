@@ -111,8 +111,8 @@ int DEG_P_N(P* mas){
 }
 
 P* MUL_Pxk_P(P* mas,int k){
-    P* result = (P*)calloc(1,sizeof(P));
     int degree = mas->deg+k;
+    P* result = (P*)calloc(1,sizeof(P));
     char buf[STDSIZE];
     int i;
     Q *C;
