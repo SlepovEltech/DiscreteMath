@@ -17,7 +17,7 @@
 #endif
 
 // Тестовый main хомяка. не трогать
-int main(){
+int mainT(){
     P* A = polynom_parsing();
 	int c;
 	printf("Enter the power:");
@@ -32,7 +32,7 @@ int main(){
 	return 0;
 }
 
-int mainT()
+int main()
 {
 	N *q, *w,*res;
 	Z *d, *t, *resZ;
