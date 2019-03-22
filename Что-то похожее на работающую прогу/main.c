@@ -16,20 +16,18 @@
 #endif
 
 // Тестовый main хомяка. не трогать
-int mainT(){
+int main(){
     P* A = polynom_parsing();
-	int c;
-	printf("Enter the power:");
-	scanf("%d",&c);
-	P* B = MUL_Pxk_P(A,c);
-	printf("DoneA\n");
-	output_pol(B);
-	clear_P(B);
+    P* B = polynom_parsing();
+	P* C = DIV_PP_P(A,B);
+	output_pol(C);
 	clear_P(A);
+	clear_P(B);
+	clear_P(C);
 	return 0;
 }
 
-int main()
+int mainT()
 {
 	N *q=NULL, *w=NULL,*res=NULL;
 	Z *d=NULL, *t=NULL, *resZ=NULL;

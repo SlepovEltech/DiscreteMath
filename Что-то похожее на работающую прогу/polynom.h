@@ -185,15 +185,24 @@ P* DIV_PP_P(P *a, P *b)
         divAB->c = (Q**)malloc(sizeof(Q*)*divAB->deg); 
 		while (b->deg <= a->deg)
 		{
-			chastnoe = DIV_QQ_Q(a->c[0], b->c[0]);
-			var1 = MUL_Pxk_P(b, raznica);
+            printf("6 2\n");
+            printf("Trying ");
+            //output_rat(a->c[0]);
+            printf(" ");
+            //output_rat(b->c[0]);
+
+			//chastnoe = DIV_QQ_Q(a->c[0], b->c[0]);
+			printf("A");
+            var1 = MUL_Pxk_P(b, raznica);
+            printf("B");
 			var2 = MUL_PQ_P(var1, chastnoe);
-			tmp = SUB_PP_P(a, var2);
+			printf("C");		
+            tmp = SUB_PP_P(a, var2);
+			printf("D");            
             a = tmp;
             degA = a->deg;
 			raznica = degA-degB;
 			divAB->c[k++] = chastnoe;
-
             clear_P(var1);
             clear_P(var2);
 			clear_P(a);
