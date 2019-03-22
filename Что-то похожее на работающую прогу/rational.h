@@ -97,6 +97,10 @@ Q* MUL_QQ_Q(Q* a, Q* b)
 	res = (Q*)malloc(sizeof(Q));
 	res->m = MUL_ZZ_Z(a->m,b->m);
 	res->n = MUL_NN_N(a->n,b->n);
+	if( ((POZ_Z_D(a->m) == 1) && (POZ_Z_D(b->m) == 1)) || ((POZ_Z_D(a->m) == 0) && (POZ_Z_D(b->m) == 0)) )
+		res->m->sign = 0;
+	if(POZ_Z_D(a->m) != POZ_Z_D(b->m))
+		res->m->sign = 1;
 	return res;
 }
 

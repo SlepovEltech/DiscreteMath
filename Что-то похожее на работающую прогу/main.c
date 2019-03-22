@@ -1,5 +1,4 @@
 #define STDSIZE 150
-// Оно тут специально, иначе заголовки не видят
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -32,10 +31,10 @@ int mainT(){
 
 int main()
 {
-	N *q, *w,*res;
-	Z *d, *t, *resZ;
-	Q *h, *l, *resQ;
-	P *g,*f, *resP;
+	N *q=NULL, *w=NULL,*res=NULL;
+	Z *d=NULL, *t=NULL, *resZ=NULL;
+	Q *h=NULL, *l=NULL, *resQ=NULL;
+	P *g=NULL,*f=NULL, *resP=NULL;
 	int n,i,lim,key,clas,num,sign,key1;
 	char c_sign;
 	char *s;
@@ -506,10 +505,6 @@ int main()
 		    		}
 		        	if(clas == 3)
 		        	{
-		        		h = (Q*)malloc(sizeof(Q));
-		        		l =	(Q*)malloc(sizeof(Q));
-		        		if(h && l)
-		        		{
 		        			switch(rational())
 		        			{
 		        				case 0:
@@ -662,12 +657,80 @@ int main()
 		        					printf("Enter correct answer!\n");
 		        				break;
 		        			}
-		        		}
+		        
 		        
 		        	}
 		        	if(clas == 4)
 		        	{
-
+			        	switch(polynom())
+		        		{
+		        			case 0:
+		        				break;
+		        			case 1:
+		        				printf("Entering first polynom\n");
+		        				g = polynom_parsing();
+		        				printf("Entering second polynom\n");
+		        				f = polynom_parsing();
+		        				resP = ADD_PP_P(g,f);
+		        				if(resP && g && f)
+		        				{
+		        					printf("Result: ");
+		        					output_pol(resP);
+		        					clear_P(resP);
+		        					clear_P(g);
+		        					clear_P(f);
+		        				}
+		        				break;
+		        			case 2:
+		        				printf("Entering first polynom\n");
+		        				g = polynom_parsing();
+		        				printf("Entering second polynom\n");
+		        				f = polynom_parsing();
+		        				resP = SUB_PP_P(g,f);
+		        				if(resP && g && f)
+		        				{
+		        					printf("Result: ");
+		        					output_pol(resP);
+		        					clear_P(resP);
+		        					clear_P(g);
+		        					clear_P(f);
+		        				}
+		        				break;
+		        			case 3: 
+		        				printf("Entering  polynom\n");
+		        				g = polynom_parsing();
+		        				printf("Enter your rational number: ");
+		        				h = rat_parsing(s);
+		        				output_rat(h);
+		        				resP = MUL_PQ_P(g,h);
+		        				if(resP && g && h)
+		        				{
+		        					printf("Result: ");
+		        					output_pol(resP);
+		        					clear_P(resP);
+		        					clear_P(g);
+		        					clear_Q(h);
+		        				}
+		        				break;
+		        			case 4:
+		        				printf("Entering first polynom\n");
+		        				g = polynom_parsing();
+		        				printf("Entering deg k of x^k: ");
+		        				scanf("%d", &num);
+		        				resP = MUL_Pxk_P(g,num);
+		        				if(resP && g && f)
+		        				{
+		        					printf("Result: ");
+		        					output_pol(resP);
+		        					clear_P(resP);
+		        					clear_P(g);
+		        					clear_P(f);
+		        				}
+		        				break;
+		        			default:
+		        				break;
+		        		}
+		        		
 		        	}
 		        
 		        printf("\nEnter any key when ready");
@@ -755,7 +818,10 @@ void output_pol(P *mas){
     for(i=mas->deg-1;i>=0;i--){
         printf("%c",(mas->deg==1)?'\0':'+');
         output_rat(mas->c[i]);
-        printf("x^%d",i);
+        if(i!=0 && i!=1)
+        	printf("x^%d",i);
+        if(i==1)
+        	printf("x");
         }
         printf("\n");
 }

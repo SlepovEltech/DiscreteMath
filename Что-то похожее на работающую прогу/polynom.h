@@ -6,6 +6,19 @@
 void clear_P(P*);
 P* polynom_parsing();
 void output_pol(P*);
+int polynom();
+
+int polynom()
+{
+    int key;
+    printf("Choose operation with polynoms: ");
+    printf("\n0-Back to menu\n1-Addition of polynoms\n2-Substract of polynoms\n3-Multiply bu number\n4-Multiply by x^k\n");
+    printf("5-High coef of polynom\n6-Degrece of polynom\n7-The imposition of polynomial LCM of denominators of coefficients and the GCD of the numerators\n");
+    printf("8-Multiplying of polynomoms\n9-The DIV a polynomial by a polynomial\n10-The MOD a polynomial by a polynomial\n11-GCD of polynoms\n");
+    printf("12-Derivative of polynom\n13-Multiple roots in simple\nYour answer: ");
+    scanf("%d", &key);
+    return key;
+}
 //P-1
 P* ADD_PP_P(P* first,P* second){
     int i;
@@ -93,34 +106,30 @@ P* SUB_PP_P(P* first,P* second){
 //P-3
 P* MUL_PQ_P(P* mas,Q* mult){
     int i;
+    printf("Zashel v func '");
     Q *tmp;
-    P* result = (P*)calloc(1,sizeof(P));
+    P* result = (P*)malloc(sizeof(P));
     int deg = mas->deg+1;
-    result->c = (Q**)calloc(deg,sizeof(Q*));
+    result->c = (Q**)malloc(deg*sizeof(Q*));
     for(i=0;i<deg;i++)
     {
         result->c[i] = MUL_QQ_Q(mas->c[i],mult);
+        printf("Nachal mnozhit'");
     }
+    printf("Zakonchil");
     return result;
-}
-
-Q* LED_P_Q(P* mas){
-    return mas->c[mas->deg-1];
-}
-
-int DEG_P_N(P* mas){
-    return mas->deg;
 }
 //P-4
 P* MUL_Pxk_P(P* mas,int k){
     int degree = mas->deg+k;
+    char unit[2] = {'1','\0'};
     P* result = (P*)calloc(1,sizeof(P));
     int i;
     Q *C;
     result->c = (Q**)calloc(degree,sizeof(Q*));
     result->deg = degree;
-    Q* Z = rat_parsing("0");
-    C = rat_parsing("1");
+    Q* Z = rat_parsing(unit);
+    C = rat_parsing(unit);
     for(i=0;i<k;i++)
         result->c[i] = MUL_QQ_Q(Z,C);
     for(i=0;i<mas->deg;i++)
@@ -129,6 +138,14 @@ P* MUL_Pxk_P(P* mas,int k){
         }
     clear_Q(C);
     return result;
+}
+//P-5
+Q* LED_P_Q(P* mas){
+    return mas->c[mas->deg-1];
+}
+//P-6
+int DEG_P_N(P* mas){
+    return mas->deg;
 }
 //P-12
 P* DER_P_P(P* mas){
