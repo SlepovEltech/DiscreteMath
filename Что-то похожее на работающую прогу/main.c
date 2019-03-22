@@ -727,6 +727,18 @@ int main()
 		        					clear_P(f);
 		        				}
 		        				break;
+		        			 case 12:
+		        			 	printf("Entering first polynom\n");
+		        				g = polynom_parsing();
+		        				resP = DER_P_P(g);
+		        				if(resP && g && f)
+		        				{
+		        					printf("Result: ");
+		        					output_pol(resP);
+		        					clear_P(resP);
+		        					clear_P(g);
+		        					clear_P(f);
+		        				}
 		        			default:
 		        				break;
 		        		}

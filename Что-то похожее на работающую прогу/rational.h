@@ -112,5 +112,9 @@ Q* DIV_QQ_Q(Q* a, Q*b)
 	res->m = MUL_ZZ_Z(a->m, TRANS_N_Z(b->n));
 	res->n = TRANS_Z_N(MUL_ZZ_Z(TRANS_N_Z(a->n), b->m));
 	res = RED_Q_Q(res);
+	if( ((POZ_Z_D(a->m) == 1) && (POZ_Z_D(b->m) == 1)) || ((POZ_Z_D(a->m) == 0) && (POZ_Z_D(b->m) == 0)) )
+		res->m->sign = 0;
+	if(POZ_Z_D(a->m) != POZ_Z_D(b->m))
+		res->m->sign = 1;
 	return res;
 }
