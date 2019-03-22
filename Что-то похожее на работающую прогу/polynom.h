@@ -185,10 +185,9 @@ P* DIV_PP_P(P *a, P *b)
         divAB->c = (Q**)malloc(sizeof(Q*)*divAB->deg); 
 		while (b->deg <= a->deg)
 		{
-            printf("6 2\n");
-            printf("Trying ");
+            printf("Entering\n");
+            printf("Trying");
             //output_rat(a->c[0]);
-            printf(" ");
             //output_rat(b->c[0]);
 
 			//chastnoe = DIV_QQ_Q(a->c[0], b->c[0]);
