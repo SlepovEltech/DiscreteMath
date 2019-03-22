@@ -168,7 +168,7 @@ P* DER_P_P(P* mas){
 }
 
 //P-9
-P DIV_PP_P(P *a, P *b)
+P* DIV_PP_P(P *a, P *b)
 {
 	P *divAB, *var1,*var2,*tmp;
 	Q *chastnoe;
