@@ -166,3 +166,39 @@ P* DER_P_P(P* mas){
     }
     return result;
 }
+
+//P-9
+P DIV_PP_P(P *a, P *b)
+{
+	P *divAB, *var1,*var2,*tmp;
+	Q *chastnoe;
+    int k=0;
+	int degA = DEG_P_N(a);
+	int degB = DEG_P_N(b);
+	int raznica = degA-degB;
+	if (b->deg > a->deg)
+		divAB = SUB_PP_P(a, a);
+	else
+	{
+        divAB = (P*)malloc(sizeof(P));
+        divAB->deg = a->deg;
+        divAB->c = (Q**)malloc(sizeof(Q*)*divAB->deg); 
+		while (b->deg <= a->deg)
+		{
+			chastnoe = DIV_QQ_Q(a->c[0], b->c[0]);
+			var1 = MUL_Pxk_P(b, raznica);
+			var2 = MUL_PQ_P(var1, chastnoe);
+			tmp = SUB_PP_P(a, var2);
+            a = tmp;
+            degA = a->deg;
+			raznica = degA-degB;
+			divAB->c[k++] = chastnoe;
+
+            clear_P(var1);
+            clear_P(var2);
+			clear_P(a);
+		}
+	}
+	return divAB;
+}
+
