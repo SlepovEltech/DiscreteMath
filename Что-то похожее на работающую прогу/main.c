@@ -381,8 +381,8 @@ int main()
 			        				printf("Result: ");
 			        				output_int(d);
 			        				puts("");
-			        				//clear_Z(d);
-			        				//clear_N(q);
+			        				clear_Z(d);
+			        				clear_N(q);
 			        			}
 			        			else
 			        				printf("Error at array allocation!\n");		 
@@ -391,18 +391,18 @@ int main()
 		        				printf("Enter your number: ");
 			        			getchar();
 			        			d = int_parsing(s,lim);
+			        			q = TRANS_Z_N(d);
 			        			if(d)
 			        			{
-			        				q = TRANS_Z_N(d);
 				        			printf("Result: ");
 				        			output(q);
 				        			puts("");
-				        			clear_N(q);
+				        			//clear_N(q);
 				        			clear_Z(d);
 			        			}
 			        			else
 			        				printf("Error at array allocation!\n");
-
+			        			break;
 			        		case 6:
 			        			printf("Enter first number: ");
 			        			getchar();
@@ -415,8 +415,8 @@ int main()
 			        				printf("Result: ");
 			        				output_int(resZ);
 			        				puts("");
-			        				//clear_Z(d);
-			        				//clear_Z(t);
+			        				clear_Z(d);
+			        				clear_Z(t);
 			        				//clear_Z(resZ);
 			        			}
 			        			else
@@ -435,8 +435,8 @@ int main()
 			        				output_int(resZ);
 			        				puts("");
 			        				//clear_Z(resZ);
-			        				//clear_Z(d);
-			        				//clear_Z(t);
+			        				clear_Z(d);
+			        				clear_Z(t);
 			        			}
 			        			else
 			        				printf("Error at array allocatin!\n");
@@ -980,15 +980,18 @@ void clear_N(N* a)
 
 void clear_Z(Z* a)
 {
-	clear_N(a->num);
-	free(a);
-	a = NULL;
+	if(a->num != NULL)clear_N(a->num);
+	if(a!=NULL)
+	{
+		free(a);
+		a = NULL;
+	}
 }
 
 void clear_Q(Q* a)
 {
-	clear_Z(a->m);
-	clear_N(a->n);
+	if(a->m != NULL) clear_Z(a->m);
+	if(a->n != NULL) clear_N(a->n);
 }
 
 void clear_P(P *mas){

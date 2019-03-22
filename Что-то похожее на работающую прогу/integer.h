@@ -65,11 +65,12 @@ Z* TRANS_N_Z(N* n_num)
 N* TRANS_Z_N(Z* z_num)
 {
     N* result;
+    int i;
     result = (N*)malloc(sizeof(N));
-    if(z_num->sign == 0)
-        result = z_num->num;
-    else
-        puts("It's negative number");
+    result->A = (int*)malloc(z_num->num->n*sizeof(int));
+    for(i = 0; i < z_num->num->n;i++)
+        result->A[i] = z_num->num->A[i];
+    result->n = z_num->num->n;
 
     return result;
 }
