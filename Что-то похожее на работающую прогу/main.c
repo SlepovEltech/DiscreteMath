@@ -377,16 +377,18 @@ int main()
 		        				printf("Enter your number: ");
 			        			getchar();
 			        			q = natural_parsing(s,lim);
+			        			d = TRANS_N_Z(q);
 			        			if(d)
 			        			{
-			        				d = TRANS_N_Z(q);
 			        				printf("Result: ");
 			        				output_int(d);
 			        				puts("");
-			        				clear_Z(d);
-			        				clear_N(q);
+			        				//clear_Z(d);
+			        				//clear_N(q);
 			        			}
-			        				printf("Error at array allocation!\n");		        			
+			        			else
+			        				printf("Error at array allocation!\n");		 
+			        				break;       			
 			        		case 5:
 		        				printf("Enter your number: ");
 			        			getchar();

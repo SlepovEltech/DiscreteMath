@@ -65,7 +65,7 @@ Z* TRANS_N_Z(N* n_num)
 N* TRANS_Z_N(Z* z_num)
 {
     N* result;
-
+    result = (N*)malloc(sizeof(N));
     if(z_num->sign == 0)
         result = z_num->num;
     else
