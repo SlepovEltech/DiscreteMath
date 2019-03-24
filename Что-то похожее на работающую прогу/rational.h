@@ -100,9 +100,8 @@ Q* MUL_QQ_Q(Q* a, Q* b)
 		res->m->sign = 0;
 	if(POZ_Z_D(a->m) != POZ_Z_D(b->m))
 		res->m->sign = 1;
-	finalRes = RED_Q_Q(res);
-	free(res);
-	return finalRes;
+	res = RED_Q_Q(res);
+	return res;
 }
 
 //Q-8

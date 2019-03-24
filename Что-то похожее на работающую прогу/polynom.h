@@ -135,7 +135,7 @@ P* MUL_Pxk_P(P* mas,int k){
         {
             result->c[i+k] = MUL_QQ_Q(mas->c[i],C);
         }
-    //clear_Q(C);
+    clear_Q(C);
     return result;
 }
 //P-5

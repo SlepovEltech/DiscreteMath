@@ -706,14 +706,15 @@ int main()
 		        				h = rat_parsing(s);
 		        				output_rat(h);
 		        				resP = MUL_PQ_P(g,h);
-		        				if(resP && g && h)
-		        				{
+		        				output_pol(g);
+		        				//if(resP && g && h)
+		        				//{
 		        					printf("Result: ");
 		        					output_pol(resP);
 		        					//clear_P(resP);
 		        					clear_P(g);
 		        					clear_Q(h);
-		        				}
+		        				//}
 		        				break;
 		        			case 4:
 		        				printf("Entering  polynom");
@@ -721,18 +722,21 @@ int main()
 		        				printf("Entering deg k of x^k: ");
 		        				scanf("%d", &num);
 		        				resP = MUL_Pxk_P(g,num);
-		        				if(resP && g)
-		        				{
+		        				//if(resP && g)
+		        				//{
 		        					printf("Result: ");
 		        					output_pol(resP);
 		        					//clear_P(resP);
 		        					//clear_P(g);
-		        				}
+		        				//}
+		        					getchar();
+		        					getchar();
 		        				break;
 		        			 case 12:
 		        			 	printf("Entering first polynom\n");
 		        				g = polynom_parsing();
 		        				resP = DER_P_P(g);
+		        				output_pol(g);
 		        				if(resP && g)
 		        				{
 		        					printf("Result: ");
@@ -747,10 +751,6 @@ int main()
 		        		
 		        	}
 		        printf("\nEnter any key when ready");
-		        getchar();
-		        getchar();
-		        		        getchar();
-
 		        getchar();
 
 		        CLEAR_WINDOW
@@ -818,12 +818,12 @@ void output_int(Z *a)
 void output_rat(Q* a)
 {
 	output_int(a->m);
-	if( (a->n->n != 1) && (a->n->A[0] != 1) )
-	{
+	//if( (a->n->n != 1) && (a->n->A[0] != 1) )
+	//{
 		printf("/");
 		output(a->n);
 		//printf("\n");
-	}
+	//}
 	
 }
 
@@ -888,11 +888,12 @@ Z* int_parsing(char *s, int lim)
 P* polynom_parsing(){
     // Спрашивает у пользователя многочлен и возвращает его
     int deg,i;
-    char buf[STDSIZE];
+    char *buf;
     P* result;
     printf("Enter the highest degree of the polynom:");
     scanf("%d", &deg);
     deg++;
+    buf = (char*)malloc(STDSIZE*sizeof(char));
     printf("Now program will ask you coef's at every power\n");
     if(deg>0){
         // Пошла жара
