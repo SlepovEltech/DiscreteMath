@@ -817,26 +817,33 @@ void output_int(Z *a)
 void output_rat(Q* a)
 {
 	output_int(a->m);
-	//if( (a->n->n != 1) && (a->n->A[0] != 1) )
-	//{
+	if( (a->n->n == 1) && (a->n->A[0] == 1) )
+	{
+	}
+	else
+	{
 		printf("/");
 		output(a->n);
-		//printf("\n");
-	//}
+	}
 	
 }
 
 void output_pol(P *mas){
     // Output polynom  like Ax^n+...+Z
     int i;
-    for(i=mas->deg-1;i>=0;i--){
-        printf("%c",(mas->c[i]->m->sign==1)?'\0':'+');
-        output_rat(mas->c[i]);
-        if(i!=0 && i!=1)
-        	printf("x^%d",i);
-        if(i==1)
-        	printf("x");
+    for(i=mas->deg-1;i>=0;i--)
+    {
+        if(NZER_N_B(mas->c[i]->m->num) == 0)
+        {
+        	printf("%c",(mas->c[i]->m->sign==1)?'\0':'+');
+        	output_rat(mas->c[i]);
+	        if(i!=0 && i!=1)
+	        	printf("x^%d",i);
+	        if(i==1)
+	        	printf("x");
         }
+        
+    }
         printf("\n");
 }
 
