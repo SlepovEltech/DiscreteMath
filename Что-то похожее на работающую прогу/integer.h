@@ -49,12 +49,16 @@ void MUL_ZM_Z(Z* a)
 Z* TRANS_N_Z(N* n_num)
 {
     Z* result = NULL;
-    int stat;
+    int stat,i;
 
     stat = 0;
     if((result = (Z*)malloc(sizeof(Z))) != 0)
     {
-        result->num = n_num;
+        result->num = (N*)malloc(sizeof(N));
+        result->num->n = n_num->n;
+        result->num->A = (int*)calloc(n_num->n,sizeof(int));
+        for(i = 0; i < n_num->n; i++)
+        	result->num->A[i] = n_num->A[i];
         result->sign = 0;
     }
     else
