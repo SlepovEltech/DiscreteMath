@@ -698,9 +698,10 @@ int main()
 		        				}
 		        				break;
 		        			case 3: 
-		        				printf("Entering  polynom\n");
+		        				printf("Entering  polynom");
 		        				g = polynom_parsing();
 		        				printf("Enter your rational number: ");
+		        				new_gets(s,lim);
 		        				h = rat_parsing(s);
 		        				output_rat(h);
 		        				resP = MUL_PQ_P(g,h);
@@ -714,7 +715,7 @@ int main()
 		        				}
 		        				break;
 		        			case 4:
-		        				printf("Entering first polynom\n");
+		        				printf("Entering  polynom");
 		        				g = polynom_parsing();
 		        				printf("Entering deg k of x^k: ");
 		        				scanf("%d", &num);
@@ -732,20 +733,19 @@ int main()
 		        			 	printf("Entering first polynom\n");
 		        				g = polynom_parsing();
 		        				resP = DER_P_P(g);
-		        				if(resP && g && f)
+		        				if(resP && g)
 		        				{
 		        					printf("Result: ");
 		        					output_pol(resP);
 		        					clear_P(resP);
 		        					clear_P(g);
-		        					clear_P(f);
 		        				}
+		        				break;
 		        			default:
 		        				break;
 		        		}
 		        		
 		        	}
-		        
 		        printf("\nEnter any key when ready");
 		        getchar();
 		        CLEAR_WINDOW
@@ -813,16 +813,13 @@ void output_int(Z *a)
 void output_rat(Q* a)
 {
 	output_int(a->m);
-	if( (a->n->n == 1) && (a->n->A[0] == 1) )
-	{
-		;//printf("\n"); ЕСЛИ НЕ БУДЕТ РАБОТАТЬ, СДЕЛАЙТЕ ПЕРЕГРУЗКУ С ФУНКЦИЕЙ
-	}
-	else
+	if( (a->n->n != 1) && (a->n->A[0] != 1) )
 	{
 		printf("/");
 		output(a->n);
-		printf("\n");
+		//printf("\n");
 	}
+	
 }
 
 void output_pol(P *mas){
