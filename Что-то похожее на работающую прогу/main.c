@@ -154,7 +154,8 @@ int main()
 									q = natural_parsing(s,lim);
 									printf("Enter digit: ");
 									scanf("%d", &num);
-									res = MUL_NN_N(q,w);
+									getchar();
+									res = MUL_ND_N(q,num);
 									if(q && res)
 									{
 										printf("Result: ");
@@ -381,8 +382,8 @@ int main()
 			        				printf("Result: ");
 			        				output_int(d);
 			        				puts("");
-			        				//clear_Z(d);
-			        				//clear_N(q);
+			        				clear_Z(d);
+			        				clear_N(q);
 			        			}
 			        			else
 			        				printf("Error at array allocation!\n");		 
@@ -391,18 +392,18 @@ int main()
 		        				printf("Enter your number: ");
 			        			getchar();
 			        			d = int_parsing(s,lim);
+			        			q = TRANS_Z_N(d);
 			        			if(d)
 			        			{
-			        				q = TRANS_Z_N(d);
 				        			printf("Result: ");
 				        			output(q);
 				        			puts("");
-				        			clear_N(q);
+				        			//clear_N(q);
 				        			clear_Z(d);
 			        			}
 			        			else
 			        				printf("Error at array allocation!\n");
-
+			        			break;
 			        		case 6:
 			        			printf("Enter first number: ");
 			        			getchar();
@@ -415,8 +416,8 @@ int main()
 			        				printf("Result: ");
 			        				output_int(resZ);
 			        				puts("");
-			        				//clear_Z(d);
-			        				//clear_Z(t);
+			        				clear_Z(d);
+			        				clear_Z(t);
 			        				//clear_Z(resZ);
 			        			}
 			        			else
@@ -435,8 +436,8 @@ int main()
 			        				output_int(resZ);
 			        				puts("");
 			        				//clear_Z(resZ);
-			        				//clear_Z(d);
-			        				//clear_Z(t);
+			        				clear_Z(d);
+			        				clear_Z(t);
 			        			}
 			        			else
 			        				printf("Error at array allocatin!\n");
@@ -697,9 +698,10 @@ int main()
 		        				}
 		        				break;
 		        			case 3: 
-		        				printf("Entering  polynom\n");
+		        				printf("Entering  polynom");
 		        				g = polynom_parsing();
 		        				printf("Enter your rational number: ");
+		        				new_gets(s,lim);
 		        				h = rat_parsing(s);
 		        				output_rat(h);
 		        				resP = MUL_PQ_P(g,h);
@@ -707,46 +709,49 @@ int main()
 		        				{
 		        					printf("Result: ");
 		        					output_pol(resP);
-		        					clear_P(resP);
+		        					//clear_P(resP);
 		        					clear_P(g);
 		        					clear_Q(h);
 		        				}
 		        				break;
 		        			case 4:
-		        				printf("Entering first polynom\n");
+		        				printf("Entering  polynom");
 		        				g = polynom_parsing();
 		        				printf("Entering deg k of x^k: ");
 		        				scanf("%d", &num);
 		        				resP = MUL_Pxk_P(g,num);
-		        				if(resP && g && f)
+		        				if(resP && g)
 		        				{
 		        					printf("Result: ");
 		        					output_pol(resP);
-		        					clear_P(resP);
-		        					clear_P(g);
-		        					clear_P(f);
+		        					//clear_P(resP);
+		        					//clear_P(g);
 		        				}
 		        				break;
 		        			 case 12:
 		        			 	printf("Entering first polynom\n");
 		        				g = polynom_parsing();
 		        				resP = DER_P_P(g);
-		        				if(resP && g && f)
+		        				if(resP && g)
 		        				{
 		        					printf("Result: ");
 		        					output_pol(resP);
 		        					clear_P(resP);
 		        					clear_P(g);
-		        					clear_P(f);
 		        				}
+		        				break;
 		        			default:
 		        				break;
 		        		}
 		        		
 		        	}
-		        
 		        printf("\nEnter any key when ready");
 		        getchar();
+		        getchar();
+		        		        getchar();
+
+		        getchar();
+
 		        CLEAR_WINDOW
 		        printf("Choose class of number to work:\n0-Back to main menu\n1-Natural+{0}\n2-Integer\n3-Rational\n4-Polinom\nYour answer: ");
 	        	scanf("%d", &clas);
@@ -812,16 +817,13 @@ void output_int(Z *a)
 void output_rat(Q* a)
 {
 	output_int(a->m);
-	if( (a->n->n == 1) && (a->n->A[0] == 1) )
-	{
-		;//printf("\n"); ЕСЛИ НЕ БУДЕТ РАБОТАТЬ, СДЕЛАЙТЕ ПЕРЕГРУЗКУ С ФУНКЦИЕЙ
-	}
-	else
+	if( (a->n->n != 1) && (a->n->A[0] != 1) )
 	{
 		printf("/");
 		output(a->n);
 		//printf("\n");
 	}
+	
 }
 
 void output_pol(P *mas){
@@ -980,15 +982,18 @@ void clear_N(N* a)
 
 void clear_Z(Z* a)
 {
-	clear_N(a->num);
-	free(a);
-	a = NULL;
+	if(a->num != NULL)clear_N(a->num);
+	if(a!=NULL)
+	{
+		free(a);
+		a = NULL;
+	}
 }
 
 void clear_Q(Q* a)
 {
-	clear_Z(a->m);
-	clear_N(a->n);
+	if(a->m != NULL) clear_Z(a->m);
+	if(a->n != NULL) clear_N(a->n);
 }
 
 void clear_P(P *mas){
