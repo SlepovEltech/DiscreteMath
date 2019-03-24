@@ -75,7 +75,7 @@ N* TRANS_Z_N(Z* z_num)
     for(i = 0; i < z_num->num->n;i++)
         result->A[i] = z_num->num->A[i];
     result->n = z_num->num->n;
-
+    if(z_num->sign == 1) printf("Your number was negative, but we did absolute natural value of it!\n");
     return result;
 }
 //Z-6

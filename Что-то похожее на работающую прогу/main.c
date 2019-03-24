@@ -827,7 +827,7 @@ void output_rat(Q* a)
 }
 
 void output_pol(P *mas){
-    // Выводит многочлен в виде Ax^n+...+Z
+    // Output polynom  like Ax^n+...+Z
     int i;
     for(i=mas->deg-1;i>=0;i--){
         printf("%c",(mas->c[i]->m->sign==1)?'\0':'+');
