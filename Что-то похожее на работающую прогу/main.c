@@ -18,8 +18,8 @@
 // Тестовый main хомяка. не трогать
 int mainT(){
     P* A = polynom_parsing();
-    Q* B = rat_parsing("1/2");
-	P* C = MUL_PQ_P(A,B);
+    Q* B = rat_parsing("-2");
+	P* C = DER_P_P(A);
 	output_pol(C);
 	clear_P(A);
 	clear_Q(B);
@@ -701,6 +701,7 @@ int main()
 		        				printf("Entering  polynom");
 		        				g = polynom_parsing();
 		        				printf("Enter your rational number: ");
+								getchar();
 		        				new_gets(s,lim);
 		        				h = rat_parsing(s);
 		        				output_rat(h);
@@ -830,7 +831,7 @@ void output_pol(P *mas){
     // Выводит многочлен в виде Ax^n+...+Z
     int i;
     for(i=mas->deg-1;i>=0;i--){
-        printf("%c",(mas->deg==1)?'\0':'+');
+        printf("%c",(mas->c[i]->m->sign==1)?'\0':'+');
         output_rat(mas->c[i]);
         if(i!=0 && i!=1)
         	printf("x^%d",i);

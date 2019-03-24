@@ -92,6 +92,7 @@ Q* SUB_QQ_Q(Q* a, Q*b)
 Q* MUL_QQ_Q(Q* a, Q* b)
 {
 	Q* res;
+	Q* finalRes;
 	res = (Q*)malloc(sizeof(Q));
 	res->m = MUL_ZZ_Z(a->m,b->m);
 	res->n = MUL_NN_N(a->n,b->n);
@@ -99,7 +100,9 @@ Q* MUL_QQ_Q(Q* a, Q* b)
 		res->m->sign = 0;
 	if(POZ_Z_D(a->m) != POZ_Z_D(b->m))
 		res->m->sign = 1;
-	return res;
+	finalRes = RED_Q_Q(res);
+	free(res);
+	return finalRes;
 }
 
 //Q-8
