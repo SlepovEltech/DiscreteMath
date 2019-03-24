@@ -701,10 +701,10 @@ int main()
 		        				printf("Entering  polynom");
 		        				g = polynom_parsing();
 		        				printf("Enter your rational number: ");
-								getchar();
 		        				new_gets(s,lim);
 		        				h = rat_parsing(s);
 		        				output_rat(h);
+		        				puts("");
 		        				resP = MUL_PQ_P(g,h);
 		        				output_pol(g);
 		        				//if(resP && g && h)
@@ -717,7 +717,7 @@ int main()
 		        				//}
 		        				break;
 		        			case 4:
-		        				printf("Entering  polynom");
+		        				printf("Entering polynom");
 		        				g = polynom_parsing();
 		        				printf("Entering deg k of x^k: ");
 		        				scanf("%d", &num);
@@ -729,7 +729,6 @@ int main()
 		        					//clear_P(resP);
 		        					//clear_P(g);
 		        				//}
-		        					getchar();
 		        					getchar();
 		        				break;
 		        			 case 12:
