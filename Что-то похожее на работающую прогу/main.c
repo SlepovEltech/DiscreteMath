@@ -709,7 +709,7 @@ int main()
 		        				{
 		        					printf("Result: ");
 		        					output_pol(resP);
-		        					clear_P(resP);
+		        					//clear_P(resP);
 		        					clear_P(g);
 		        					clear_Q(h);
 		        				}
@@ -720,13 +720,12 @@ int main()
 		        				printf("Entering deg k of x^k: ");
 		        				scanf("%d", &num);
 		        				resP = MUL_Pxk_P(g,num);
-		        				if(resP && g && f)
+		        				if(resP && g)
 		        				{
 		        					printf("Result: ");
 		        					output_pol(resP);
-		        					clear_P(resP);
-		        					clear_P(g);
-		        					clear_P(f);
+		        					//clear_P(resP);
+		        					//clear_P(g);
 		        				}
 		        				break;
 		        			 case 12:
@@ -748,6 +747,11 @@ int main()
 		        	}
 		        printf("\nEnter any key when ready");
 		        getchar();
+		        getchar();
+		        		        getchar();
+
+		        getchar();
+
 		        CLEAR_WINDOW
 		        printf("Choose class of number to work:\n0-Back to main menu\n1-Natural+{0}\n2-Integer\n3-Rational\n4-Polinom\nYour answer: ");
 	        	scanf("%d", &clas);

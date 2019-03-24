@@ -123,20 +123,21 @@ P* MUL_PQ_P(P* mas,Q* mult){
 P* MUL_Pxk_P(P* mas,int k){
     int degree = mas->deg+k;
     char unit[2] = {'1','\0'};
+    char nul[2] = {'0','\0'};
     P* result = (P*)calloc(1,sizeof(P));
     int i;
     Q *C;
     result->c = (Q**)calloc(degree,sizeof(Q*));
     result->deg = degree;
-    Q* Z = rat_parsing(unit);
+    Q* Z = rat_parsing(nul);
     C = rat_parsing(unit);
     for(i=0;i<k;i++)
-        result->c[i] = MUL_QQ_Q(Z,C);
+        result->c[i] = MUL_QQ_Q(Z,Z);
     for(i=0;i<mas->deg;i++)
         {
             result->c[i+k] = MUL_QQ_Q(mas->c[i],C);
         }
-    clear_Q(C);
+    //clear_Q(C);
     return result;
 }
 //P-5
