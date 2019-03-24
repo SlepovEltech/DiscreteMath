@@ -18,11 +18,11 @@
 // Тестовый main хомяка. не трогать
 int mainT(){
     P* A = polynom_parsing();
-    P* B = polynom_parsing();
-	P* C = DIV_PP_P(A,B);
+    Q* B = rat_parsing("1/2");
+	P* C = MUL_PQ_P(A,B);
 	output_pol(C);
 	clear_P(A);
-	clear_P(B);
+	clear_Q(B);
 	clear_P(C);
 	return 0;
 }
@@ -820,7 +820,7 @@ void output_rat(Q* a)
 	{
 		printf("/");
 		output(a->n);
-		printf("\n");
+		//printf("\n");
 	}
 }
 

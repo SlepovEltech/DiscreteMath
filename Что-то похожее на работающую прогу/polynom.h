@@ -106,17 +106,15 @@ P* SUB_PP_P(P* first,P* second){
 //P-3
 P* MUL_PQ_P(P* mas,Q* mult){
     int i;
-    printf("Zashel v func '");
     Q *tmp;
     P* result = (P*)malloc(sizeof(P));
-    int deg = mas->deg+1;
+    int deg = mas->deg;
     result->c = (Q**)malloc(deg*sizeof(Q*));
+    result->deg = deg;
     for(i=0;i<deg;i++)
     {
         result->c[i] = MUL_QQ_Q(mas->c[i],mult);
-        printf("Nachal mnozhit'");
     }
-    printf("Zakonchil");
     return result;
 }
 //P-4
