@@ -169,7 +169,7 @@ Z* MUL_ZZ_Z(Z* first, Z* second)
         else
             puts("Memory allocation error!");
     }
-    if((POZ_Z_D(first) == 1 & POZ_Z_D(second) == 2)||(POZ_Z_D(first) == 2 & POZ_Z_D(second) == 1))
+    if((POZ_Z_D(first) == 1 && POZ_Z_D(second) == 2)||(POZ_Z_D(first) == 2 && POZ_Z_D(second) == 1))
     {
         if(((result = (Z*)malloc(sizeof(Z)))!= NULL))
         {
@@ -179,7 +179,7 @@ Z* MUL_ZZ_Z(Z* first, Z* second)
         else
             puts("Memory allocation error!");
     }
-    if((POZ_Z_D(first) == 1 & POZ_Z_D(second) == 1)||(POZ_Z_D(first) == 2 & POZ_Z_D(second) == 2))
+    if((POZ_Z_D(first) == 1 && POZ_Z_D(second) == 1)||(POZ_Z_D(first) == 2 && POZ_Z_D(second) == 2))
     {
         if(((result = (Z*)malloc(sizeof(Z)))!= NULL))
         {
