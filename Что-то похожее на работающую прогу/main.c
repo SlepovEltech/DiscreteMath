@@ -154,7 +154,8 @@ int main()
 									q = natural_parsing(s,lim);
 									printf("Enter digit: ");
 									scanf("%d", &num);
-									res = MUL_NN_N(q,w);
+									getchar();
+									res = MUL_ND_N(q,num);
 									if(q && res)
 									{
 										printf("Result: ");
