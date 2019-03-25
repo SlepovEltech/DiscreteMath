@@ -83,7 +83,8 @@ P* SUB_PP_P(P* first,P* second){
     zero.n = &b;
     //***
     result->deg = maxDeg;
-    result->c = (Q**)calloc(maxDeg+1,sizeof(Q*));
+	maxDeg++;
+    result->c = (Q**)calloc(maxDeg,sizeof(Q*));
     for(i=0;i<maxDeg;i++){
         if((i<first->deg)&&(i<second->deg)){
             result->c[i] = SUB_QQ_Q(first->c[i],second->c[i]);
@@ -100,6 +101,17 @@ P* SUB_PP_P(P* first,P* second){
                     }
         }
     }
+	int nonZero = 1;
+	for (i = maxDeg-2; (i > 0) && nonZero; i--) {
+		if (NZER_N_B(result->c[i]->m->num)) {
+			clear_Q(result->c[i]);
+			result->deg--;
+		}
+		else
+			nonZero = 0;
+	
+	}
+
     return result;
 }
 
@@ -147,49 +159,6 @@ int DEG_P_N(P* mas){
     return mas->deg-1;
 }
 
-//P-9
-P* DIV_PP_P(P *a, P *b)
-{
-    P *divAB, *var1,*var2,*tmp;
-    Q *chastnoe;
-    int k=0;
-    int degA = DEG_P_N(a);
-    int degB = DEG_P_N(b);
-    int raznica = degA-degB;
-    if (b->deg > a->deg)
-        divAB = SUB_PP_P(a, a);
-    else
-    {
-        divAB = (P*)malloc(sizeof(P));
-        divAB->deg = a->deg;
-        divAB->c = (Q**)malloc(sizeof(Q*)*divAB->deg); 
-        while (b->deg <= a->deg)
-        {
-            printf("Entering\n");
-            printf("Trying");
-            //output_rat(a->c[0]);
-            //output_rat(b->c[0]);
-
-            //chastnoe = DIV_QQ_Q(a->c[0], b->c[0]);
-            printf("A");
-            var1 = MUL_Pxk_P(b, raznica);
-            printf("B");
-            var2 = MUL_PQ_P(var1, chastnoe);
-            printf("C");        
-            tmp = SUB_PP_P(a, var2);
-            printf("D");            
-            a = tmp;
-            degA = a->deg;
-            raznica = degA-degB;
-            divAB->c[k++] = chastnoe;
-            clear_P(var1);
-            clear_P(var2);
-            clear_P(a);
-        }
-    }
-    return divAB;
-}
-
 //P-12
 P* DER_P_P(P* mas){
     int i;
@@ -208,4 +177,55 @@ P* DER_P_P(P* mas){
         free(C);
     }
     return result;
+}
+
+//P-9
+P* DIV_PP_P(P *a, P *b)
+{
+	int i;
+    int power;
+    P *tmp1,*tmp2,*result;
+
+	
+
+	if(a->deg<b->deg){
+        result=SUB_PP_P(a,a);
+    }
+    else
+    {
+        result = (P*)calloc(1, sizeof(P));
+	    result->c = (Q**)calloc(a->deg - b->deg+1, sizeof(Q*));
+	    result->deg = a->deg - b->deg+1;
+	    int maxDeg = a->deg - b->deg+1;
+        for(i=0;i<maxDeg;i++)
+		    result->c[i] = NULL;
+        while (a->deg >= b->deg) {
+            Q* sep = DIV_QQ_Q(a->c[a->deg-1], b->c[b->deg-1]);
+            power = a->deg - b->deg;
+            result->c[power] = sep;
+            tmp1 = MUL_Pxk_P(b, power);
+            tmp2 = MUL_PQ_P(tmp1, sep);
+            
+            a = SUB_PP_P(a, tmp2);
+            clear_P(tmp1);
+            clear_P(tmp2);
+        }
+        
+        for(i=maxDeg;i>=0;i--)
+            if(result->c[i]==NULL)
+                result->c[i] = rat_parsing("0");
+                
+        int nonZero = 1;
+        for (i = maxDeg-2; (i > 0) && nonZero; i--) {
+            if (NZER_N_B(result->c[i]->m->num) && (result->c[i]==NULL)) {
+                clear_Q(result->c[i]);
+                result->deg--;
+            }
+            else
+                nonZero = 0;
+        
+        }	
+    }
+	printf("Done That shit\n");
+	return result;
 }

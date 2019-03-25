@@ -16,18 +16,18 @@
 #endif
 
 // Тестовый main хомяка. не трогать
-int mainT(){
+int main(){
     P* A = polynom_parsing();
-    Q* B = rat_parsing("-2");
-	P* C = DER_P_P(A);
+    P* B = polynom_parsing();
+	P* C = DIV_PP_P(A,B);
 	output_pol(C);
 	clear_P(A);
-	clear_Q(B);
+	clear_P(B);
 	clear_P(C);
 	return 0;
 }
 
-int main()
+int mainT()
 {
 	N *q=NULL, *w=NULL,*res=NULL;
 	Z *d=NULL, *t=NULL, *resZ=NULL;
@@ -846,7 +846,7 @@ void output_pol(P *mas){
     int i;
     for(i=mas->deg-1;i>=0;i--)
     {
-        if(NZER_N_B(mas->c[i]->m->num) == 0)
+        if((NZER_N_B(mas->c[i]->m->num) == 0) || (i==0))
         {
         	printf("%c",(mas->c[i]->m->sign==1)?'\0':'+');
         	output_rat(mas->c[i]);
