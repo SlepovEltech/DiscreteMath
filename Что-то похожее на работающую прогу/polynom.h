@@ -265,5 +265,17 @@ P* MOD_PP_P(P *a,P *b){
     clear_P(tmp2);
     return result;
 }
-
+/*
 //P-11
+P* GCF_PP_P(P *a,P *b){
+    P *result,*tmp;
+    if(a->deg>b->deg)
+        tmp = MOD_PP_P(a,b);
+    else{
+        tmp = MOD_PP_P(b,a);
+        clear_P(b);
+        b = a;
+        }
+    while(NZER_N_B())
+}
+*/
