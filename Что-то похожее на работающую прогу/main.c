@@ -698,44 +698,57 @@ int main()
 		        				}
 		        				break;
 		        			case 3: 
-		        				printf("Entering  polynom");
 		        				g = polynom_parsing();
 		        				printf("Enter your rational number: ");
 		        				new_gets(s,lim);
 		        				h = rat_parsing(s);
-		        				output_rat(h);
-		        				puts("");
 		        				resP = MUL_PQ_P(g,h);
-		        				output_pol(g);
-		        				//if(resP && g && h)
-		        				//{
+		        				if(resP && g && h)
+		        				{
 		        					printf("Result: ");
 		        					output_pol(resP);
-		        					//clear_P(resP);
+		        					clear_P(resP);
 		        					clear_P(g);
 		        					clear_Q(h);
-		        				//}
+		        				}
 		        				break;
 		        			case 4:
-		        				printf("Entering polynom");
 		        				g = polynom_parsing();
 		        				printf("Entering deg k of x^k: ");
 		        				scanf("%d", &num);
 		        				resP = MUL_Pxk_P(g,num);
-		        				//if(resP && g)
-		        				//{
+		        				if(resP && g)
+		        				{
 		        					printf("Result: ");
 		        					output_pol(resP);
-		        					//clear_P(resP);
-		        					//clear_P(g);
-		        				//}
+		        					clear_P(resP);
+		        					clear_P(g);
+		        				}
 		        					getchar();
 		        				break;
+		        			case 5:
+		        				g = polynom_parsing();
+		        				h = LED_P_Q(g);
+		        				if(h&&g)
+		        				{
+		        					printf("Result: ");
+		        					output_rat(h);
+		        					//clear_P(g);
+		        					//clear_Q(h);
+		        				}
+		        				break;
+		        			case 6:
+		        				g = polynom_parsing();
+		        				num = DEG_P_N(g);
+		        				if(h&&g)
+		        				{
+		        					printf("Result: %d", num);
+		        					clear_P(g);
+		        				}
+		        				break;
 		        			 case 12:
-		        			 	printf("Entering first polynom\n");
 		        				g = polynom_parsing();
 		        				resP = DER_P_P(g);
-		        				output_pol(g);
 		        				if(resP && g)
 		        				{
 		        					printf("Result: ");
