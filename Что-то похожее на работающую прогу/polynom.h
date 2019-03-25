@@ -159,22 +159,27 @@ int DEG_P_N(P* mas){
     return mas->deg-1;
 }
 
-//P-12
-P* DER_P_P(P* mas){
-    int i;
-    char buf[STDSIZE];
-    Q* tmp,*C;
-    P* result = (P*)calloc(1,sizeof(P));
-    int degree = mas->deg-1;
-    if(degree<0)
-        degree = 0;
-    result->c = (Q**)calloc(degree,sizeof(Q*));
-    result->deg = degree;
-    for(i=0;i<degree;i++){
-        sprintf(buf,"%d",i+1);
-        C = rat_parsing(buf);
-        result->c[i] = MUL_QQ_Q(mas->c[i+1],C);
-        free(C);
+//P-8
+P* MUL_PP_P(P *a,P *b){
+    int i,j,k;
+    Q *res,*tmp1,*tmp2;
+
+    P* result = (P*)calloc(1, sizeof(P));
+    result->c = (Q**)calloc(a->deg + b->deg, sizeof(Q*));
+    result->deg = a->deg + b->deg;
+    for(i=0;i<result->deg;i++){
+    res = rat_parsing("0");
+        for(j=0;j<a->deg;j++)
+            for(k=0;k<b->deg;k++)
+                if(i==(j+k))
+                    {
+                        tmp1 = MUL_QQ_Q(a->c[j],b->c[k]);
+                        tmp2 = ADD_QQ_Q(tmp1,res);
+                        clear_Q(res);
+                        res = tmp2;
+                        clear_Q(tmp1);
+                    }
+        result->c[i] = res;
     }
     return result;
 }
@@ -185,9 +190,6 @@ P* DIV_PP_P(P *a, P *b)
 	int i;
     int power;
     P *tmp1,*tmp2,*result;
-
-	
-
 	if(a->deg<b->deg){
         result=SUB_PP_P(a,a);
     }
@@ -230,32 +232,6 @@ P* DIV_PP_P(P *a, P *b)
 	return result;
 }
 
-//P-8
-P* MUL_PP_P(P *a,P *b){
-    int i,j,k;
-    Q *res,*tmp1,*tmp2;
-
-    P* result = (P*)calloc(1, sizeof(P));
-	result->c = (Q**)calloc(a->deg + b->deg, sizeof(Q*));
-	result->deg = a->deg + b->deg;
-    for(i=0;i<result->deg;i++){
-    res = rat_parsing("0");
-        for(j=0;j<a->deg;j++)
-            for(k=0;k<b->deg;k++)
-                if(i==(j+k))
-                    {
-                        tmp1 = MUL_QQ_Q(a->c[j],b->c[k]);
-                        tmp2 = ADD_QQ_Q(tmp1,res);
-                        clear_Q(res);
-                        res = tmp2;
-                        clear_Q(tmp1);
-                    }
-        result->c[i] = res;
-    }
-    return result;
-}
-
-
 //P-10
 P* MOD_PP_P(P *a,P *b){
     P* tmp1 = DIV_PP_P(a,b);
@@ -287,5 +263,25 @@ P* GCF_PP_P(P *a,P *b){
         }
     if(NZER_N_B(tmp->c[tmp->deg-1]->m->num))
         result = b;
+    return result;
+}
+
+//P-12
+P* DER_P_P(P* mas){
+    int i;
+    char buf[STDSIZE];
+    Q* tmp,*C;
+    P* result = (P*)calloc(1,sizeof(P));
+    int degree = mas->deg-1;
+    if(degree<0)
+        degree = 0;
+    result->c = (Q**)calloc(degree,sizeof(Q*));
+    result->deg = degree;
+    for(i=0;i<degree;i++){
+        sprintf(buf,"%d",i+1);
+        C = rat_parsing(buf);
+        result->c[i] = MUL_QQ_Q(mas->c[i+1],C);
+        free(C);
+    }
     return result;
 }

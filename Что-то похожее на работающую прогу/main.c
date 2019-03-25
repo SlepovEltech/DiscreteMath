@@ -16,7 +16,7 @@
 #endif
 
 // Тестовый main хомяка. не трогать
-int main(){
+int mainT(){
     P* A = polynom_parsing();
     P* B = polynom_parsing();
 	P* C = GCF_PP_P(A,B);
@@ -27,7 +27,7 @@ int main(){
 	return 0;
 }
 
-int mainT()
+int main()
 {
 	N *q=NULL, *w=NULL,*res=NULL;
 	Z *d=NULL, *t=NULL, *resZ=NULL;
@@ -744,6 +744,66 @@ int mainT()
 		        				{
 		        					printf("Result: %d", num);
 		        					clear_P(g);
+		        				}
+		        				break;
+		        			case 8:
+		        				printf("Entering first polynom\n");
+		        				g = polynom_parsing();
+		        				printf("Entering second polynom\n");
+		        				f = polynom_parsing();
+		        				resP = MUL_PP_P(g,f);
+		        				if(resP && g && f)
+		        				{
+		        					printf("Result: ");
+		        					output_pol(resP);
+		        					clear_P(resP);
+		        					clear_P(g);
+		        					clear_P(f);
+		        				}
+		        				break;
+		        			case 9:
+		        				printf("Entering first polynom\n");
+		        				g = polynom_parsing();
+		        				printf("Entering second polynom\n");
+		        				f = polynom_parsing();
+		        				resP = DIV_PP_P(g,f);
+		        				if(resP && g && f)
+		        				{
+		        					printf("Result: ");
+		        					output_pol(resP);
+		        					clear_P(resP);
+		        					clear_P(g);
+		        					clear_P(f);
+		        				}
+		        				break;
+		        			case 10:
+		        				printf("Entering first polynom\n");
+		        				g = polynom_parsing();
+		        				printf("Entering second polynom\n");
+		        				f = polynom_parsing();
+		        				resP = MOD_PP_P(g,f);
+		        				if(resP && g && f)
+		        				{
+		        					printf("Result: ");
+		        					output_pol(resP);
+		        					clear_P(resP);
+		        					clear_P(g);
+		        					clear_P(f);
+		        				}
+		        				break;
+		        			case 11:
+		        				printf("Entering first polynom\n");
+		        				g = polynom_parsing();
+		        				printf("Entering second polynom\n");
+		        				f = polynom_parsing();
+		        				resP = GCF_PP_P(g,f);
+		        				if(resP && g && f)
+		        				{
+		        					printf("Result: ");
+		        					output_pol(resP);
+		        					clear_P(resP);
+		        					clear_P(g);
+		        					clear_P(f);
 		        				}
 		        				break;
 		        			 case 12:
