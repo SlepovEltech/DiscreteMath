@@ -5,3 +5,4 @@ main
 *.out
 *.o
 .vscode
+.exe
