@@ -229,3 +229,41 @@ P* DIV_PP_P(P *a, P *b)
 	printf("Done That shit\n");
 	return result;
 }
+
+//P-8
+P* MUL_PP_P(P *a,P *b){
+    int i,j,k;
+    Q *res,*tmp1,*tmp2;
+
+    P* result = (P*)calloc(1, sizeof(P));
+	result->c = (Q**)calloc(a->deg + b->deg, sizeof(Q*));
+	result->deg = a->deg + b->deg;
+    for(i=0;i<result->deg;i++){
+    res = rat_parsing("0");
+        for(j=0;j<a->deg;j++)
+            for(k=0;k<b->deg;k++)
+                if(i==(j+k))
+                    {
+                        tmp1 = MUL_QQ_Q(a->c[j],b->c[k]);
+                        tmp2 = ADD_QQ_Q(tmp1,res);
+                        clear_Q(res);
+                        res = tmp2;
+                        clear_Q(tmp1);
+                    }
+        result->c[i] = res;
+    }
+    return result;
+}
+
+
+//P-10
+P* MOD_PP_P(P *a,P *b){
+    P* tmp1 = DIV_PP_P(a,b);
+    P* tmp2 = MUL_PP_P(tmp1,b);
+    P* result = SUB_PP_P(a,tmp2);
+    clear_P(tmp1);
+    clear_P(tmp2);
+    return result;
+}
+
+//P-11
