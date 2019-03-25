@@ -19,7 +19,7 @@
 int main(){
     P* A = polynom_parsing();
     P* B = polynom_parsing();
-	P* C = MOD_PP_P(A,B);
+	P* C = GCF_PP_P(A,B);
 	output_pol(C);
 	clear_P(A);
 	clear_P(B);

@@ -265,7 +265,7 @@ P* MOD_PP_P(P *a,P *b){
     clear_P(tmp2);
     return result;
 }
-/*
+
 //P-11
 P* GCF_PP_P(P *a,P *b){
     P *result,*tmp;
@@ -276,6 +276,16 @@ P* GCF_PP_P(P *a,P *b){
         clear_P(b);
         b = a;
         }
-    while(NZER_N_B())
+    while(!NZER_N_B(tmp->c[tmp->deg-1]->m->num))
+        {
+            clear_P(a);
+            a=b;
+            clear_P(b);
+            b=tmp;
+            clear_P(tmp);
+            tmp = MOD_PP_P(a,b);
+        }
+    if(NZER_N_B(tmp->c[tmp->deg-1]->m->num))
+        result = b;
+    return result;
 }
-*/
