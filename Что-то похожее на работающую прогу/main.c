@@ -966,26 +966,52 @@ Z* int_parsing(char *s, int lim)
 
 P* polynom_parsing(){
     // Спрашивает у пользователя многочлен и возвращает его
-    int deg,i;
-    char *buf;
+    int deg,degree,i,j;
+    char *buf,*s1,*s2;
     P* result;
     printf("Enter the highest degree of the polynom:");
     scanf("%d", &deg);
     deg++;
     buf = (char*)malloc(STDSIZE*sizeof(char));
-    printf("Now program will ask you coef's at every power\n");
+    s1 = (char*)malloc(STDSIZE*sizeof(char));
+    s2 = (char*)malloc(STDSIZE*sizeof(char));
+    printf("Enter polynom in type: DEG COEF(Example: 5 32/7)\n");
     if(deg>0){
         // Пошла жара
         result = (P*)malloc(sizeof(P));
         result->c = (Q**)calloc(deg,sizeof(Q*));
-        result->deg =deg;
-    for(i=result->deg-1;i>=0;i--){
-            printf("x^%d: ",i);
-            fseek(stdin,0,SEEK_END);
+        result->deg = deg;
+        degree = 1;
+        for(i = 0; i < deg; i++)
+        {
+        	result->c[i] = rat_parsing("0");
+        }
+        getchar();
+        while(degree != 0)
+        {
+        	
             new_gets(buf,STDSIZE);
-            result->c[i] = rat_parsing(buf);
+            i = 0; j = 0;
+            while(buf[i] != ' ')
+            {
+            	s1[i] = buf[i];
+            	i+=1;
+            }
+            s1[i] = '\0';
+            i+=1;
+            j = 0;
+            while(buf[i] != '\0')
+            {
+            	s2[j] = buf[i];
+            	i+=1;
+            	j+=1;
+            }
+            s2[j] = '\0';
+            degree = atoi(s1);
+            result->c[degree] = rat_parsing(s2);
         }
     }
+    output_pol(result);
     return result;
 }
 
