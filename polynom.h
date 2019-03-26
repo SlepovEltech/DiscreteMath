@@ -1,3 +1,4 @@
+//This module was made by Andreev Vladimir and Saprykin Alexander
 #pragma once
 #include <math.h>
 #include <stdlib.h>
@@ -19,7 +20,7 @@ int polynom()
     scanf("%d", &key);
     return key;
 }
-//P-1
+//P-1 Addition of polynomials
 P* ADD_PP_P(P* first,P* second){
     int i;
     int maxDeg = ((first->deg>second->deg)?first->deg:second->deg);
@@ -62,7 +63,7 @@ P* ADD_PP_P(P* first,P* second){
     return result;
 }
 
-//P-2
+//P-2 Subtraction of Polynomials
 P* SUB_PP_P(P* first,P* second){
     int i;
     int maxDeg = ((first->deg>second->deg)?first->deg:second->deg);
@@ -115,7 +116,7 @@ P* SUB_PP_P(P* first,P* second){
     return result;
 }
 
-//P-3
+//P-3 Multiplication of a polynomial by a rational number
 P* MUL_PQ_P(P* mas,Q* mult){
     int i;
     Q *tmp;
@@ -129,7 +130,7 @@ P* MUL_PQ_P(P* mas,Q* mult){
     }
     return result;
 }
-//P-4
+//P-4 Multiplication of a polynomial by x ^ k
 P* MUL_Pxk_P(P* mas,int k){
     int degree = mas->deg+k;
     char unit[2] = {'1','\0'};
@@ -150,16 +151,18 @@ P* MUL_Pxk_P(P* mas,int k){
     clear_Q(C);
     return result;
 }
-//P-5
+
+//P-5 Highest coefficient of a polynomial 
 Q* LED_P_Q(P* mas){
     return mas->c[mas->deg-1];
 }
-//P-6
+
+//P-6 Degree of polynomial
 int DEG_P_N(P* mas){
     return mas->deg-1;
 }
 
-//P-8
+//P-8 Multiplication of polynomials
 P* MUL_PP_P(P *a,P *b){
     int i,j,k;
     Q *res,*tmp1,*tmp2;
@@ -184,7 +187,7 @@ P* MUL_PP_P(P *a,P *b){
     return result;
 }
 
-//P-9
+//P-9 The quotient from the division of a polynomial by a polynomial in division with the remainder
 P* DIV_PP_P(P *a, P *b)
 {
 	int i;
@@ -195,44 +198,56 @@ P* DIV_PP_P(P *a, P *b)
     }
     else
     {
-        result = (P*)calloc(1, sizeof(P));
-	    result->c = (Q**)calloc(a->deg - b->deg+1, sizeof(Q*));
-	    result->deg = a->deg - b->deg+1;
-	    int maxDeg = a->deg - b->deg+1;
-        for(i=0;i<maxDeg;i++)
-		    result->c[i] = NULL;
-        while (a->deg >= b->deg) {
-            Q* sep = DIV_QQ_Q(a->c[a->deg-1], b->c[b->deg-1]);
-            power = a->deg - b->deg;
-            result->c[power] = sep;
-            tmp1 = MUL_Pxk_P(b, power);
-            tmp2 = MUL_PQ_P(tmp1, sep);
-            
-            a = SUB_PP_P(a, tmp2);
-            clear_P(tmp1);
-            clear_P(tmp2);
-        }
-        
-        for(i=maxDeg;i>=0;i--)
-            if(result->c[i]==NULL)
-                result->c[i] = rat_parsing("0");
-                
-        int nonZero = 1;
-        for (i = maxDeg-2; (i > 0) && nonZero; i--) {
-            if (NZER_N_B(result->c[i]->m->num) && (result->c[i]==NULL)) {
-                clear_Q(result->c[i]);
-                result->deg--;
-            }
-            else
-                nonZero = 0;
-        
-        }	
-    }
+		if(b->deg==1){
+			
+			result = (P*)calloc(1, sizeof(P));
+	    	result->c = (Q**)calloc(a->deg+1, sizeof(Q*));
+	    	result->deg = a->deg;
+	    	for(i=0;i<result->deg;i++)
+	    		result->c[i] = DIV_QQ_Q(a->c[i],b->c[0]);
+		}
+		else
+		{
+	        result = (P*)calloc(1, sizeof(P));
+		    result->c = (Q**)calloc(a->deg - b->deg+1, sizeof(Q*));
+		    result->deg = a->deg - b->deg+1;
+		    int maxDeg = a->deg - b->deg+1;
+	        for(i=0;i<maxDeg;i++)
+			    result->c[i] = NULL;
+	        while (a->deg >= b->deg) {
+	            Q* sep = DIV_QQ_Q(a->c[a->deg-1], b->c[b->deg-1]);
+	            power = a->deg - b->deg;
+	            result->c[power] = sep;
+	            tmp1 = MUL_Pxk_P(b, power);
+	            tmp2 = MUL_PQ_P(tmp1, sep);
+	            
+	            a = SUB_PP_P(a, tmp2);
+	            clear_P(tmp1);
+	            clear_P(tmp2);
+	        }
+	        
+	        for(i=maxDeg;i>=0;i--)
+	            if(result->c[i]==NULL)
+	                result->c[i] = rat_parsing("0");
+	                
+	        int nonZero = 1;
+	        for (i = maxDeg-2; (i > 0) && nonZero; i--) {
+	            if (NZER_N_B(result->c[i]->m->num) && (result->c[i]==NULL)) {
+	                clear_Q(result->c[i]);
+	                result->deg--;
+	            }
+	            else
+	                nonZero = 0;
+	        
+	        }	
+	    }
+	}
 	printf("Done That shit\n");
 	return result;
 }
 
-//P-10
+
+//P-10 The remainder of dividing a polynomial by a polynomial when dividing with a remainder
 P* MOD_PP_P(P *a,P *b){
     P* tmp1 = DIV_PP_P(a,b);
     P* tmp2 = MUL_PP_P(tmp1,b);
@@ -242,31 +257,31 @@ P* MOD_PP_P(P *a,P *b){
     return result;
 }
 
-//P-11
-P* GCF_PP_P(P *a,P *b){
-    P *result,*tmp;
-    if(a->deg>b->deg)
-        tmp = MOD_PP_P(a,b);
-    else{
-        tmp = MOD_PP_P(b,a);
-        clear_P(b);
-        b = a;
-        }
-    while(!NZER_N_B(tmp->c[tmp->deg-1]->m->num))
-        {
-            clear_P(a);
-            a=b;
-            clear_P(b);
-            b=tmp;
-            clear_P(tmp);
-            tmp = MOD_PP_P(a,b);
-        }
-    if(NZER_N_B(tmp->c[tmp->deg-1]->m->num))
-        result = b;
-    return result;
+//P-11 NOD of polynomials
+P* GCF_PP_P(P*a,P*b){
+
+    P* tmp,*qu = malloc(sizeof(P));
+    if(a->deg<b->deg)
+    {
+        tmp = a;
+        a = b;
+        b = tmp;
+    }
+    while(!(a->deg)||(POZ_Z_D(b->c[0]->m))){
+        clear_P(qu);
+        tmp = b;
+        b = MOD_PP_P(a,b);
+        qu = a;
+        a = tmp;
+    }
+
+
+    return a;
 }
 
-//P-12
+
+
+//P-12 Polynomial derivative
 P* DER_P_P(P* mas){
     int i;
     char buf[STDSIZE];

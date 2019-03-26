@@ -16,7 +16,7 @@
 #endif
 
 // Тестовый main хомяка. не трогать
-int mainT(){
+int main(){
     P* A = polynom_parsing();
     P* B = polynom_parsing();
 	P* C = GCF_PP_P(A,B);
@@ -27,7 +27,7 @@ int mainT(){
 	return 0;
 }
 
-int main()
+int mainT()
 {
 	N *q=NULL, *w=NULL,*res=NULL;
 	Z *d=NULL, *t=NULL, *resZ=NULL;

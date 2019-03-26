@@ -1,3 +1,4 @@
+//This module was made by Slepov Artem and Miskevich Milena of 8306 group
 int rational()
 {
 	int key;
@@ -10,7 +11,7 @@ int rational()
 	scanf("%d", &key);
 	return key;
 }
-//Q-1
+//Q-1 Fraction reduction
 Q* RED_Q_Q(Q* h)
 {
 	Q* res;
@@ -21,7 +22,7 @@ Q* RED_Q_Q(Q* h)
 	res->m->sign = h->m->sign;
 	return res;
 }
-//Q-2
+//Q-2 Check for integer, if a rational number is an integer, then “yes”, otherwise “no”
 int INT_Q_B(Q* a)
 {
 	int f;
@@ -32,7 +33,7 @@ int INT_Q_B(Q* a)
 		f = 0;
 	return f;
 }
-//Q-3
+//Q-3 Convert integer into fractional
 Q* TRANS_Z_Q(Z *a)
 {	
 	Q* res;
@@ -53,7 +54,7 @@ Q* TRANS_Z_Q(Z *a)
 	res->m->sign = a->sign;
 	return res;
 }
-//Q-4
+//Q-4 Conversion of fractional into integer (if the denominator is 1)
 Z* TRANS_Q_Z(Q *a)
 {
 	Z* res = NULL;
@@ -68,7 +69,7 @@ Z* TRANS_Q_Z(Q *a)
 
 	return res;
 }
-//Q-5
+//Q-5 Addition of fractions
 Q* ADD_QQ_Q(Q* a, Q*b)
 {
 	Q* res;
@@ -78,7 +79,7 @@ Q* ADD_QQ_Q(Q* a, Q*b)
 	res = RED_Q_Q(res);
 	return res;
 }
-//Q-6
+//Q-6 Subtraction of fractions
 Q* SUB_QQ_Q(Q* a, Q*b)
 {
 	Q* res;
@@ -88,7 +89,7 @@ Q* SUB_QQ_Q(Q* a, Q*b)
 	res = RED_Q_Q(res);
 	return res;
 }
-//Q-7
+//Q-7 Multiplication of fractions
 Q* MUL_QQ_Q(Q* a, Q* b)
 {
 	Q* res;
@@ -104,7 +105,7 @@ Q* MUL_QQ_Q(Q* a, Q* b)
 	return res;
 }
 
-//Q-8
+//Q-8 Fraction division (divider is non-zero)
 Q* DIV_QQ_Q(Q* a, Q*b)
 {
 	Q* res;
