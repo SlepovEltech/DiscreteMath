@@ -260,7 +260,7 @@ P* MOD_PP_P(P *a,P *b){
 //P-11 NOD of polynomials
 P* GCF_PP_P(P*a,P*b){
 
-    P* tmp,*qu = malloc(sizeof(P));
+    P* tmp,*qu = (P*)malloc(sizeof(P));
     if(a->deg<b->deg)
     {
         tmp = a;
@@ -274,8 +274,6 @@ P* GCF_PP_P(P*a,P*b){
         qu = a;
         a = tmp;
     }
-
-
     return a;
 }
 
