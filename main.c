@@ -35,19 +35,22 @@ int main()
 	P *g=NULL,*f=NULL, *resP=NULL;
 	int n,i,lim,key,clas,num,sign,key1;
 	char c_sign;
+	char choose;
 	char *s;
+	char s1[256];
+	FILE *df;
 	lim = STDSIZE;
 	s = (char*)malloc(lim*sizeof(char));
 	if(s != NULL)
 	{
-		while( (key = menu()) != 3)
+		while( (choose = menu()) != '3')
 		{
 		    CLEAR_WINDOW
-		    if(key != 3 && key != 2 && key != 1)
+		    if(choose != '3' && choose != '2' && choose != '1' && choose != 'F' && choose != 'f')
 	        {
 	            printf("Enter a correct answer!\n");
 	        }
-	        if(key == 1)
+	        if(choose == '1')
 	        {
 	        	printf("Choose class of number to work:\n0-Back to main menu\n1-Natural+{0}\n2-Integer\n3-Rational\n4-Polinom\nYour answer: ");
 	        	scanf("%d", &clas);
@@ -68,12 +71,12 @@ int main()
 									w = natural_parsing(s,lim);
 									if(q && w)
 									{
-										if(COM_NN_D(q,w)==2) 
-											printf("The first number is bigger\n"); 
-										else 
-											if(COM_NN_D(q,w)==0) 
-												printf("The numbers are equal\n"); 
-											else 
+										if(COM_NN_D(q,w)==2)
+											printf("The first number is bigger\n");
+										else
+											if(COM_NN_D(q,w)==0)
+												printf("The numbers are equal\n");
+											else
 												printf("The second number is bigger\n");
 										clear_N(q);
 										clear_N(w);
@@ -102,15 +105,17 @@ int main()
 									q = natural_parsing(s,lim);
 									if(q)
 									{
+										printf("You enter: " );
+										output(q);
+										printf(" + 1 = ");
 										ADD_1N_N(q);
-										printf("Result: ");
 										output(q);
 										puts("");
 										clear_N(q);
 									}
-									else 
+									else
 										printf("Error at number allocation!\n");
-									break;		
+									break;
 								case 4:
 									printf("Enter the first number: ");
 									getchar();
@@ -120,7 +125,11 @@ int main()
 									res = ADD_NN_N(q,w);
 									if(q && w && res)
 									{
-										printf("Result: ");
+										printf("You enter: " );
+										output(q);
+										printf(" + ");
+										output(w);
+										printf(" = ");
 										output(res);
 										printf("\n");
 										clear_N(q);
@@ -129,8 +138,8 @@ int main()
 									}
 									else
 										printf("Error at number allocation!\n");
-									break;		
-								case 5: 
+									break;
+								case 5:
 									printf("Enter the first number: ");
 									getchar();
 									q = natural_parsing(s,lim);
@@ -139,15 +148,20 @@ int main()
 									res = SUB_NN_N(q,w);
 									if(q && w && res)
 									{
-										printf("Result: ");
+										printf("You enter: " );
+										output(q);
+										printf(" - ");
+										output(w);
+										printf(" = ");
 										output(res);
 										printf("\n");
 										clear_N(res);
 										clear_N(q);
 										clear_N(w);
 									}
+									else
 										printf("Error at number allocation!\n");
-									break;		
+									break;
 								case 6:
 									printf("Enter your number: ");
 									getchar();
@@ -158,13 +172,15 @@ int main()
 									res = MUL_ND_N(q,num);
 									if(q && res)
 									{
-										printf("Result: ");
+										printf("You enter: " );
+										output(q);
+										printf(" * %d = ", num);
 										output(res);
 										printf("\n");
 										clear_N(q);
 										clear_N(res);
 									}
-									else 
+									else
 										printf("Error at number allocation!\n");
 									break;
 								case 7:
@@ -176,16 +192,20 @@ int main()
 									res = MUL_Nk_N(q,num);
 									if(q && res)
 									{
-										printf("Result: ");
+										printf("You enter: " );
+										output(q);
+										printf(" * 10^%d = ", num);
 										output(res);
 										puts("");
+										getchar();
+
 										clear_N(res);
 										clear_N(q);
 									}
-									else 
+									else
 										printf("Error at number allocation!\n");
 									break;
-								case 8: 
+								case 8:
 									printf("Enter the first number: ");
 									getchar();
 									q = natural_parsing(s,lim);
@@ -194,14 +214,18 @@ int main()
 									res = MUL_NN_N(q,w);
 									if(q && w && res)
 									{
-										printf("Result: ");
+										printf("You enter: " );
+										output(q);
+										printf(" * ");
+										output(w);
+										printf(" = ");
 										output(res);
 										puts("");
 										clear_N(res);
 										clear_N(q);
 										clear_N(w);
 									}
-									else 
+									else
 										printf("Error at number allocation!\n");
 									break;
 								 case 9:
@@ -223,7 +247,7 @@ int main()
 										clear_N(q);
 										clear_N(w);
 									}
-									else 
+									else
 										printf("Eror at at number allocation!\n");
 									break;
 								case 10:
@@ -249,14 +273,18 @@ int main()
 									res = DIV_NN_N(q,w);
 									if(q && w && res)
 									{
-										printf("Result: ");
+										printf("Your enter: ");
+										output(q);
+										printf(" DIV ");
+										output(w);
+										printf(" = ");
 										output(res);
 										puts("");
 										clear_N(q);
 										clear_N(w);
 										clear_N(res);
 									}
-									else 
+									else
 										printf("Error at at number allocation!\n");
 									break;
 								case 12:
@@ -268,14 +296,18 @@ int main()
 									res = MOD_NN_N(q,w);
 									if(q && w && res)
 									{
-										printf("Result: ");
+										printf("Your enter: ");
+										output(q);
+										printf(" MOD ");
+										output(w);
+										printf(" = ");
 										output(res);
 										puts("");
 										clear_N(q);
 										clear_N(w);
 										clear_N(res);
 									}
-									else 
+									else
 										printf("Result is NULL!\n");
 									break;
 								case 13:
@@ -287,14 +319,18 @@ int main()
 									res = GCF_NN_N(q,w);
 									if(q && w && res)
 									{
-										printf("Result: ");
+										printf("Your enter: ");
+										output(q);
+										printf(" NOD ");
+										output(w);
+										printf(" = ");
 										output(res);
 										puts("");
 										clear_N(q);
 										clear_N(w);
 										clear_N(res);
 									}
-									else 
+									else
 										printf("Result is NULL!\n");
 									break;
 								case 14:
@@ -306,14 +342,19 @@ int main()
 									res = LCM_NN_N(q,w);
 									if(res && q && w)
 									{
-										printf("Result: ");
+										printf("Your enter: ");
+										output(q);
+										printf(" NOK ");
+										output(w);
+										printf(" = ");
+										output(res);
 										output(res);
 										puts("");
 										clear_N(q);
 										clear_N(w);
 										clear_N(res);
 									}
-									else 
+									else
 										printf("Result is NULL!\n");
 									break;
 								default:
@@ -386,8 +427,8 @@ int main()
 			        				clear_N(q);
 			        			}
 			        			else
-			        				printf("Error at array allocation!\n");		 
-			        				break;       			
+			        				printf("Error at array allocation!\n");
+			        				break;
 			        		case 5:
 		        				printf("Enter your number: ");
 			        			getchar();
@@ -530,7 +571,7 @@ int main()
 									h = rat_parsing(s);
 									if(h)
 									{
-										if(INT_Q_B(h) == 1) 
+										if(INT_Q_B(h) == 1)
 										{
 											printf("Your number is integer: ");
 											output_rat(RED_Q_Q(h));
@@ -539,7 +580,7 @@ int main()
 										else
 										{
 											printf("Your number is rational: ");
-											output_rat(RED_Q_Q(h));									
+											output_rat(RED_Q_Q(h));
 										}
 										puts("");
 									}
@@ -658,8 +699,8 @@ int main()
 		        					printf("Enter correct answer!\n");
 		        				break;
 		        			}
-		        
-		        
+
+
 		        	}
 		        	if(clas == 4)
 		        	{
@@ -697,7 +738,7 @@ int main()
 		        					clear_P(f);
 		        				}
 		        				break;
-		        			case 3: 
+		        			case 3:
 		        				g = polynom_parsing();
 		        				printf("Enter your rational number: ");
 		        				new_gets(s,lim);
@@ -820,7 +861,7 @@ int main()
 		        			default:
 		        				break;
 		        		}
-		        		
+
 		        	}
 		        printf("\nEnter any key when ready");
 		        getchar();
@@ -828,8 +869,25 @@ int main()
 		        CLEAR_WINDOW
 		        printf("Choose class of number to work:\n0-Back to main menu\n1-Natural+{0}\n2-Integer\n3-Rational\n4-Polinom\nYour answer: ");
 	        	scanf("%d", &clas);
+        		}
         	}
-        }
+        	if(choose == 'F' || choose == 'f')
+		    {
+		    	df = fopen("respects","a");
+		    	fprintf(df,"1");
+		    	fclose(df);
+		    	df = fopen("respects", "r");
+		    	fgets(s1,256,df);
+		    	i = 0;
+		    	while(s1[i] != '\0')
+		    		i++;
+		    	printf("Your respects taken into account. Total respects: %d", i);
+		    	getchar();
+		    	printf("\nEnter any key when ready");
+		    	fclose(df);
+		    	getchar();
+
+		    }       
         }
 	    free(s);
 		s = NULL;
@@ -839,7 +897,7 @@ int main()
 	return 0;
 }
 
-int new_gets(char *s, int lim) 
+int new_gets(char *s, int lim)
 {
 	int i;
 	char c;
@@ -850,7 +908,7 @@ int new_gets(char *s, int lim)
 /*
 New_gets and input read string and makes a sign and array for Z and makes an array for N
 */
-int input(N *q,char *s, int n) 
+int input(N *q,char *s, int n)
 {
 	int i,sign;
 	if(s[0] == '-')
@@ -898,7 +956,7 @@ void output_rat(Q* a)
 		printf("/");
 		output(a->n);
 	}
-	
+
 }
 
 void output_pol(P *mas){
@@ -915,7 +973,7 @@ void output_pol(P *mas){
 	        if(i==1)
 	        	printf("x");
         }
-        
+
     }
         printf("\n");
 }
@@ -926,13 +984,13 @@ void print_header()
 	printf("\t\t\t\tDiscrethe Math\n\t\tComputer Algebra System by students 8306");
 }
 
-int menu()
+char menu()
 {
-	int key;
+	char key;
 	print_header();
 	printf("\n\t\t\t\tMENU\n");
 	printf("Press '1' to start\nPress '2' to check information about program\nPress '3' to close the program\nPress 'F' to pay respect\nYour answer: ");
-	scanf("%d", &key);
+	scanf("%c", &key);
 	system("clear");
 
 	return key;
@@ -989,7 +1047,7 @@ P* polynom_parsing(){
         getchar();
         while(degree != 0)
         {
-        	
+
             new_gets(buf,STDSIZE);
             i = 0; j = 0;
             while(buf[i] != ' ')
@@ -1046,7 +1104,7 @@ Q* rat_parsing(char *s)
 			}
 			s2[j] = '\0';
 			size_s1 = strlen(s1);
-			size_s2 = strlen(s2);	
+			size_s2 = strlen(s2);
 			a = (Q*)malloc(sizeof(Q));
 			a->m = (Z*)malloc(sizeof(Z));
 			a->m->num = (N*)malloc(sizeof(N));
@@ -1061,7 +1119,7 @@ Q* rat_parsing(char *s)
 			s2[0] = '1';
 			s2[1] = '\0';
 			size_s1 = strlen(s1);
-			size_s2 = strlen(s2);		
+			size_s2 = strlen(s2);
 			a = (Q*)malloc(sizeof(Q));
 			a->m = (Z*)malloc(sizeof(Z));
 			a->m->num = (N*)malloc(sizeof(N));
@@ -1107,8 +1165,8 @@ void clear_P(P *mas){
     // Чистит всё, что связанно с многочленами
     int i;
     for(i=0;i<mas->deg;i++){
-        clear_Q(mas->c[i]);	
+        clear_Q(mas->c[i]);
 		}
-	free(mas->c);	
+	free(mas->c);
     free(mas);
 }
