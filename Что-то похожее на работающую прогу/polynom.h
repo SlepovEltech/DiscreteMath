@@ -255,38 +255,27 @@ P* MOD_PP_P(P *a,P *b){
 }
 
 //P-11
-P* GCF_PP_P(P *a,P *b){
-    P *result,*tmp;
-    if(a->deg>=b->deg)
-        tmp = MOD_PP_P(a,b);
-    else{
-        tmp = MOD_PP_P(b,a);
-        clear_P(b);
-        b = a;
-        }
-    printf("llop\n");
-    while(!NZER_N_B(tmp->c[0]->m->num) && (b->deg>1))
-        {
-			// ��� ������ �������
-			a=b;
-			b=tmp;
-			printf("%d",b->deg);
-			output_pol(b);
-			tmp = MOD_PP_P(a,b);
-        }
-    printf("out\n");
-    if(NZER_N_B(tmp->c[tmp->deg-1]->m->num))
-        result = b;
-    else
+P* GCF_PP_P(P*a,P*b){
+
+    P* tmp,*qu = malloc(sizeof(P));
+    if(a->deg<b->deg)
     {
-		result = (P*)calloc(1, sizeof(P));
-	    result->c = (Q**)calloc(1, sizeof(Q*));
-	    result->deg = 1;
-	    result->c[0] = rat_parsing("1");
-	    
-	}
-    return result;
+        tmp = a;
+        a = b;
+        b = tmp;
+    }
+    while(!(a->deg)||(POZ_Z_D(b->c[0]->m))){
+        clear_P(qu);
+        tmp = b;
+        b = MOD_PP_P(a,b);
+        qu = a;
+        a = tmp;
+    }
+
+
+    return a;
 }
+
 
 
 //P-12
