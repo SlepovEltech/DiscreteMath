@@ -873,10 +873,10 @@ int mainT()
         	}
         	if(choose == 'F' || choose == 'f')
 		    {
-		    	df = fopen("respects","a");
+		    	df = fopen("./respects","a");
 		    	fprintf(df,"1");
 		    	fclose(df);
-		    	df = fopen("respects", "r");
+		    	df = fopen("./respects", "r");
 		    	fgets(s1,256,df);
 		    	i = 0;
 		    	while(s1[i] != '\0')
