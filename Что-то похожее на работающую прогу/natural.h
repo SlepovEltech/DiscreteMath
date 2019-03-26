@@ -1,3 +1,4 @@
+//This module was made by Panfilova Maria and Tumanova Vera of 8306 group
 //Menu list with options
 int natural()
 {
