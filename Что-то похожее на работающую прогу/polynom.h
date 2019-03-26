@@ -195,42 +195,54 @@ P* DIV_PP_P(P *a, P *b)
     }
     else
     {
-        result = (P*)calloc(1, sizeof(P));
-	    result->c = (Q**)calloc(a->deg - b->deg+1, sizeof(Q*));
-	    result->deg = a->deg - b->deg+1;
-	    int maxDeg = a->deg - b->deg+1;
-        for(i=0;i<maxDeg;i++)
-		    result->c[i] = NULL;
-        while (a->deg >= b->deg) {
-            Q* sep = DIV_QQ_Q(a->c[a->deg-1], b->c[b->deg-1]);
-            power = a->deg - b->deg;
-            result->c[power] = sep;
-            tmp1 = MUL_Pxk_P(b, power);
-            tmp2 = MUL_PQ_P(tmp1, sep);
-            
-            a = SUB_PP_P(a, tmp2);
-            clear_P(tmp1);
-            clear_P(tmp2);
-        }
-        
-        for(i=maxDeg;i>=0;i--)
-            if(result->c[i]==NULL)
-                result->c[i] = rat_parsing("0");
-                
-        int nonZero = 1;
-        for (i = maxDeg-2; (i > 0) && nonZero; i--) {
-            if (NZER_N_B(result->c[i]->m->num) && (result->c[i]==NULL)) {
-                clear_Q(result->c[i]);
-                result->deg--;
-            }
-            else
-                nonZero = 0;
-        
-        }	
-    }
+		if(b->deg==1){
+			
+			result = (P*)calloc(1, sizeof(P));
+	    	result->c = (Q**)calloc(a->deg+1, sizeof(Q*));
+	    	result->deg = a->deg;
+	    	for(i=0;i<result->deg;i++)
+	    		result->c[i] = DIV_QQ_Q(a->c[i],b->c[0]);
+		}
+		else
+		{
+	        result = (P*)calloc(1, sizeof(P));
+		    result->c = (Q**)calloc(a->deg - b->deg+1, sizeof(Q*));
+		    result->deg = a->deg - b->deg+1;
+		    int maxDeg = a->deg - b->deg+1;
+	        for(i=0;i<maxDeg;i++)
+			    result->c[i] = NULL;
+	        while (a->deg >= b->deg) {
+	            Q* sep = DIV_QQ_Q(a->c[a->deg-1], b->c[b->deg-1]);
+	            power = a->deg - b->deg;
+	            result->c[power] = sep;
+	            tmp1 = MUL_Pxk_P(b, power);
+	            tmp2 = MUL_PQ_P(tmp1, sep);
+	            
+	            a = SUB_PP_P(a, tmp2);
+	            clear_P(tmp1);
+	            clear_P(tmp2);
+	        }
+	        
+	        for(i=maxDeg;i>=0;i--)
+	            if(result->c[i]==NULL)
+	                result->c[i] = rat_parsing("0");
+	                
+	        int nonZero = 1;
+	        for (i = maxDeg-2; (i > 0) && nonZero; i--) {
+	            if (NZER_N_B(result->c[i]->m->num) && (result->c[i]==NULL)) {
+	                clear_Q(result->c[i]);
+	                result->deg--;
+	            }
+	            else
+	                nonZero = 0;
+	        
+	        }	
+	    }
+	}
 	printf("Done That shit\n");
 	return result;
 }
+
 
 //P-10
 P* MOD_PP_P(P *a,P *b){
@@ -245,26 +257,37 @@ P* MOD_PP_P(P *a,P *b){
 //P-11
 P* GCF_PP_P(P *a,P *b){
     P *result,*tmp;
-    if(a->deg>b->deg)
+    if(a->deg>=b->deg)
         tmp = MOD_PP_P(a,b);
     else{
         tmp = MOD_PP_P(b,a);
         clear_P(b);
         b = a;
         }
-    while(!NZER_N_B(tmp->c[tmp->deg-1]->m->num))
+    printf("llop\n");
+    while(!NZER_N_B(tmp->c[0]->m->num) && (b->deg>1))
         {
-            clear_P(a);
-            a=b;
-            clear_P(b);
-            b=tmp;
-            clear_P(tmp);
-            tmp = MOD_PP_P(a,b);
+			// ��� ������ �������
+			a=b;
+			b=tmp;
+			printf("%d",b->deg);
+			output_pol(b);
+			tmp = MOD_PP_P(a,b);
         }
+    printf("out\n");
     if(NZER_N_B(tmp->c[tmp->deg-1]->m->num))
         result = b;
+    else
+    {
+		result = (P*)calloc(1, sizeof(P));
+	    result->c = (Q**)calloc(1, sizeof(Q*));
+	    result->deg = 1;
+	    result->c[0] = rat_parsing("1");
+	    
+	}
     return result;
 }
+
 
 //P-12
 P* DER_P_P(P* mas){
