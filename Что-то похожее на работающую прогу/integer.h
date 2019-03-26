@@ -1,6 +1,7 @@
 /*#include <stdio.h>
 #include <stdlib.h>
 #include "natural.h"*/
+//This module was made by Malov Pavel and Kuznetsov Artem of 8306 group
 //Menu list with options
 int integer()
 {
@@ -14,7 +15,8 @@ int integer()
 	scanf("%d", &key);
 	return key;
 }
-//Z-1
+
+//Z-1 The absolute value of the number, the result is natural
 N* ABS_Z_N(Z* a)
 {
 	N *b = NULL;
@@ -30,7 +32,7 @@ N* ABS_Z_N(Z* a)
 	return b;
 }
 
-//Z-2
+//Z-2 Determines if the number is positive (2 - positive, 0- equals zero, 1 - negative)
 int POZ_Z_D(Z* a)
 {
 	int f;
@@ -39,13 +41,13 @@ int POZ_Z_D(Z* a)
 	if(NZER_N_B(a->num) == 1) f = 0;
 	return f;
 }
-//Z-3
+//Z-3 Multiplication of an integer by (-1)
 void MUL_ZM_Z(Z* a)
 {
 	if(a->sign == 0) a->sign = 1;
 	else if(a->sign == 1) a->sign = 0;
 }
-//Z-4
+//Z-4 Convertation of a nutral into an integer
 Z* TRANS_N_Z(N* n_num)
 {
     Z* result = NULL;
@@ -65,7 +67,7 @@ Z* TRANS_N_Z(N* n_num)
         puts("Memory allocation error!");
     return result;
 }
-//Z-5
+//Z-5 Convertation of a non-negative integer into a natural
 N* TRANS_Z_N(Z* z_num)
 {
     N* result;
@@ -78,7 +80,7 @@ N* TRANS_Z_N(Z* z_num)
     if(z_num->sign == 1) printf("Your number was negative, but we did absolute natural value of it!\n");
     return result;
 }
-//Z-6
+//Z-6 Addition of integers
 Z* ADD_ZZ_Z(Z* first, Z* second)
 {
     Z* result = NULL;
@@ -146,7 +148,7 @@ Z* ADD_ZZ_Z(Z* first, Z* second)
     t = NULL;
     return result;
 }
-//Z-7
+//Z-7 substruction of integers
 Z* SUB_ZZ_Z(Z* first, Z* second)
 {
     Z* result = NULL;
@@ -158,7 +160,7 @@ Z* SUB_ZZ_Z(Z* first, Z* second)
     result = ADD_ZZ_Z(first, second);
     return result;
 }
-//Z-8
+//Z-8 Multiplication of integers
 Z* MUL_ZZ_Z(Z* first, Z* second)
 {
     Z* result = NULL;
@@ -195,7 +197,7 @@ Z* MUL_ZZ_Z(Z* first, Z* second)
     }
     return result;
 }
-//Z-9
+//Z-9 The quotient from dividing a larger integer by a smaller or equal natural with the remainder (the divisor is non-zero)
 Z* DIV_ZZ_Z(Z* first, Z* second)
 {
     Z* result = NULL;
@@ -241,7 +243,7 @@ Z* DIV_ZZ_Z(Z* first, Z* second)
     t = NULL;
     return result;
 }
-//Z-10
+//Z-10 The remainder of dividing a larger integer by a smaller or equal natural with the remainder (the divisor is non-zero)
 Z* MOD_ZZ_Z(Z* first, Z* second)
 {
     Z* result = NULL;
