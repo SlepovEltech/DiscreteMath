@@ -900,7 +900,7 @@ int main()
 		    	i = 0;
 		    	while(s1[i] != '\0')
 		    		i++;
-		    	printf("Your respect has been taken into account.Total amount of respects: %d", i);
+		    	printf("Your respect has been taken into account. Total amount of respects: %d", i);
 		    	getchar();
 		    	printf("\nEnter any key when ready");
 		    	fclose(df);
