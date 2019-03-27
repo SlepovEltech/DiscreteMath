@@ -6,6 +6,7 @@ void output_rat(Q* a);
 void clear(int sys);
 void print_header();
 char menu();
+void printf_info();
 N* natural_parsing(char *s, int lim);
 Z* int_parsing(char *s, int lim);
 Q* rat_parsing(char *s);

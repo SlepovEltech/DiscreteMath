@@ -871,6 +871,13 @@ int main()
 	        	scanf("%d", &clas);
         		}
         	}
+        	if(choose == '2')
+        	{
+        		printf_info();
+        		printf("\nEnter any key when ready\n");
+        		getchar();
+		        getchar();
+        	}
         	if(choose == 'F' || choose == 'f')
 		    {
 		    	df = fopen("./respects","a");
@@ -881,7 +888,7 @@ int main()
 		    	i = 0;
 		    	while(s1[i] != '\0')
 		    		i++;
-		    	printf("Your respects taken into account. Total respects: %d", i);
+		    	printf("Your respect has been taken into account.Total amount of respects: %d", i);
 		    	getchar();
 		    	printf("\nEnter any key when ready");
 		    	fclose(df);
@@ -983,13 +990,21 @@ void print_header()
 	CLEAR_WINDOW
 	printf("\t\t\t\tDiscrethe Math\n\t\tComputer Algebra System by students 8306");
 }
-
+void printf_info()
+{
+	printf("This is the system of computer algebra made by students of 8306 group of LETI University\n");
+	printf("The creation of the moduls was devided among students the following way: \n");
+	printf("The module 'Naturals' was made by Tumanova Vera and Panfilova Maria\n");		
+	printf("The module 'Integer' was made by Malov Pavel and Kuznetsov Artem\n"); 
+	printf("The module 'Rational' was made by Slepov Artem and Miskevich Milena\n"); 
+	printf("he module 'Polinom' was made by Andreev Vladimir and Saprykin Alexander.\n"); 
+}
 char menu()
 {
 	char key;
 	print_header();
 	printf("\n\t\t\t\tMENU\n");
-	printf("Press '1' to start\nPress '2' to check information about program\nPress '3' to close the program\nPress 'F' to pay respect\nYour answer: ");
+	printf("Press '1' to start\nPress '2' to check information about the program\nPress '3' to close the program\nPress 'F' to pay respect\nYour answer: ");
 	scanf("%c", &key);
 	system("clear");
 
