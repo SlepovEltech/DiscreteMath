@@ -15,7 +15,7 @@ int polynom()
     printf("Choose operation with polynoms: ");
     printf("\n0-Back to menu\n1-Addition of polynoms\n2-Substract of polynoms\n3-Multiply bu number\n4-Multiply by x^k\n");
     printf("5-High coef of polynom\n6-Degrece of polynom\n7-The imposition of polynomial LCM of denominators of coefficients and the GCD of the numerators\n");
-    printf("8-Multiplying of polynomoms\n9-The DIV a polynomial by a polynomial\n10-The MOD a polynomial by a polynomial\n11-GCD of polynoms\n");
+    printf("8-Multiplying of polynomoms\n9-The DIV a polynomial by a polynomial\n10-The MOD a polynomial by a polynomial\n11-GCF of polynoms\n");
     printf("12-Derivative of polynom\n13-Multiple roots in simple\nYour answer: ");
     scanf("%d", &key);
     return key;
@@ -263,7 +263,6 @@ P* DIV_PP_P(P *a, P *b)
 	        }
 	    }
 	}
-	printf("Done That shit\n");
 	return result;
 }
 
@@ -279,6 +278,7 @@ P* MOD_PP_P(P *a,P *b){
 }
 
 //P-11 NOD of polynomials
+/*
 P* GCF_PP_P(P*a,P*b){
 
     P* tmp,*qu = (P*)malloc(sizeof(P));
@@ -296,6 +296,24 @@ P* GCF_PP_P(P*a,P*b){
         a = tmp;
     }
     return a;
+}
+*/
+P* GCF_PP_P(P* a, P* b) { 
+    P* result;
+    int i;
+	while ((!NZER_N_B(a->c[0]->m->num)) && (!NZER_N_B(b->c[0]->m->num))) {
+		if (a->deg > b->deg) 
+			a = MOD_PP_P(a, b);
+		else 
+			b = MOD_PP_P(b, a);
+	}
+	if (!NZER_N_B(a->c[0]->m->num))
+        result = a;
+    else
+        result = b;
+    for(i=0;i<result->deg;i++)
+        result->c[i] = DIV_QQ_Q(result->c[i],result->c[1]);
+    return result;
 }
 
 
@@ -319,4 +337,28 @@ P* DER_P_P(P* mas){
     return result;
 }
 
+// P-13
+P* NMR_P_P(P* a) {
+	P* GCF;
+	Q* tmp;
+	int i;
+    P* tmp2 = DER_P_P(a);
+	GCF = GCF_PP_P(a, tmp2);
+    Q* one = rat_parsing("1");
+	GCF = MUL_PQ_P(GCF,DIV_QQ_Q(one,GCF->c[GCF->deg-1]));
+    printf("a");
+	if (GCF->deg>1){
+		a = DIV_PP_P(a, GCF);
+		tmp = FAC_P_Q(GCF);
+		if (NZER_N_B(a->c[0]->m->num))
+            tmp = SUB_QQ_Q(one,one);
+		else
+            tmp = MUL_QQ_Q(one,one);
+        
+		for (i = 0; i < a->deg; i++)
+			a->c[i] = MUL_QQ_Q(a->c[i], tmp);
+	}
+    printf("Done");
+	return a;
+}
 
