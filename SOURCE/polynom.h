@@ -298,25 +298,30 @@ P* GCF_PP_P(P*a,P*b){
     return a;
 }
 */
+
 P* GCF_PP_P(P* a, P* b) { 
     P* result;
     int i;
-	while ((!NZER_N_B(a->c[0]->m->num)) && (!NZER_N_B(b->c[0]->m->num))) {
-		if (a->deg > b->deg) 
+    P* tmp = DIV_PP_P(a,b);
+	while (NZER_N_B(tmp->c[0]->m->num)){
+        if (a->deg > b->deg) 
 			a = MOD_PP_P(a, b);
 		else 
 			b = MOD_PP_P(b, a);
-	}
+        clear_P(tmp);
+        tmp = DIV_PP_P(a,b);
+        printf("running\n");
+    }
+
 	if (!NZER_N_B(a->c[0]->m->num))
         result = a;
     else
         result = b;
+    result->c[1]->m->sign = 0;
     for(i=0;i<result->deg;i++)
         result->c[i] = DIV_QQ_Q(result->c[i],result->c[1]);
     return result;
 }
-
-
 //P-12 Polynomial derivative
 P* DER_P_P(P* mas){
     int i;
@@ -338,27 +343,13 @@ P* DER_P_P(P* mas){
 }
 
 // P-13
-P* NMR_P_P(P* a) {
-	P* GCF;
-	Q* tmp;
-	int i;
-    P* tmp2 = DER_P_P(a);
-	GCF = GCF_PP_P(a, tmp2);
-    Q* one = rat_parsing("1");
-	GCF = MUL_PQ_P(GCF,DIV_QQ_Q(one,GCF->c[GCF->deg-1]));
-    printf("a");
-	if (GCF->deg>1){
-		a = DIV_PP_P(a, GCF);
-		tmp = FAC_P_Q(GCF);
-		if (NZER_N_B(a->c[0]->m->num))
-            tmp = SUB_QQ_Q(one,one);
-		else
-            tmp = MUL_QQ_Q(one,one);
-        
-		for (i = 0; i < a->deg; i++)
-			a->c[i] = MUL_QQ_Q(a->c[i], tmp);
-	}
-    printf("Done");
-	return a;
-}
 
+
+P* NMR_P_P(P* a) {
+	P* derivative = DER_P_P(a);
+    P* gcf = GCF_PP_P(a,derivative);
+    P* result = DIV_PP_P(a,gcf);
+    clear_P(gcf);
+    clear_P(derivative);
+    return result;
+}

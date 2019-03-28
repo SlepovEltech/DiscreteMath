@@ -18,10 +18,13 @@
 // Тестовый main хомяка. не трогать
 int main(){
     P* A = polynom_parsing();
-	P* C = NMR_P_P(A);
+	P* B = polynom_parsing();
+	//P* C = NMR_P_P(A);
+	P* C = GCF_PP_P(A,B);
 	output_pol(C);
-	clear_P(A);
 	clear_P(C);
+	clear_P(A);
+	clear_P(B);
 	return 0;
 }
 
