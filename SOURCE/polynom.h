@@ -26,7 +26,7 @@ P* ADD_PP_P(P* first,P* second){
     int maxDeg = ((first->deg>second->deg)?first->deg:second->deg);
     P* result = (P*)calloc(1,sizeof(P));
     Q* tmp;
-    
+
     // Описание 0
     Q zero;
     int nu[1] = {0};
@@ -52,7 +52,7 @@ P* ADD_PP_P(P* first,P* second){
                 if((i<first->deg))
                 {
                     result->c[i] = ADD_QQ_Q(first->c[i],&zero);
-                }                
+                }
                 else
                     if((i<second->deg))
                     {
@@ -94,7 +94,7 @@ P* SUB_PP_P(P* first,P* second){
                 if((i<first->deg))
                 {
                     result->c[i] = SUB_QQ_Q(first->c[i],&zero);
-                }                
+                }
                 else
                     if((i<second->deg))
                     {
@@ -110,7 +110,7 @@ P* SUB_PP_P(P* first,P* second){
 		}
 		else
 			nonZero = 0;
-	
+
 	}
 
     return result;
@@ -152,7 +152,7 @@ P* MUL_Pxk_P(P* mas,int k){
     return result;
 }
 
-//P-5 Highest coefficient of a polynomial 
+//P-5 Highest coefficient of a polynomial
 Q* LED_P_Q(P* mas){
     return mas->c[mas->deg-1];
 }
@@ -160,6 +160,27 @@ Q* LED_P_Q(P* mas){
 //P-6 Degree of polynomial
 int DEG_P_N(P* mas){
     return mas->deg-1;
+}
+
+//P-7 Derivation of the denominators of coefficients and GCD of numerators from the NOC polynomial
+Q* FAC_P_Q(P* mas)
+{
+    int i;
+    Q *ratata = NULL;
+    if((ratata = (Q*)malloc(sizeof(Q))) != NULL)
+    {
+        ratata->m = mas->c[0]->m;
+        ratata->n = mas->c[0]->n;
+        for(i = 1; i < mas->deg; i++)
+        {
+            ratata->m = TRANS_N_Z((GCF_NN_N(ABS_Z_N(ratata->m), ABS_Z_N(mas->c[i]->m))));
+            ratata->n = LCM_NN_N(ratata->n, mas->c[i]->n);
+        }
+    }
+    else
+        puts("Allocation error!");
+
+    return ratata;
 }
 
 //P-8 Multiplication of polynomials
@@ -199,7 +220,7 @@ P* DIV_PP_P(P *a, P *b)
     else
     {
 		if(b->deg==1){
-			
+
 			result = (P*)calloc(1, sizeof(P));
 	    	result->c = (Q**)calloc(a->deg+1, sizeof(Q*));
 	    	result->deg = a->deg;
@@ -220,16 +241,16 @@ P* DIV_PP_P(P *a, P *b)
 	            result->c[power] = sep;
 	            tmp1 = MUL_Pxk_P(b, power);
 	            tmp2 = MUL_PQ_P(tmp1, sep);
-	            
+
 	            a = SUB_PP_P(a, tmp2);
 	            clear_P(tmp1);
 	            clear_P(tmp2);
 	        }
-	        
+
 	        for(i=maxDeg;i>=0;i--)
 	            if(result->c[i]==NULL)
 	                result->c[i] = rat_parsing("0");
-	                
+
 	        int nonZero = 1;
 	        for (i = maxDeg-2; (i > 0) && nonZero; i--) {
 	            if (NZER_N_B(result->c[i]->m->num) && (result->c[i]==NULL)) {
@@ -238,8 +259,8 @@ P* DIV_PP_P(P *a, P *b)
 	            }
 	            else
 	                nonZero = 0;
-	        
-	        }	
+
+	        }
 	    }
 	}
 	printf("Done That shit\n");
@@ -278,7 +299,6 @@ P* GCF_PP_P(P*a,P*b){
 }
 
 
-
 //P-12 Polynomial derivative
 P* DER_P_P(P* mas){
     int i;
@@ -298,3 +318,5 @@ P* DER_P_P(P* mas){
     }
     return result;
 }
+
+
