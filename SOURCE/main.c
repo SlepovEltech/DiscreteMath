@@ -788,8 +788,14 @@ int main()
 		        				}
 		        				break;
 		        			case 7:
-		        				printf("Coming soon! :)");
-		        				getchar();
+		        				g = polynom_parsing();
+		        				h = FAC_P_Q(g);
+		        				if(h&&g)
+		        				{
+		        					printf("Result: ");
+		        					output_rat(h);
+		        					clear_P(g);
+		        				}
 		        				break;
 		        			case 8:
 		        				printf("Entering first polynom\n");
