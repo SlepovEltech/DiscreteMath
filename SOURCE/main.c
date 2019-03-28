@@ -16,18 +16,16 @@
 #endif
 
 // Тестовый main хомяка. не трогать
-int mainT(){
+int main(){
     P* A = polynom_parsing();
-    P* B = polynom_parsing();
-	P* C = GCF_PP_P(A,B);
+	P* C = NMR_P_P(A);
 	output_pol(C);
 	clear_P(A);
-	clear_P(B);
 	clear_P(C);
 	return 0;
 }
 
-int main()
+int mainT()
 {
 	N *q=NULL, *w=NULL,*res=NULL;
 	Z *d=NULL, *t=NULL, *resZ=NULL;
