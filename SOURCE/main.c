@@ -844,7 +844,6 @@ int main()
 		        				}
 		        				break;
 		        			case 11:
-		        			/*
 		        				printf("Entering first polynom\n");
 		        				g = polynom_parsing();
 		        				printf("Entering second polynom\n");
@@ -857,9 +856,7 @@ int main()
 		        					clear_P(resP);
 		        					clear_P(g);
 		        					clear_P(f);
-		        				}*/
-		        				printf("Coming soon! :)");
-		        				getchar();
+		        				}
 		        				break;
 		        			 case 12:
 		        				g = polynom_parsing();
