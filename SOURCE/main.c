@@ -789,8 +789,14 @@ int main()
 		        				}
 		        				break;
 		        			case 7:
-		        				printf("Coming soon! :)");
-		        				getchar();
+		        				g = polynom_parsing();
+		        				h = FAC_P_Q(g);
+		        				if(h&&g)
+		        				{
+		        					printf("Result: ");
+		        					output_rat(h);
+		        					clear_P(g);
+		        				}
 		        				break;
 		        			case 8:
 		        				printf("Entering first polynom\n");
@@ -1061,7 +1067,6 @@ P* polynom_parsing(){
     buf = (char*)malloc(STDSIZE*sizeof(char));
     s1 = (char*)malloc(STDSIZE*sizeof(char));
     s2 = (char*)malloc(STDSIZE*sizeof(char));
-    printf("Enter polynom in type: DEG COEF(Example: 5 32/7)\n");
     if(deg>0){
         // Пошла жара
         result = (P*)malloc(sizeof(P));
