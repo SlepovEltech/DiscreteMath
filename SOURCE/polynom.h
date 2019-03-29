@@ -314,18 +314,6 @@ P* GCF_PP_P(P* a, P* b) {
 
     }
    
-    if(a->deg<1)
-        result = a;
-    else
-        result = b;
-    Q* one = rat_parsing("1");
-    Q* mult = MUL_QQ_Q(result->c[1],one);
-    mult->m->sign = 1;
-    for(i=0;i<result->deg;i++)
-        result->c[i] = DIV_QQ_Q(result->c[i],mult);
-    clear_Q(one);   
-    clear_Q(mult);
-    
    result = ADD_PP_P(a,b);
     return result;
 }

@@ -782,7 +782,7 @@ int main()
 		        			case 6:
 		        				g = polynom_parsing();
 		        				num = DEG_P_N(g);
-		        				if(h&&g)
+		        				if(g)
 		        				{
 		        					printf("Result: %d", num);
 		        					clear_P(g);
