@@ -16,7 +16,7 @@
 #endif
 
 // Тестовый main хомяка. не трогать
-int main(){
+int mainT(){
     P* A = polynom_parsing();
 	P* C = NMR_P_P(A);
 	output_pol(C);
@@ -25,7 +25,7 @@ int main(){
 	return 0;
 }
 
-int mainT()
+int main()
 {
 	N *q=NULL, *w=NULL,*res=NULL;
 	Z *d=NULL, *t=NULL, *resZ=NULL;
@@ -1064,7 +1064,6 @@ P* polynom_parsing(){
     buf = (char*)malloc(STDSIZE*sizeof(char));
     s1 = (char*)malloc(STDSIZE*sizeof(char));
     s2 = (char*)malloc(STDSIZE*sizeof(char));
-    printf("Enter polynom in type: DEG COEF(Example: 5 32/7)\n");
     if(deg>0){
         // Пошла жара
         result = (P*)malloc(sizeof(P));

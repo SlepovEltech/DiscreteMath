@@ -16,7 +16,9 @@ int polynom()
     printf("\n0-Back to menu\n1-Addition of polynoms\n2-Substract of polynoms\n3-Multiply bu number\n4-Multiply by x^k\n");
     printf("5-High coef of polynom\n6-Degrece of polynom\n7-The imposition of polynomial LCM of denominators of coefficients and the GCD of the numerators\n");
     printf("8-Multiplying of polynomoms\n9-The DIV a polynomial by a polynomial\n10-The MOD a polynomial by a polynomial\n11-GCF of polynoms\n");
-    printf("12-Derivative of polynom\n13-Multiple roots in simple\nYour answer: ");
+    printf("12-Derivative of polynom\n13-Multiple roots in simple\n");
+    printf("Enter polynom in type: DEG COEF:\nExample:\n5 32/7\n3 -3/5\n0 9\nWhen we have 32/7x^5-3/5x^3+9");
+    printf("\nYour answer: ");
     scanf("%d", &key);
     return key;
 }
