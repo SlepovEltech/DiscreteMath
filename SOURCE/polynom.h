@@ -302,26 +302,33 @@ P* GCF_PP_P(P*a,P*b){
 P* GCF_PP_P(P* a, P* b) { 
     P* result;
     int i;
-    P* tmp = DIV_PP_P(a,b);
-	while (NZER_N_B(tmp->c[0]->m->num)){
-        if (a->deg > b->deg) 
+    P* tmp;
+	while ((a->deg>1) && (b->deg>1)){
+        if (a->deg > b->deg)
 			a = MOD_PP_P(a, b);
-		else 
+		else
 			b = MOD_PP_P(b, a);
-        clear_P(tmp);
-        tmp = DIV_PP_P(a,b);
-        printf("running\n");
-    }
 
-	if (!NZER_N_B(a->c[0]->m->num))
+
+    }
+   
+    if(a->deg<1)
         result = a;
     else
         result = b;
-    result->c[1]->m->sign = 0;
+    Q* one = rat_parsing("1");
+    Q* mult = MUL_QQ_Q(result->c[1],one);
+    mult->m->sign = 1;
     for(i=0;i<result->deg;i++)
-        result->c[i] = DIV_QQ_Q(result->c[i],result->c[1]);
+        result->c[i] = DIV_QQ_Q(result->c[i],mult);
+    clear_Q(one);   
+    clear_Q(mult);
+    
+   result = ADD_PP_P(a,b);
     return result;
 }
+
+
 //P-12 Polynomial derivative
 P* DER_P_P(P* mas){
     int i;
