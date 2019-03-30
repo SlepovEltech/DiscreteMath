@@ -119,12 +119,13 @@ P* SUB_PP_P(P* first,P* second){
 }
 
 //P-3 Multiplication of a polynomial by a rational number
+
 P* MUL_PQ_P(P* mas,Q* mult){
     int i;
     Q *tmp;
     P* result = (P*)malloc(sizeof(P));
     int deg = mas->deg;
-    result->c = (Q**)malloc(deg*sizeof(Q*));
+    result->c = (Q**)malloc((deg)*sizeof(Q*));
     result->deg = deg;
     for(i=0;i<deg;i++)
     {
@@ -132,6 +133,7 @@ P* MUL_PQ_P(P* mas,Q* mult){
     }
     return result;
 }
+
 //P-4 Multiplication of a polynomial by x ^ k
 P* MUL_Pxk_P(P* mas,int k){
     int degree = mas->deg+k;
@@ -241,16 +243,16 @@ P* DIV_PP_P(P *a, P *b)
 			    result->c[i] = NULL;
 	        while (a->deg >= b->deg) {
 	            Q* sep = DIV_QQ_Q(a->c[a->deg-1], b->c[b->deg-1]);
-	            power = a->deg - b->deg;
+                power = a->deg - b->deg;
 	            result->c[power] = sep;
 	            tmp1 = MUL_Pxk_P(b, power);
 	            tmp2 = MUL_PQ_P(tmp1, sep);
-
+                //printf("%X %X\n",a,tmp2);
+                //output_pol(a);
 	            a = SUB_PP_P(a, tmp2);
-	            clear_P(tmp1);
-	            clear_P(tmp2);
+	            //clear_P(tmp1);
+	            //clear_P(tmp2);
 	        }
-
 	        for(i=maxDeg;i>=0;i--)
 	            if(result->c[i]==NULL)
 	                result->c[i] = rat_parsing(nul);
@@ -258,7 +260,7 @@ P* DIV_PP_P(P *a, P *b)
 	        int nonZero = 1;
 	        for (i = maxDeg-2; (i > 0) && nonZero; i--) {
 	            if (NZER_N_B(result->c[i]->m->num) && (result->c[i]==NULL)) {
-	                clear_Q(result->c[i]);
+	                //clear_Q(result->c[i]);
 	                result->deg--;
 	            }
 	            else
@@ -342,8 +344,6 @@ P* DER_P_P(P* mas){
 }
 
 // P-13
-
-
 P* NMR_P_P(P* a) {
 	P* derivative = DER_P_P(a);
     P* gcf = GCF_PP_P(a,derivative);
