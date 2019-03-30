@@ -249,65 +249,65 @@ Z* MOD_ZZ_Z(Z* first, Z* second)
     Z* result = NULL;
     Z* t = NULL;
 
-    if(POZ_Z_D(first) == 2 && POZ_Z_D(second) == 2)
+    if(POZ_Z_D(first) != 0 && POZ_Z_D(second) != 0)
     {
-        if(((result = (Z*)malloc(sizeof(Z)))!= NULL))
+        if(POZ_Z_D(first) == 2 && POZ_Z_D(second) == 2)
         {
-            if(COM_NN_D(first->num, second->num) == 2)
+            if(((result = (Z*)malloc(sizeof(Z)))!= NULL))
+            {
+                if(COM_NN_D(first->num, second->num) == 2)
+                {
+                    result->num = MOD_NN_N(first->num, second->num);
+
+                }
+                if(COM_NN_D(first->num, second->num) < 2)
+                {
+                    result->num = MOD_NN_N(second->num, first->num);
+
+                }
+            }
+            else
+                puts("Memory allocation error!");
+        }
+        if(POZ_Z_D(first) == 1 && POZ_Z_D(second) == 1)
+        {
+            if(((result = (Z*)malloc(sizeof(Z)))!= NULL))
+            {
+                if(COM_NN_D(first->num, second->num) == 2)
+                {
+                    result->num = MOD_NN_N(first->num, second->num);
+                }
+                if(COM_NN_D(first->num, second->num) < 2)
+                {
+                    result->num = MOD_NN_N(second->num, first->num);
+                }
+            }
+            else
+                puts("Memory allocation error!");
+        }
+        if(POZ_Z_D(first) == 1 && POZ_Z_D(second) == 2)
+        {
+            if(((result = (Z*)malloc(sizeof(Z)))!= NULL))
             {
                 result->num = MOD_NN_N(first->num, second->num);
-                result->sign = 0;
+                result->num = SUB_NN_N(second->num, result->num) ;
             }
-            if(COM_NN_D(first->num, second->num) < 2)
-            {
-                result->num = MOD_NN_N(second->num, first->num);
-                result->sign = 0;
-            }
+            else
+                puts("Memory allocation error!");
         }
-        else
-            puts("Memory allocation error!");
-    }
-    if(POZ_Z_D(first) == 1 && POZ_Z_D(second) == 1)
-    {
-        if(((result = (Z*)malloc(sizeof(Z)))!= NULL))
+        if(POZ_Z_D(first) == 2 && POZ_Z_D(second) == 1)
         {
-            if(COM_NN_D(first->num, second->num) == 2)
+            if(((result = (Z*)malloc(sizeof(Z)))!= NULL))
             {
-                result->num = MOD_NN_N(first->num, second->num);
-                result->sign = 1;
+                puts("Negative value.");
             }
-            if(COM_NN_D(first->num, second->num) < 2)
-            {
-                result->num = MOD_NN_N(second->num, first->num);
-                result->sign = 1;
-            }
+            else
+                puts("Memory allocation error!");
         }
-        else
-            puts("Memory allocation error!");
+
     }
-    if((POZ_Z_D(first) == 1 && POZ_Z_D(second) == 2)||(POZ_Z_D(first) == 2 && POZ_Z_D(second) == 1))
-    {
-        if(((result = (Z*)malloc(sizeof(Z)))!= NULL))
-        {
-            if(COM_NN_D(first->num, second->num) == 2)
-            {
-                result->num = MOD_NN_N(first->num, second->num);
-                result->sign = 1;
-            }
-            if(COM_NN_D(first->num, second->num) == 1)
-            {
-                result->num = MOD_NN_N(second->num, first->num);
-                result->sign = 1;
-            }
-            if(COM_NN_D(first->num, second->num) == 0)
-            {
-                result->num = MOD_NN_N(second->num, first->num);
-                result->sign = 0;
-            }
-        }
-        else
-            puts("Memory allocation error!");
-    }
+    else
+        puts("Division by zero!");
     free(t);
     t = NULL;
     return result;
