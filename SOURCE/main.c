@@ -871,8 +871,17 @@ int main()
 
 		        				break;
 		        			case 13:
-		        				printf("Coming soon! :)");
-		        				getchar();
+		        				printf("Entering first polynom\n");
+		        				g = polynom_parsing();
+		        				resP = NMR_P_P(g);
+		        				if(resP && g)
+		        				{
+		        					printf("Result: ");
+		        					output_pol(resP);
+		        					clear_P(resP);
+		        					clear_P(g);
+		        				}
+		        				printf("%p", resP);
 		        				break;
 		        			default:
 		        				break;
@@ -958,8 +967,13 @@ int input(N *q,char *s, int n)
 void output(N *a)
 {
 	int i;
-	for(i = a->n-1; i >= 0; i--)
-		printf("%d", a->A[i]);
+	if(a)
+	{
+		for(i = a->n-1; i >= 0; i--)
+			printf("%d", a->A[i]);
+	}
+	else 
+		printf("Number is NULL!");
 	//printf("\n");
 }
 void output_int(Z *a)
@@ -987,7 +1001,7 @@ void output_pol(P *mas){
     int i;
     for(i=mas->deg-1;i>=0;i--)
     {
-        if((NZER_N_B(mas->c[i]->m->num) == 0) || (i==0))
+        if(((NZER_N_B(mas->c[i]->m->num) == 0) || (i == 0)))
         {
         	printf("%c",(mas->c[i]->m->sign==1)?'\0':'+');
         	output_rat(mas->c[i]);
@@ -1057,6 +1071,8 @@ P* polynom_parsing(){
     // Спрашивает у пользователя многочлен и возвращает его
     int deg,degree,i,j;
     char *buf,*s1,*s2;
+    char unit[2] = {'1','\0'};
+    char nul[2] = {'0','\0'};
     P* result;
     printf("Enter the highest degree of the polynom:");
     scanf("%d", &deg);
@@ -1072,7 +1088,7 @@ P* polynom_parsing(){
         degree = 1;
         for(i = 0; i < deg; i++)
         {
-        	result->c[i] = rat_parsing("0");
+        	result->c[i] = rat_parsing(nul);
         }
         getchar();
         while(degree != 0)

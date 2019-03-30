@@ -16,7 +16,7 @@ int polynom()
     printf("\n0-Back to menu\n1-Addition of polynoms\n2-Substract of polynoms\n3-Multiply bu number\n4-Multiply by x^k\n");
     printf("5-High coef of polynom\n6-Degrece of polynom\n7-The imposition of polynomial LCM of denominators of coefficients and the GCD of the numerators\n");
     printf("8-Multiplying of polynomoms\n9-The DIV a polynomial by a polynomial\n10-The MOD a polynomial by a polynomial\n11-GCF of polynoms\n");
-    printf("12-Derivative of polynom\n13-Multiple roots in simple\n");
+    printf("12-Derivative of polynom\n");
     printf("Enter polynom in type: DEG COEF:\nExample:\n5 32/7\n3 -3/5\n0 9\nWhen we have 32/7x^5-3/5x^3+9");
     printf("\nYour answer: ");
     scanf("%d", &key);
@@ -189,12 +189,13 @@ Q* FAC_P_Q(P* mas)
 P* MUL_PP_P(P *a,P *b){
     int i,j,k;
     Q *res,*tmp1,*tmp2;
-
+    char unit[2] = {'1','\0'};
+    char nul[2] = {'0','\0'};
     P* result = (P*)calloc(1, sizeof(P));
     result->c = (Q**)calloc(a->deg + b->deg, sizeof(Q*));
     result->deg = a->deg + b->deg;
     for(i=0;i<result->deg;i++){
-    res = rat_parsing("0");
+    res = rat_parsing(nul);
         for(j=0;j<a->deg;j++)
             for(k=0;k<b->deg;k++)
                 if(i==(j+k))
@@ -216,6 +217,7 @@ P* DIV_PP_P(P *a, P *b)
 	int i;
     int power;
     P *tmp1,*tmp2,*result;
+    char nul[2] = {'0','\0'};
 	if(a->deg<b->deg){
         result=SUB_PP_P(a,a);
     }
@@ -251,7 +253,7 @@ P* DIV_PP_P(P *a, P *b)
 
 	        for(i=maxDeg;i>=0;i--)
 	            if(result->c[i]==NULL)
-	                result->c[i] = rat_parsing("0");
+	                result->c[i] = rat_parsing(nul);
 
 	        int nonZero = 1;
 	        for (i = maxDeg-2; (i > 0) && nonZero; i--) {
@@ -348,5 +350,10 @@ P* NMR_P_P(P* a) {
     P* result = DIV_PP_P(a,gcf);
     clear_P(gcf);
     clear_P(derivative);
-    return result;
+    char buf[10];
+    sprintf(buf,"%d",a->deg-1);
+    Q* MULT = rat_parsing(buf);
+    P* FinalResult = MUL_PQ_P(result,MULT);
+    clear_P(result);
+    return FinalResult;
 }
